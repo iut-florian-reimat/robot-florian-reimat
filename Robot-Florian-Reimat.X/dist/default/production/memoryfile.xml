@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/default/production/Robot-Florian-Reimat.X.production.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>49152</length>
+      <used>22</used>
+      <free>49130</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>524514</length>
+      <used>2844</used>
+      <free>521670</free>
+    </memory>
+  </executable>
+</project>
