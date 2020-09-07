@@ -36,4 +36,10 @@ void PWMSetSpeed(float vitesseEnPourcents)
     MOTEUR_GAUCHE_INL = 1; //Mise à 1 de la pin
     MOTEUR_GAUCHE_ENH = 1; //Pilotage de la pin en mode PWM
     MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante*PWMPER);
+    
+    robotState.vitesseDroiteCommandeCourante = vitesseEnPourcents;
+    MOTEUR_DROITE_ENL = 0; //Pilotage de la pin en mode IO
+    MOTEUR_DROITE_INL = 1; //Mise à 1 de la pin
+    MOTEUR_DROITE_ENH = 1; //Pilotage de la pin en mode PWM
+    MOTEUR_DROITE_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante*PWMPER);
 }
