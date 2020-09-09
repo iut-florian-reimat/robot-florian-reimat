@@ -10,11 +10,12 @@ double Abs(double value)
     else return -value;      
 }
 
-double Max(double value, double value2)
+double Max(double value,double value2)
 {
-    if(value>value2)
+    if (value > value2)
         return value;
-    else return value2;
+    else
+        return value2;    
 }
 
 double Min(double value,double value2)

@@ -16,9 +16,9 @@ int main ( void) {
     LED_BLEUE = 1 ;
     LED_ORANGE = 1 ;
     InitTimer23();
-    InitTimer1();
+    //InitTimer1();
     InitPWM();
-    PWMSetSpeed(50.0f);
+    
     // Boucle Principale
     while ( 1 ) {
 

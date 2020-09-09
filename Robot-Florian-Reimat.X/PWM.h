@@ -9,6 +9,6 @@
 #define	PWM_H
 
 void InitPWM(void);
-void PWMSetSpeed(float);
-
+void PWMSetSpeed(float,unsigned char);
+void PWMUpdateSpeed();
 #endif	/* PWM_H */

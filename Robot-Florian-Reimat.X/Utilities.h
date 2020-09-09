@@ -4,7 +4,7 @@
 #define PI 3.141592653589793
 
 double Abs(double value);
-double Max(double value, double value2);
+double Max(double value,double value2);
 double Min(double value,double value2);
 double LimitToInterval(double value, double min, double max);
 double Modulo2PIAngleRadian(double angleRadian);
