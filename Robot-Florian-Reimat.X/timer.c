@@ -1,7 +1,8 @@
-
 #include <xc.h>
 #include "timer.h"
 #include "IO.h"
+#include "Robot.h"
+#include "ADC.h"
 
 //Initialisation d?un timer 32 bits
 void InitTimer23(void) {
@@ -25,8 +26,8 @@ void InitTimer23(void) {
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
     IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
     LED_ORANGE = !LED_ORANGE;
-    PWMSetSpeed(LED_ORANGE?20.0f:-20.0f,MOTEUR_DROIT);
-    PWMSetSpeed(LED_ORANGE?20.0f:-20.0f,MOTEUR_GAUCHE);
+    PWMSetSpeedConsigne(LED_ORANGE?20.0f:00.0f,MOTEUR_DROIT);
+    PWMSetSpeedConsigne(LED_ORANGE?20.0f:00.0f,MOTEUR_GAUCHE);
 }
 
 //Initialisation d?un timer 16 bits
@@ -49,6 +50,7 @@ void InitTimer1(void)
 //Interruption du timer 1
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
-    IFS0bits.T1IF = 0;
-    LED_BLANCHE = !LED_BLANCHE;
+    IFS0bits.T1IF = 0 ;
+    PWMUpdateSpeed();
+    ADC1StartConversionSequence();
 }

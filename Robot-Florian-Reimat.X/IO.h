@@ -14,7 +14,7 @@ void InitIO();
 #define MOTEUR1_IN2 _LATB15
 
 #define MOTEUR6_IN1 _LATC6
-#define MOTEUR6_IN2 _LATC7
+#define MOTEUR6_IN2 _LATC7 
 
 // Configuration  specifique du moteur gauche
 #define MOTEUR_GAUCHE_INH MOTEUR1_IN1
