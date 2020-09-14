@@ -90,8 +90,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/Robot-Florian-Reimat.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=33EP512GM306
-MP_LINKER_FILE_OPTION=,--script=p33EP512GM306.gld
+MP_PROCESSOR_OPTION=33EP512GM706
+MP_LINKER_FILE_OPTION=,--script=p33EP512GM706.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)

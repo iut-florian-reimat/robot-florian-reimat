@@ -40,7 +40,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>dsPIC33EP512GM306</targetDevice>
+        <targetDevice>dsPIC33EP512GM706</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
@@ -255,7 +255,6 @@
         <property key="UART 3" value="true"/>
         <property key="UART 4" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
