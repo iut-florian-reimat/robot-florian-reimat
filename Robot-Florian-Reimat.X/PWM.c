@@ -6,7 +6,7 @@
 #include "Utilities.h"
 
 #define PWMPER 40.0
-float acceleration = 1;
+float acceleration = 5;
 
 void InitPWM(void)
 {
@@ -76,7 +76,7 @@ void PWMUpdateSpeed() {
     if (robotState.vitesseDroiteCommandeCourante > robotState.vitesseDroiteConsigne){
         robotState.vitesseDroiteCommandeCourante = Max(robotState.vitesseDroiteCommandeCourante - acceleration,robotState.vitesseDroiteConsigne);
     }
-    if (robotState.vitesseDroiteCommandeCourante > 0) {
+    if (robotState.vitesseDroiteCommandeCourante < 0) {
         MOTEUR_DROIT_ENL = 0; //pilotage de la pin en mode IO
         MOTEUR_DROIT_INL = 1; //Mise à 1 de la pin
         MOTEUR_DROIT_ENH = 1; //Pilotage de la pin en mode PWM

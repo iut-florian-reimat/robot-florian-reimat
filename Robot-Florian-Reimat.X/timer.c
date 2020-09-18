@@ -40,7 +40,7 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
-    SetFreqTimer1(00.50f);
+    SetFreqTimer1(50.00f);
     T1CONbits.TCS = 0; //clock source = internal clock
     IFS0bits.T1IF = 0; // Clear Timer Interrupt Flag
     IEC0bits.T1IE = 1; // Enable Timer interrupt
@@ -103,5 +103,6 @@ void SetFreqTimer4(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
+    OperatingSystemLoop();
 }
 
