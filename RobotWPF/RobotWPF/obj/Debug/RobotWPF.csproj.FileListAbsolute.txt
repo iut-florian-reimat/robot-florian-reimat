@@ -1,0 +1,15 @@
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\RobotWPF.exe.config
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\RobotWPF.exe
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\RobotWPF.pdb
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csprojAssemblyReference.cache
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\MainWindow.g.cs
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\App.g.cs
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.cache
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF_MarkupCompile.lref
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\MainWindow.baml
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.g.resources
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.Properties.Resources.resources
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csproj.GenerateResource.cache
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csproj.CoreCompileInputs.cache
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.exe
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.pdb
