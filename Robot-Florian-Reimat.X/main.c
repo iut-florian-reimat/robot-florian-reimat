@@ -1,37 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <xc.h>
 #include "main.h"
-#include "ChipConfig.h"
-#include "IO.h"
-#include "timer.h"
-#include "PWM.h"
-#include "Robot.h"
-#include "ADC.h"
-#include "uart.h"
+
 unsigned char nextStateRobot = 0;
 unsigned char stateRobot;
 
 int main(void) {
-    // Initialisation de l?oscillateur
+
+    
     InitOscillator();
-
-    // Configuration des entres sorties
     InitIO();
-    //LED_BLANCHE = 1 ;
-    //LED_BLEUE = 1 ;
-    //LED_ORANGE = 1 ;
-    InitPWM();
-
+    //InitPWM();
     InitTimer1();
     InitTimer23();
     InitTimer4();
     InitADC1();
     InitUART();
-    //robotState.vitesseGaucheConsigne = 15.0f;
+
     // Boucle Principale
     while (1) {
-        if (ADCIsConversionFinished() == 1) {
+        /*if (ADCIsConversionFinished() == 1) {
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
             float volts = ((float) result[2])*3.3 / 4096 * 3.2;
@@ -40,7 +26,9 @@ int main(void) {
             robotState.distanceTelemetreCentre = 34 / volts - 5;
             volts = ((float) result [0])* 3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGauche = 34 / volts - 5;
-        }
+        }*/
+        SendMessageDirect ((unsigned char*) "Bonjour",7) ;
+        __delay32(40000000);
 
     } // fin main
 }

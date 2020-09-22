@@ -8,6 +8,17 @@
 #ifndef MAIN_H
 #define	MAIN_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <xc.h>
+#include "ChipConfig.h"
+#include "IO.h"
+#include "timer.h"
+#include "PWM.h"
+#include "Robot.h"
+#include "ADC.h"
+#include "uart.h"
+
 #define FCY 40000000
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1

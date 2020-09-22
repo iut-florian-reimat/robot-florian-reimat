@@ -1,4 +1,10 @@
 build/default/production/ADC.o:  \
 ADC.c  \
 ADC.h  \
-main.h 
+main.h  \
+ChipConfig.h  \
+IO.h  \
+ timer.h  \
+PWM.h  \
+Robot.h  \
+uart.h 

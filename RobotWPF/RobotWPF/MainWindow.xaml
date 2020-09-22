@@ -28,7 +28,11 @@
             <TextBox x:Name="textBoxReception" Margin="0,0,0,-0.2" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" SelectionBrush="White" AcceptsReturn="True" Foreground="White" BorderThickness="0" CaretBrush="White"/>
         </GroupBox>
         <Button x:Name="buttonEnvoyer" Content="Send" Grid.Column="1" Margin="0" Grid.Row="3" Width="100" HorizontalAlignment="Center" FontSize="14" FontFamily="Consolas" Click="ButtonEnvoyer_Click" Background="#FF2B2B2B" Foreground="White"/>
-        <Button x:Name="buttonClear" Content="Clear" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" FontFamily="Consolas" FontSize="14" Click="buttonClear_Click" Background="#FF2B2B2B" Foreground="White"/>
+        <Button x:Name="buttonClear" Content="Clear" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" FontFamily="Consolas" FontSize="14" Click="buttonClear_Click" Background="#FF2B2B2B" Foreground="White">
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FFB4B4B4"/>
+            </Button.BorderBrush>
+        </Button>
         <Button x:Name="buttonTest" Grid.ColumnSpan="3" Content="Test" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontSize="14" Click="buttonTest_Click" Foreground="White" Background="#FF2B2B2B"/>
 
     </Grid>

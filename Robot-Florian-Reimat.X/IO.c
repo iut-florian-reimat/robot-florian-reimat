@@ -29,5 +29,8 @@ void InitIO()
     _TRISC6 = 0;
     _TRISC7 = 0;
     
+    //UART
+    _U1RXR = 24;
+    _RP36R = 1;
     //********** Configuration des entrées : _TRISxx = 1 ********************************   
 }

@@ -3,4 +3,8 @@ timer.c  \
 timer.h  \
 IO.h  \
 Robot.h  \
-ADC.h 
+ADC.h  \
+main.h  \
+ ChipConfig.h  \
+PWM.h  \
+uart.h 
