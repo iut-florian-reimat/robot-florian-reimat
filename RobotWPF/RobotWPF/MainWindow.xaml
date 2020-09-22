@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RobotWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#FF606060">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
@@ -21,15 +21,15 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="Emetteur" Header="Emitter" Margin="0" Background="#FFDDDDDD" Grid.Row="1" Grid.Column="1" BorderBrush="Black">
-            <TextBox x:Name="textBoxEmission" Margin="0,0,0,1" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp"/>
+        <GroupBox x:Name="Emetteur" Header="Emitter" Margin="0" Background="#FF2B2B2B" Grid.Row="1" Grid.Column="1" BorderBrush="White" Foreground="White">
+            <TextBox x:Name="textBoxEmission" Margin="0,0,0,1" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="White" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp" Foreground="White" BorderThickness="0" CaretBrush="White"/>
         </GroupBox>
-        <GroupBox x:Name="Recepteur" Header="Receptor" Margin="0" Foreground="Black" BorderBrush="Black" Background="#FFDDDDDD" Grid.Column="3" Grid.Row="1">
-            <TextBox x:Name="textBoxReception" Margin="0,0,0,-0.2" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" SelectionBrush="{x:Null}" AcceptsReturn="True"/>
+        <GroupBox x:Name="Recepteur" Header="Receptor" Margin="0" Foreground="White" BorderBrush="White" Grid.Column="3" Grid.Row="1" Background="#FF2B2B2B">
+            <TextBox x:Name="textBoxReception" Margin="0,0,0,-0.2" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" SelectionBrush="White" AcceptsReturn="True" Foreground="White" BorderThickness="0" CaretBrush="White"/>
         </GroupBox>
-        <Button x:Name="buttonEnvoyer" Content="Send" Grid.Column="1" Margin="0" Grid.Row="3" Width="100" HorizontalAlignment="Center" FontSize="14" FontFamily="Consolas" Click="ButtonEnvoyer_Click"/>
-        <Button x:Name="buttonClear" Content="Clear" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" FontFamily="Consolas" FontSize="14" Click="buttonClear_Click"/>
-        <Button x:Name="buttonTest" Grid.ColumnSpan="3" Content="Test" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontSize="14" Click="buttonTest_Click"/>
+        <Button x:Name="buttonEnvoyer" Content="Send" Grid.Column="1" Margin="0" Grid.Row="3" Width="100" HorizontalAlignment="Center" FontSize="14" FontFamily="Consolas" Click="ButtonEnvoyer_Click" Background="#FF2B2B2B" Foreground="White"/>
+        <Button x:Name="buttonClear" Content="Clear" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" FontFamily="Consolas" FontSize="14" Click="buttonClear_Click" Background="#FF2B2B2B" Foreground="White"/>
+        <Button x:Name="buttonTest" Grid.ColumnSpan="3" Content="Test" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontSize="14" Click="buttonTest_Click" Foreground="White" Background="#FF2B2B2B"/>
 
     </Grid>
 </Window>

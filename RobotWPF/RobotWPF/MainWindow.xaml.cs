@@ -28,6 +28,7 @@ namespace RobotWPF
         string receivedText;
         ReliableSerialPort serialPort1;
         DispatcherTimer timerAffichage;
+        Queue<byte> byteListReceived = new Queue<byte>();
         public MainWindow()
         {
             InitializeComponent();
@@ -44,20 +45,18 @@ namespace RobotWPF
 
         private void TimerAffichage_Tick(object sender, EventArgs e)
         {
-            if (receivedText != "" && receivedText != null)
+            if (byteListReceived.Count != 0)
             {
-                string CleanedMessage = receivedText.Replace("\n", "").Replace("\r", "");
-                if (CleanedMessage != "")
-                {
-                    textBoxReception.Text += "Received: " + CleanedMessage + "\n";
-                }
-                receivedText = "";
+                textBoxReception.Text += "0x" + byteListReceived.Dequeue().ToString("X2") + " ";
             }
         }
 
         public void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
         {
-            receivedText += Encoding.UTF8.GetString(e.Data, 0,e.Data.Length);
+            for (int i = 0; i < e.Data.Length; i++)
+            {
+                byteListReceived.Enqueue(e.Data[i]);
+            }
         }
 
 
@@ -96,7 +95,7 @@ namespace RobotWPF
             for (int i = 0; i<byteList.Length; i++) {
                 byteList[i] = (byte)(2 * i);
             }
-            //serialPort1.Write(byteList);
+            serialPort1.Write(byteList,0,byteList.Length);
         }
     }
 }

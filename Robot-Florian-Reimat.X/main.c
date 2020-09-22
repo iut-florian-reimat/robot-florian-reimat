@@ -8,7 +8,7 @@
 #include "PWM.h"
 #include "Robot.h"
 #include "ADC.h"
-
+#include "uart.h"
 unsigned char nextStateRobot = 0;
 unsigned char stateRobot;
 
@@ -27,6 +27,7 @@ int main(void) {
     InitTimer23();
     InitTimer4();
     InitADC1();
+    InitUART();
     //robotState.vitesseGaucheConsigne = 15.0f;
     // Boucle Principale
     while (1) {
