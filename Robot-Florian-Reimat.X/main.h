@@ -1,13 +1,8 @@
-/* 
- * File:   main.h
- * Author: TABLE 6
- *
- * Created on 11 septembre 2020, 15:06
- */
-
 #ifndef MAIN_H
-#define	MAIN_H
 
+
+
+#define	MAIN_H
 #define FCY 40000000
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1
@@ -25,11 +20,12 @@
 #define STATE_ARRET_EN_COURS 13
 #define STATE_RECULE 14
 #define STATE_RECULE_EN_COURS 15
-
 #define PAS_D_OBSTACLE 0
 #define OBSTACLE_A_GAUCHE 1
 #define OBSTACLE_A_DROITE 2
 #define OBSTACLE_EN_FACE 3
 
-#endif	/* MAIN_H */
 
+void OperatingSystemLoop(void);
+void SetNextRobotStateInAutomaticMode();
+#endif

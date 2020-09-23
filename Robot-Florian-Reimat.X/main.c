@@ -1,7 +1,7 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
-#include "main.h"
 #include "ChipConfig.h"
 #include "IO.h"
 #include "timer.h"
@@ -9,26 +9,24 @@
 #include "Robot.h"
 #include "ADC.h"
 #include "uart.h"
+#include "CB_TX1.h"
+
+
 unsigned char nextStateRobot = 0;
 unsigned char stateRobot;
 
 int main(void) {
-    // Initialisation de l?oscillateur
+    
     InitOscillator();
-
-    // Configuration des entres sorties
     InitIO();
-    //LED_BLANCHE = 1 ;
-    //LED_BLEUE = 1 ;
-    //LED_ORANGE = 1 ;
-    InitPWM();
-
+    //InitPWM();
     InitTimer1();
-    InitTimer23();
+    //InitTimer23();
     InitTimer4();
     InitADC1();
     InitUART();
-    //robotState.vitesseGaucheConsigne = 15.0f;
+    robotState.vitesseDroiteConsigne = 0.0f;
+    robotState.vitesseGaucheConsigne = 0.0f;
     // Boucle Principale
     while (1) {
         if (ADCIsConversionFinished() == 1) {
@@ -41,7 +39,8 @@ int main(void) {
             volts = ((float) result [0])* 3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGauche = 34 / volts - 5;
         }
-
+        SendMessage((unsigned char *) "Bonjour" , 7) ;
+        LED_ORANGE = !LED_ORANGE;
     } // fin main
 }
 

@@ -28,45 +28,6 @@ void InitPWM(void)
     /* Enable PWM Module */
     PTCONbits.PTEN = 1;
 }
-/*
-void PWMSetSpeed(float speed,unsigned char side)
-{
-    if (speed > 100.0f) {
-        speed = 100.0f;
-    } else if (speed < -100.0f) {
-        speed = -100.0f;
-    }
-    if (side) {
-        if (speed <= 0.0f) {
-            robotState.vitesseDroiteCommandeCourante = speed;
-            MOTEUR_DROIT_ENL = 0;
-            MOTEUR_DROIT_INL = 1;
-            MOTEUR_DROIT_ENH = 1;
-            MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
-        } else {
-            robotState.vitesseDroiteCommandeCourante = speed;
-            MOTEUR_DROIT_ENL = 1;
-            MOTEUR_DROIT_INH = 1;
-            MOTEUR_DROIT_ENH = 0;
-            MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
-        }
-    } else {
-        if (speed >= 0.0f) {
-            robotState.vitesseGaucheCommandeCourante = speed;
-            MOTEUR_GAUCHE_ENL = 0;
-            MOTEUR_GAUCHE_INL = 1;
-            MOTEUR_GAUCHE_ENH = 1;
-            MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
-        } else {
-            robotState.vitesseGaucheCommandeCourante = speed;
-            MOTEUR_GAUCHE_ENL = 1;
-            MOTEUR_GAUCHE_INH = 1;
-            MOTEUR_GAUCHE_ENH = 0;
-            MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
-        }
-    }
-}
-*/
 
 void PWMUpdateSpeed() {
     // Cette fonction est appelée sur timer et permet de suivre des rampes d?accélération
@@ -105,7 +66,7 @@ void PWMUpdateSpeed() {
     MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante) * PWMPER;
 }
 
-PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur){
+void PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur){
     if (moteur == MOTEUR_GAUCHE) {
         robotState.vitesseGaucheConsigne = vitesseEnPourcents;
     } else {
