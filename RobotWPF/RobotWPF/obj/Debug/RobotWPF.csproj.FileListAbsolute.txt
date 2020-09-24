@@ -30,3 +30,6 @@ C:\Github\Robot_Florian_Reimat\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\ExtendedSerialPort.dll
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\ExtendedSerialPort.pdb
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csproj.CopyComplete
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\ExtendedSerialPort.dll
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\bin\Debug\ExtendedSerialPort.pdb
+C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\RobotWPF\RobotWPF\obj\Debug\RobotWPF.csproj.CopyComplete

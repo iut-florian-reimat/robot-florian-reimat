@@ -10,26 +10,49 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="Emetteur" Header="Emitter" Margin="0" Background="#FF2B2B2B" Grid.Row="1" Grid.Column="1" BorderBrush="White" Foreground="White">
-            <TextBox x:Name="textBoxEmission" Margin="0,0,0,1" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="White" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp" Foreground="White" BorderThickness="0" CaretBrush="White"/>
+        <ComboBox x:Name="comboSerial" Margin="0" VerticalAlignment="Center" Width="100" Height="28" FontFamily="Consolas" AutomationProperties.Name="Test" IsSynchronizedWithCurrentItem="False" Background="#FF7D7D7D" BorderBrush="#FF686868" Foreground="Black" OpacityMask="#FF373737" FontSize="18" GotFocus="comboSerial_Opening" Grid.Column="1" Grid.Row="5">
+            <ComboBoxItem Content="Null" IsSelected="True"/>
+            <Separator/>
+        </ComboBox>
+        <Button x:Name="buttonSerial" Content="" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="28" Height="28" Background="#FF373737" BorderBrush="Black" Foreground="White" Click="buttonSerial_Click" Grid.Column="2" Grid.Row="5"/>
+        <GroupBox Header="Emitter" Margin="0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Column="1" Grid.Row="1">
+            <RichTextBox x:Name="textBoxEmission" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" CaretBrush="White" Foreground="White" SelectionBrush="{x:Null}" BorderThickness="0" KeyUp="TextBoxEmission_KeyUp" RenderTransformOrigin="1.746,0.497">
+                <FlowDocument>
+                    <Paragraph/>
+                </FlowDocument>
+            </RichTextBox>
         </GroupBox>
-        <GroupBox x:Name="Recepteur" Header="Receptor" Margin="0" Foreground="White" BorderBrush="White" Grid.Column="3" Grid.Row="1" Background="#FF2B2B2B">
-            <TextBox x:Name="textBoxReception" Margin="0,0,0,-0.2" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" SelectionBrush="White" AcceptsReturn="True" Foreground="White" BorderThickness="0" CaretBrush="White"/>
+        <ComboBox x:Name="comboEmission" Margin="0" VerticalAlignment="Bottom" Height="20" FontFamily="Consolas" AutomationProperties.Name="Test" IsSynchronizedWithCurrentItem="False" Background="#FF7D7D7D" BorderBrush="#FF686868" Foreground="Black" OpacityMask="#FF373737" DropDownClosed="comboEmission_Changed" Grid.Column="3">
+            <ComboBoxItem Content="Ascii" IsSelected="True" FontSize="12"/>
+            <ComboBoxItem Content="Hex" FontSize="12"/>
+        </ComboBox>
+        <Button x:Name="buttonTest" Content="Test" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="100.8" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="buttonTest_Click" Grid.Column="4" Grid.Row="6"/>
+        <GroupBox Header="Receptor" Margin="0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.Column="5" HorizontalContentAlignment="Stretch" Padding="0" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Row="1">
+            <RichTextBox x:Name="textBoxReception" Margin="0" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="White" FontFamily="Consolas" Background="{x:Null}" BorderThickness="0" IsReadOnly="True">
+                <FlowDocument>
+                    <Paragraph/>
+                </FlowDocument>
+            </RichTextBox>
         </GroupBox>
-        <Button x:Name="buttonEnvoyer" Content="Send" Grid.Column="1" Margin="0" Grid.Row="3" Width="100" HorizontalAlignment="Center" FontSize="14" FontFamily="Consolas" Click="ButtonEnvoyer_Click" Background="#FF2B2B2B" Foreground="White"/>
-        <Button x:Name="buttonClear" Content="Clear" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" FontFamily="Consolas" FontSize="14" Click="buttonClear_Click" Background="#FF2B2B2B" Foreground="White"/>
-        <Button x:Name="buttonTest" Grid.ColumnSpan="3" Content="Test" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontSize="14" Click="buttonTest_Click" Foreground="White" Background="#FF2B2B2B"/>
-
+        <Button x:Name="buttonEnvoyer" Content="Send" Margin="0" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="ButtonEnvoyer_Click" Grid.Column="2" Grid.Row="6" RenderTransformOrigin="0.093,0.29"/>
+        <Button x:Name="buttonClear" Content="Clear" Margin="0" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" FontSize="20" Click="buttonClear_Click" Grid.Column="6" Grid.Row="6" RenderTransformOrigin="0.093,0.29" Height="30"/>
     </Grid>
 </Window>
