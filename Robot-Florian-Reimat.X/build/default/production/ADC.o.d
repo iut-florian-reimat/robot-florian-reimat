@@ -1,4 +1,6 @@
 build/default/production/ADC.o:  \
 ADC.c  \
 ADC.h  \
-main.h 
+Robot.h  \
+main.h  \
+ UART_Protocol.h 

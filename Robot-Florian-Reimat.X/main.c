@@ -12,6 +12,7 @@
 #include "uart.h"
 #include "CB_TX1.h"
 #include "CB_RX1.h"
+#include "UART_Protocol.h"
 
 unsigned char nextStateRobot = 0;
 unsigned char stateRobot;
@@ -33,11 +34,13 @@ int main(void) {
         
         for (i = 0; i < CB_RX1_GetDataSize(); i++) {
             unsigned char c = CB_RX1_Get();
-            SendMessage(&c, 1);
-            LED_ORANGE = !LED_ORANGE;
+            UartDecodeMessage(c);  
         }
-        __delay32(1000);
-
+        //__delay32(40000000);
+        
+        // Test Bonjour        
+        //unsigned char Bonjour[7] = {0x42,0x6F,0x6E,0x6A,0x6F,0x75,0x72};
+        //UartEncodeAndSendMessage(128, 7,Bonjour);
     } // fin main
 }
 

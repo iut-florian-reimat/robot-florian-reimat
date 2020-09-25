@@ -9,12 +9,12 @@
     <Grid Background="#FF606060">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="61*"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -28,12 +28,13 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="comboSerial" Margin="0" VerticalAlignment="Center" Width="100" Height="28" FontFamily="Consolas" AutomationProperties.Name="Test" IsSynchronizedWithCurrentItem="False" Background="#FF7D7D7D" BorderBrush="#FF686868" Foreground="Black" OpacityMask="#FF373737" FontSize="18" GotFocus="comboSerial_Opening" Grid.Column="1" Grid.Row="5">
+        <GroupBox Header="LED" HorizontalAlignment="Center" Margin="26,49,1,13" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="74" Grid.RowSpan="3" Grid.Column="3" Background="#FF343434"/>
+        <ComboBox x:Name="comboSerial" Margin="0,10,0,0" VerticalAlignment="Center" Height="20" FontFamily="Consolas" AutomationProperties.Name="Test" IsSynchronizedWithCurrentItem="False" Background="#FF7D7D7D" BorderBrush="#FF686868" Foreground="Black" OpacityMask="#FF373737" GotFocus="comboSerial_Opening" Grid.Column="1">
             <ComboBoxItem Content="Null" IsSelected="True"/>
             <Separator/>
         </ComboBox>
-        <Button x:Name="buttonSerial" Content="" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="28" Height="28" Background="#FF373737" BorderBrush="Black" Foreground="White" Click="buttonSerial_Click" Grid.Column="2" Grid.Row="5"/>
-        <GroupBox Header="Emitter" Margin="0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Column="1" Grid.Row="1">
+        <Button x:Name="buttonSerial" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Center" Width="20" Height="20" Background="#FF373737" BorderBrush="Black" Foreground="White" Click="buttonSerial_Click" Grid.Column="2" RenderTransformOrigin="0.45,0.95"/>
+        <GroupBox Header="Emitter" Margin="0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1">
             <RichTextBox x:Name="textBoxEmission" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" CaretBrush="White" Foreground="White" SelectionBrush="{x:Null}" BorderThickness="0" KeyUp="TextBoxEmission_KeyUp" RenderTransformOrigin="1.746,0.497">
                 <FlowDocument>
                     <Paragraph/>
@@ -44,15 +45,33 @@
             <ComboBoxItem Content="Ascii" IsSelected="True" FontSize="12"/>
             <ComboBoxItem Content="Hex" FontSize="12"/>
         </ComboBox>
-        <Button x:Name="buttonTest" Content="Test" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="100.8" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="buttonTest_Click" Grid.Column="4" Grid.Row="6"/>
-        <GroupBox Header="Receptor" Margin="0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.Column="5" HorizontalContentAlignment="Stretch" Padding="0" Grid.ColumnSpan="3" Grid.RowSpan="4" Grid.Row="1">
+        <Button x:Name="buttonTest" Content="Test" Margin="0,10,1,20" Width="100" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="buttonTest_Click" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <GroupBox Header="Receptor" Margin="62,0,29.667,0" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.Column="4" HorizontalContentAlignment="Stretch" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="4" Grid.Row="1">
             <RichTextBox x:Name="textBoxReception" Margin="0" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="White" FontFamily="Consolas" Background="{x:Null}" BorderThickness="0" IsReadOnly="True">
                 <FlowDocument>
                     <Paragraph/>
                 </FlowDocument>
             </RichTextBox>
         </GroupBox>
-        <Button x:Name="buttonEnvoyer" Content="Send" Margin="0" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="ButtonEnvoyer_Click" Grid.Column="2" Grid.Row="6" RenderTransformOrigin="0.093,0.29"/>
-        <Button x:Name="buttonClear" Content="Clear" Margin="0" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" FontSize="20" Click="buttonClear_Click" Grid.Column="6" Grid.Row="6" RenderTransformOrigin="0.093,0.29" Height="30"/>
+        <Button x:Name="buttonEnvoyer" Content="Send" Margin="0,10,0,20" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="ButtonEnvoyer_Click" Grid.Column="1" Grid.Row="4" RenderTransformOrigin="0.093,0.29" HorizontalAlignment="Left" Width="101"/>
+        <Button x:Name="buttonClear" Content="Clear" Margin="0,10,0,20" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" FontSize="20" Click="buttonClear_Click" Grid.Column="3" Grid.Row="4" RenderTransformOrigin="0.093,0.29" Height="30"/>
+        <CheckBox x:Name="checkLed1" Content="Led 1" Grid.Column="3" HorizontalAlignment="Left" Margin="34,9,0,0" Grid.Row="6" VerticalAlignment="Top" Background="#FFBBBBBB" BorderBrush="Black" Foreground="White" OpacityMask="White"/>
+        <CheckBox x:Name="checkLed2" Content="Led 2" Grid.Column="3" HorizontalAlignment="Left" Margin="34,32,0,14" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Background="#FFBBBBBB" BorderBrush="Black" RenderTransformOrigin="0.714,0.067"/>
+        <CheckBox x:Name="checkLed3" Content="Led 3" Grid.Column="3" HorizontalAlignment="Left" Margin="34,0,0,21" Grid.Row="6" Background="#FFBBBBBB" Foreground="White" BorderBrush="Black" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
+        <GroupBox Grid.ColumnSpan="2" Header="Motor" HorizontalAlignment="Center" Grid.Column="1" Margin="0,52,43,1" Grid.Row="4" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="159" Grid.RowSpan="2" Background="#FF343434"/>
+        <GroupBox Grid.ColumnSpan="3" Header="IR " HorizontalAlignment="Center" Margin="29,57,43,10" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="160" Grid.RowSpan="3" Background="#FF343434"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,12,0,0" Grid.Row="5" TextWrapping="Wrap" Text="Motor 1: " VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,34,0,0" Grid.Row="5" TextWrapping="Wrap" Text="Motor 2: " VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="9.6,15.2,0,0" Grid.Row="6" TextWrapping="Wrap" Text="IR L:" VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,35,0,0" Grid.Row="6" TextWrapping="Wrap" Text="IR C:" VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,54,0,0" Grid.Row="6" TextWrapping="Wrap" Text="IR R:" VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.RowSpan="2"/>
+        <GroupBox Header="Text" Margin="62,0,29.667,10" Background="#FF343434" Foreground="White" FontFamily="Consolas" Grid.Column="4" HorizontalContentAlignment="Stretch" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="3" Grid.Row="5">
+            <TextBox x:Name="textboxText" Margin="0" TextWrapping="Wrap" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" SelectionBrush="{x:Null}" IsReadOnly="True" BorderThickness="0"/>
+        </GroupBox>
+        <TextBlock x:Name="textBoxMotor1" Grid.Column="1" HorizontalAlignment="Left" Margin="90,12,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="60" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
+        <TextBlock x:Name="textBoxMotor2" Grid.Column="1" HorizontalAlignment="Left" Margin="90,33,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="60" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
+        <TextBlock x:Name="textBoxIR1" Grid.Column="1" HorizontalAlignment="Left" Margin="59.6,15.2,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
+        <TextBlock x:Name="textBoxIR2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,35,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
+        <TextBlock x:Name="textBoxIR3" Grid.Column="1" HorizontalAlignment="Left" Margin="60,54,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Grid.RowSpan="2" Text="0"/>
     </Grid>
 </Window>

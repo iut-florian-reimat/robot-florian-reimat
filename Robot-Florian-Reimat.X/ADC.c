@@ -1,6 +1,8 @@
 #include <xc.h>
 #include "ADC.h"
+#include "Robot.h"
 #include "main.h"
+#include "UART_Protocol.h"
 
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[4];
@@ -104,5 +106,7 @@ void ADCConversionLoop(void) {
             robotState.distanceTelemetreCentre = 34 / volts - 5;
             volts = ((float) result [0])* 3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGauche = 34 / volts - 5;
-        }
+            unsigned char msg[3] = {robotState.distanceTelemetreGauche,robotState.distanceTelemetreCentre, robotState.distanceTelemetreDroit};
+            UartEncodeAndSendMessage(48,3, msg);
+    }
 }

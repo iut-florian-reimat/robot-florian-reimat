@@ -25,42 +25,66 @@ namespace RobotWPF
     /// 
     public partial class MainWindow : Window
     {
-        string receivedText, emissionFormat = "Ascii";
-        ReliableSerialPort serialPort;
+        string emissionFormat = "Ascii";
+      
         DispatcherTimer timerAffichage;
         Queue<byte> byteListReceived = new Queue<byte>();
-        bool msgIsWrong = false;
+        Robot robot = new Robot();
+
         Paragraph receptionPara;
         public MainWindow()
         {
             InitializeComponent();
             System.Diagnostics.Debug.WriteLine("[MAIN] UI Start.");
             timerAffichage = new DispatcherTimer();
-            timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 250);
             timerAffichage.Tick += TimerAffichage_Tick;
             timerAffichage.Start();
             
             
         }
-        
-        
+
 
         private void TimerAffichage_Tick(object sender, EventArgs e)
         {
-            if (byteListReceived.Count != 0)
+            if (robot.decodedText != textboxText.Text)
+            {
+                textboxText.Text = robot.decodedText;
+            }
+            if (robot.IR1.ToString() != textBoxIR1.Text)
+            {
+                textBoxIR1.Text = robot.IR1.ToString() + " cm";
+            }
+            if (robot.IR2.ToString() != textBoxIR2.Text)
+            {
+                textBoxIR2.Text = robot.IR2.ToString() + " cm";
+            }
+            if (robot.IR3.ToString() != textBoxIR3.Text)
+            {
+                textBoxIR3.Text = robot.IR3.ToString() + " cm";
+            }
+            if (robot.Motor1.ToString() != textBoxMotor1.Text)
+            {
+                textBoxMotor1.Text = robot.Motor1.ToString() + "%";
+            }
+            if (robot.Motor2.ToString() != textBoxMotor2.Text)
+            {
+                textBoxMotor2.Text = robot.Motor2.ToString() + "%";
+            }
+            while (byteListReceived.Count != 0)
             {
                 byte byteDequeue = byteListReceived.Dequeue();
-                DecodeMessage(byteDequeue);
+                robot.DecodeMessage(byteDequeue);
                 string msg_byte = "0x" + byteDequeue.ToString("X2") + " ";
                 Run run = new Run(msg_byte);
                 
                 
-                switch (rcvState)
+                switch (robot.rcvState)
                 {
-                    case StateReception.Waiting:
-                        if (rcvBefore == StateReception.CheckSum)
+                    case Robot.StateReception.Waiting:
+                        if (robot.rcvBefore == Robot.StateReception.CheckSum)
                         {
-                            if (msgIsWrong)
+                            if (robot.msgIsWrong)
                             {
                                 run.Foreground = new SolidColorBrush(Colors.Red);
                             } else {
@@ -71,28 +95,28 @@ namespace RobotWPF
                         }
                         
                         break;
-                    case StateReception.FunctionMSB:
+                    case Robot.StateReception.FunctionMSB:
                         run.Foreground = new SolidColorBrush(Colors.Purple);
                         break;
-                    case StateReception.FunctionLSB:
+                    case Robot.StateReception.FunctionLSB:
                         run.Foreground = new SolidColorBrush(Colors.Yellow);
                         break;
-                    case StateReception.PayloadLengthMSB:
+                    case Robot.StateReception.PayloadLengthMSB:
                         run.Foreground = new SolidColorBrush(Colors.Yellow);
                         break;
-                    case StateReception.PayloadLengthLSB:
+                    case Robot.StateReception.PayloadLengthLSB:
                         run.Foreground = new SolidColorBrush(Colors.LightBlue);
                         break;
 
-                    case StateReception.Payload:
-                        if (rcvBefore == StateReception.PayloadLengthLSB)
+                    case Robot.StateReception.Payload:
+                        if (robot.rcvBefore == Robot.StateReception.PayloadLengthLSB)
                         {
                             run.Foreground = new SolidColorBrush(Colors.LightBlue);
                         } else {
                             run.Foreground = new SolidColorBrush(Colors.White);
                         }
                         break;
-                    case StateReception.CheckSum:
+                    case Robot.StateReception.CheckSum:
                         run.Foreground = new SolidColorBrush(Colors.White);
                         break;
                 }
@@ -100,12 +124,13 @@ namespace RobotWPF
                 {
                     receptionPara = new Paragraph();
                 }
-                receptionPara.Inlines.Add(run);
-                
-                textBoxReception.Document.Blocks.Clear();
-                textBoxReception.Document.Blocks.Add(receptionPara);
+                //receptionPara.Inlines.Add(run);
+                //textBoxReception.Document.Blocks.Clear();
+                //textBoxReception.Document.Blocks.Add(receptionPara);
             }
         }
+
+
 
         public void SerialPort_DataReceived(object sender, DataReceivedArgs e)
         {
@@ -128,15 +153,13 @@ namespace RobotWPF
                 getMessage();
             }
         }
-
-
         private void getMessage()
         {
             Block block = textBoxEmission.Document.Blocks.FirstBlock;
             string CleanedMessage = new TextRange(block.ContentStart, block.ContentEnd).Text.Replace("\n", "").Replace("\r", ""); ;
             textBoxEmission.Document.Blocks.Clear();
             Run run;
-            if (serialPort != null)
+            if (robot.serialPort != null)
             {
 
                 SendMessage(CleanedMessage);
@@ -146,6 +169,8 @@ namespace RobotWPF
                 run.Background = new SolidColorBrush(Colors.Red);
             }
             Paragraph para = new Paragraph(run);
+
+            textBoxEmission.Document.Blocks.Clear();
             textBoxEmission.Document.Blocks.Add(para);
         }
 
@@ -160,10 +185,10 @@ namespace RobotWPF
                 {
                     abc[i] = Convert.ToByte(hex_msg[i], 16);
                 }
-                serialPort.Write(abc, 0, abc.Length);
+                robot.serialPort.Write(abc, 0, abc.Length);
             } else
             {
-                serialPort.Write(msg);
+                robot.serialPort.Write(msg);
             }
             
         }
@@ -182,133 +207,25 @@ namespace RobotWPF
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
+            Random random = new System.Random();
             byte[] array = Encoding.ASCII.GetBytes("Bonjour");
-            UartEncodeAndSendMessage(128, array.Length, array);
-        }
-
-        // 0xFE | 0x00 0x?? | 0x?? 0x?? | ??? | 0x??
-        byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
-        {
-            byte[] msg = EncodeWithoutChecksum(msgFunction, msgPayloadLength, msgPayload);
-
-            byte checksum = msg[0];
-            for (int i = 1; i < msg.Length; i++)
-            {
-                checksum ^= msg[i];
-            }
-            System.Diagnostics.Debug.WriteLine("[CHECKSUM] " + msg + " Result : " + checksum);
-            return checksum;
-        }
-
-        void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
-        {
-            byte[] msg = EncodeWithoutChecksum(msgFunction, msgPayloadLength, msgPayload);
-            byte[] checksum = new byte[] { CalculateChecksum(msgFunction, msgPayloadLength, msgPayload) };
-            msg = Combine(msg, checksum);
-            if (serialPort != null)
-            serialPort.Write(msg, 0, msg.Length);
-        }
-
-        byte[] EncodeWithoutChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
-        {
-            // Convert Function to byte
-            byte LbyteFunction = (byte)(msgFunction >> 0);
-            byte HbyteFunction = (byte)(msgFunction >> 8);
-
-            byte LbytePayloadsLength = (byte)(msgPayloadLength >> 0);
-            byte HbytePayloadsLength = (byte)(msgPayloadLength >> 8);
-
-            // Append all bytes
-            byte[] msg = new byte[] { 0xFE, HbyteFunction, LbyteFunction, HbytePayloadsLength, LbytePayloadsLength };
-            msg = Combine(msg, msgPayload);
-            return msg;
-        }
-        public static byte[] Combine(byte[] first, byte[] second)
-        {
-            byte[] bytes = new byte[first.Length + second.Length];
-            Buffer.BlockCopy(first, 0, bytes, 0, first.Length);
-            Buffer.BlockCopy(second, 0, bytes, first.Length, second.Length);
-            return bytes;
-        }
-
-        public enum StateReception
-        {
-            Waiting,
-            FunctionMSB,
-            FunctionLSB,
-            PayloadLengthMSB,
-            PayloadLengthLSB,
-            Payload,
-            CheckSum
-        }
-        StateReception rcvState = StateReception.Waiting;
-        StateReception rcvBefore = StateReception.Waiting;
-        int msgDecodedFunction = 0;
-        int msgDecodedPayloadLength = 0;
-        byte[] msgDecodedPayload;
-        int msgDecodedPayloadIndex = 0;
-        private void DecodeMessage(byte c){
-            rcvBefore = rcvState;
-            switch (rcvState){
-                case StateReception.Waiting:
-                    if (c == 0xFE)
-                    {
-                        // Message begin
-                        rcvState = StateReception.FunctionMSB;
-                    }
-                    break;
-                case StateReception.FunctionMSB:
-                        msgDecodedFunction = (ushort)(c << 8);
-                        rcvState = StateReception.FunctionLSB;
-                    break;
-                case StateReception.FunctionLSB:
-                    msgDecodedFunction += (ushort)(c << 0);
-                    rcvState = StateReception.PayloadLengthMSB;
-                    break;
-                case StateReception.PayloadLengthMSB:
-                    msgDecodedPayloadLength = (ushort)(c << 8);
-                    rcvState = StateReception.PayloadLengthLSB;
-                    break;
-                case StateReception.PayloadLengthLSB:
-                    msgDecodedPayloadLength += (ushort)(c << 0);
-                    if (msgDecodedPayloadLength > 0)
-                    {
-                        msgDecodedPayload = new byte[msgDecodedPayloadLength];
-                        rcvState = StateReception.Payload;
-                    } else
-                    {
-                        rcvState = StateReception.CheckSum;
-                    }
-                    break;
-
-                case StateReception.Payload:
-                    msgDecodedPayload[msgDecodedPayloadIndex] = c;
-                    msgDecodedPayloadIndex++;
-                    if (msgDecodedPayloadIndex >= msgDecodedPayloadLength)
-                    {
-                        rcvState = StateReception.CheckSum;
-                    }
-                    break;
-                case StateReception.CheckSum:
-                    byte calculatedChecksum, receivedChecksum = c;
-                    calculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
-                    if (calculatedChecksum == receivedChecksum){
-                        // Success, on a un message 
-                        Console.WriteLine("Message is Correct");
-                        msgIsWrong = false;
-                    } else {
-                        Console.WriteLine("Message has an error");
-                        msgIsWrong = true;
-                    }
-                    rcvState = StateReception.Waiting;
-                    msgDecodedFunction = 0;
-                    msgDecodedPayloadLength = 0;
-                    msgDecodedPayloadIndex = 0;
-                    break;
-                default:
-                    rcvState = StateReception.Waiting;
-                    break;
-            }
+            robot.UartEncodeAndSendMessage(128, array.Length, array);
+            array = new byte[3];
+            random.NextBytes(array);
+            robot.UartEncodeAndSendMessage(48, array.Length, array);
+            array = new byte[2];
+            random.NextBytes(array);
+            robot.UartEncodeAndSendMessage(64, array.Length, array);
+            array[0] = 0x01;
+            array[1] = (byte)random.Next(2);
+            robot.UartEncodeAndSendMessage(32, array.Length, array);
+            array[0] = 0x02;
+            array[1] = (byte)random.Next(2);
+            robot.UartEncodeAndSendMessage(32, array.Length, array);
+            
+            array[0] = 0x03;
+            array[1] = (byte)random.Next(2);
+            robot.UartEncodeAndSendMessage(32, array.Length, array);
         }
 
         private string[] ListAllSerialOpen()
@@ -338,16 +255,21 @@ namespace RobotWPF
             string select = comboSerial.Text;
             if (select!= "Null" && comboSerial.SelectedItem != null)
             {
-                if (serialPort != null)
+                if (robot.serialPort != null)
                 {
                     // Can't close the serial
                     //serialPort.Close();
                 } else {
-                    serialPort = new ReliableSerialPort(select, 115200, Parity.None, 8, StopBits.One);
-                    serialPort.DataReceived += SerialPort_DataReceived;
-                    serialPort.Open();
+                    robot.serialPort = new ReliableSerialPort(select, 115200, Parity.None, 8, StopBits.One);
+                    robot.serialPort.DataReceived += SerialPort_DataReceived;
+                    robot.serialPort.Open();
                 }
             }
+        }
+
+        public void SendText(string msg)
+        {
+            textboxText.Text += msg;
         }
     }
 }
