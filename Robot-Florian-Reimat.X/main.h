@@ -28,4 +28,5 @@
 
 void OperatingSystemLoop(void);
 void SetNextRobotStateInAutomaticMode();
+char * itoa (int);
 #endif

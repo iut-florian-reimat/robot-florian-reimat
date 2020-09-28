@@ -47,6 +47,10 @@ namespace RobotWPF
 
         private void TimerAffichage_Tick(object sender, EventArgs e)
         {
+            if (robot.actualState != textState.Text)
+            {
+                textState.Text = robot.actualState;
+            }
             if (robot.decodedText != textboxText.Text)
             {
                 textboxText.Text = robot.decodedText;

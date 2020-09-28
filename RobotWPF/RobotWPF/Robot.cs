@@ -32,17 +32,19 @@ namespace RobotWPF
             STATE_TOURNE_DROITE_EN_COURS = 7,
             STATE_TOURNE_SUR_PLACE_GAUCHE = 8,
             STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS = 9,
-            STATE_TOURNE_SUR_PLACE_DROITE = 10 ,
-            STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS = 11 ,
-            STATE_ARRET = 12 ,
-            STATE_ARRET_EN_COURS = 13 ,
-            STATE_RECULE = 14 ,
+            STATE_TOURNE_SUR_PLACE_DROITE = 10,
+            STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS = 11,
+            STATE_ARRET = 12,
+            STATE_ARRET_EN_COURS = 13,
+            STATE_RECULE = 14,
             STATE_RECULE_EN_COURS = 15
         }
 
         public StateReception rcvState = StateReception.Waiting;
         public StateReception rcvBefore = StateReception.Waiting;
+
         public string decodedText = "";
+        public string actualState = "NULL";
         public int IR1 = 0;
         public int IR2 = 0;
         public int IR3 = 0;
@@ -107,29 +109,12 @@ namespace RobotWPF
                     calculatedChecksum = CalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     if (calculatedChecksum == receivedChecksum)
                     {
-                        // Success, on a un message 
-                        switch (msgDecodedFunction)
-                        {
-                            case 0x0080:
-                                // Message Text
-                                decodedText += "Text: " + Encoding.UTF8.GetString(msgDecodedPayload) + "\n";
-                                break;
-                            case 0x0030:
-                                IR1 = (int)msgDecodedPayload[0];
-                                IR2 = (int)msgDecodedPayload[1];
-                                IR3 = (int)msgDecodedPayload[2];
-                                break;
-                            case 0x0040:
-                                Motor1 = (int)msgDecodedPayload[0] - 128;
-                                Motor2 = (int)msgDecodedPayload[1] - 128;
-                                break;
-                        }
-                        Console.WriteLine("Message is Correct");
+                        // Success
                         msgIsWrong = false;
+                        ProcessDecodedMessage(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     }
                     else
                     {
-                        Console.WriteLine("Message has an error");
                         msgIsWrong = true;
                     }
                     rcvState = StateReception.Waiting;
@@ -137,6 +122,33 @@ namespace RobotWPF
                 default:
                     rcvState = StateReception.Waiting;
                     break;
+            }
+        }
+
+        private void ProcessDecodedMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        {
+            switch (msgFunction)
+            {
+                case 0x0080:
+                    // Message Text
+                    decodedText += "[MESSAGE] " + Encoding.UTF8.GetString(msgPayload) + "\n";
+                    break;
+                case 0x0030:
+                    IR1 = (int) msgPayload[0];
+                    IR2 = (int) msgPayload[1];
+                    IR3 = (int) msgPayload[2];
+                    break;
+                case 0x0040:
+                    Motor1 = (int) msgPayload[0] - 128;
+                    Motor2 = (int) msgPayload[1] - 128;
+                    break;
+                case 0x0050:
+                    int instant = (((int)msgPayload[1]) << 24) + (((int) msgPayload[2])) << 16 + (((int) msgPayload[3]) << 8) + ((int) msgPayload[4]);
+                    decodedText += "[STATE] " + ((StateRobot) (msgPayload[0])).ToString() + " − " + instant.ToString() + " ms\n";
+                    actualState = ((StateRobot)(msgPayload[0])).ToString();
+                    break;
+
+
             }
         }
         public void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -178,7 +190,6 @@ namespace RobotWPF
             {
                 checksum ^= msg[i];
             }
-            System.Diagnostics.Debug.WriteLine("[CHECKSUM] " + msg + " Result : " + checksum);
             return checksum;
         }
     }
