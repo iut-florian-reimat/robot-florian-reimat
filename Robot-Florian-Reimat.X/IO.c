@@ -33,5 +33,14 @@ void InitIO()
     _U1RXR = 24;
     _RP36R = 1;
     
-    //********** Configuration des entrées : _TRISxx = 1 ********************************   
+    
+    
+    //********** Configuration des entrées : _TRISxx = 1 ********************************  
+    
+    // ???????????????????? QEI ?????????????????
+    _QEA2R = 97; // a s s i g n QEI A t o pin RP97
+    _QEB2R = 96; // a s s i g n QEI B t o pin RP96
+    _QEA1R = 70; // a s s i g n QEI A t o pin RP70
+    _QEB1R = 69; // a s s i g n QEI B t o pin RP69
+
 }

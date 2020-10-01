@@ -87,8 +87,14 @@ namespace RobotWPF
                     msgDecodedPayloadLength += (ushort)(c << 0);
                     if (msgDecodedPayloadLength > 0)
                     {
-                        msgDecodedPayload = new byte[msgDecodedPayloadLength];
-                        rcvState = StateReception.Payload;
+                        if (msgDecodedPayloadLength < 255) {
+                            msgDecodedPayload = new byte[msgDecodedPayloadLength];
+                            rcvState = StateReception.Payload;
+                        } else
+                        {
+                            rcvState = StateReception.CheckSum;
+                        }
+                        
                     }
                     else
                     {
@@ -116,6 +122,13 @@ namespace RobotWPF
                     else
                     {
                         msgIsWrong = true;
+                        decodedText += "[ERROR] " + msgDecodedFunction + " " + msgDecodedPayloadLength + " ";
+                        int i;
+                        for (i = 0; i < msgDecodedPayload.Length; i++)
+                        {
+                            decodedText += msgDecodedPayload[i].ToString("X2") + " ";
+                        }
+                        decodedText +="\n";
                     }
                     rcvState = StateReception.Waiting;
                     break;

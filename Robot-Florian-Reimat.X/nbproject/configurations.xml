@@ -16,6 +16,7 @@
       <itemPath>CB_TX1.h</itemPath>
       <itemPath>CB_RX1.h</itemPath>
       <itemPath>UART_Protocol.h</itemPath>
+      <itemPath>QEI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -36,6 +37,7 @@
       <itemPath>CB_TX1.c</itemPath>
       <itemPath>CB_RX1.c</itemPath>
       <itemPath>UART_Protocol.c</itemPath>
+      <itemPath>QEI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
