@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -15,6 +16,8 @@ using System.Windows.Shapes;
 using System.IO.Ports;
 using ExtendedSerialPort;
 using System.Windows.Threading;
+using MouseKeyboardActivityMonitor.WinApi;
+using MouseKeyboardActivityMonitor;
 
 
 namespace RobotWPF
@@ -23,10 +26,12 @@ namespace RobotWPF
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+
     public partial class MainWindow : Window
     {
+        private readonly KeyboardHookListener m_KeyboardHookManager;
         string emissionFormat = "Ascii";
-      
+        public bool autoControlActivated = true;
         DispatcherTimer timerAffichage;
         Queue<byte> byteListReceived = new Queue<byte>();
         Robot robot = new Robot();
@@ -40,8 +45,11 @@ namespace RobotWPF
             timerAffichage.Interval = new TimeSpan(0, 0, 0, 0, 250);
             timerAffichage.Tick += TimerAffichage_Tick;
             timerAffichage.Start();
-            
-            
+
+            m_KeyboardHookManager = new KeyboardHookListener(new GlobalHooker());
+            m_KeyboardHookManager.Enabled = true;
+            m_KeyboardHookManager.KeyDown += HookManager_KeyDown;
+
         }
 
 
@@ -81,8 +89,8 @@ namespace RobotWPF
                 robot.DecodeMessage(byteDequeue);
                 string msg_byte = "0x" + byteDequeue.ToString("X2") + " ";
                 Run run = new Run(msg_byte);
-                
-                
+
+
                 switch (robot.rcvState)
                 {
                     case Robot.StateReception.Waiting:
@@ -91,13 +99,17 @@ namespace RobotWPF
                             if (robot.msgIsWrong)
                             {
                                 run.Foreground = new SolidColorBrush(Colors.Red);
-                            } else {
+                            }
+                            else
+                            {
                                 run.Foreground = new SolidColorBrush(Colors.Green);
                             }
-                        } else {
+                        }
+                        else
+                        {
                             run.Foreground = new SolidColorBrush(Colors.Gray);
                         }
-                        
+
                         break;
                     case Robot.StateReception.FunctionMSB:
                         run.Foreground = new SolidColorBrush(Colors.Purple);
@@ -116,7 +128,9 @@ namespace RobotWPF
                         if (robot.rcvBefore == Robot.StateReception.PayloadLengthLSB)
                         {
                             run.Foreground = new SolidColorBrush(Colors.LightBlue);
-                        } else {
+                        }
+                        else
+                        {
                             run.Foreground = new SolidColorBrush(Colors.White);
                         }
                         break;
@@ -150,7 +164,7 @@ namespace RobotWPF
             getMessage();
         }
 
-        private void TextBoxEmission_KeyUp(object sender, KeyEventArgs e)
+        private void TextBoxEmission_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -168,7 +182,9 @@ namespace RobotWPF
 
                 SendMessage(CleanedMessage);
                 run = new Run();
-            } else {
+            }
+            else
+            {
                 run = new Run(CleanedMessage);
                 run.Background = new SolidColorBrush(Colors.Red);
             }
@@ -190,11 +206,12 @@ namespace RobotWPF
                     abc[i] = Convert.ToByte(hex_msg[i], 16);
                 }
                 robot.serialPort.Write(abc, 0, abc.Length);
-            } else
+            }
+            else
             {
                 robot.serialPort.Write(msg);
             }
-            
+
         }
 
         private void Clear()
@@ -203,7 +220,7 @@ namespace RobotWPF
             textBoxReception.Document.Blocks.Clear();
             textBoxReception.Document.Blocks.Add(new Paragraph(new Run()));
         }
-        
+
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             Clear();
@@ -226,7 +243,7 @@ namespace RobotWPF
             array[0] = 0x02;
             array[1] = (byte)random.Next(2);
             robot.UartEncodeAndSendMessage(32, array.Length, array);
-            
+
             array[0] = 0x03;
             array[1] = (byte)random.Next(2);
             robot.UartEncodeAndSendMessage(32, array.Length, array);
@@ -240,8 +257,9 @@ namespace RobotWPF
         private void comboSerial_Opening(object sender, RoutedEventArgs e)
         {
             string[] serialList = ListAllSerialOpen();
-            
-            for (int i = 0; i < serialList.Length; i++) {
+
+            for (int i = 0; i < serialList.Length; i++)
+            {
                 if (!comboSerial.Items.Contains(serialList[i]))
                 {
                     comboSerial.Items.Add(serialList[i]);
@@ -257,13 +275,15 @@ namespace RobotWPF
         private void buttonSerial_Click(object sender, RoutedEventArgs e)
         {
             string select = comboSerial.Text;
-            if (select!= "Null" && comboSerial.SelectedItem != null)
+            if (select != "Null" && comboSerial.SelectedItem != null)
             {
                 if (robot.serialPort != null)
                 {
                     // Can't close the serial
                     //serialPort.Close();
-                } else {
+                }
+                else
+                {
                     robot.serialPort = new ReliableSerialPort(select, 115200, Parity.None, 8, StopBits.One);
                     robot.serialPort.DataReceived += SerialPort_DataReceived;
                     robot.serialPort.Open();
@@ -274,6 +294,42 @@ namespace RobotWPF
         public void SendText(string msg)
         {
             textboxText.Text += msg;
+        }
+
+        private void HookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (autoControlActivated == false)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE }) ;
+                        break;
+                    case Keys.Right :
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_DROITE });
+                        break;
+                    case Keys.Up:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] { 
+                            (byte) Robot.StateRobot.STATE_AVANCE });
+                        break;
+                    case Keys.Down:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_ARRET });
+                        break;
+                    case Keys.PageDown :
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_RECULE });
+                        break;
+                }
+            }
+        }
+
+        private void checkManual_Checked(object sender, RoutedEventArgs e)
+        {
+            autoControlActivated = !(bool)checkManual.IsChecked;
+            robot.UartEncodeAndSendMessage(0x0052, 1, new byte[1] { autoControlActivated?(byte) 1:(byte) 0});
         }
     }
 }

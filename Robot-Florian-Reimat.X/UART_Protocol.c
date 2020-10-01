@@ -125,12 +125,12 @@ void UartProcessDecodedMessage(int function, int payloadLength, unsigned char* p
                     break;
             }
             break;
-        /*case SET_ROBOT_STATE:
-            SetRobotState(msgPayload[0]);
+        case SET_ROBOT_STATE:
+            SetRobotState(payload[0]);
             break;
         case SET_ROBOT_MANUAL_CONTROL:
-            SetRobotAutoControlState(msgPayload[0]);
+            SetRobotAutoControlState(payload[0]);
             break;
-        */
+        
     }
 }

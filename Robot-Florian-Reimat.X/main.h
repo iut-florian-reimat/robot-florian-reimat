@@ -28,5 +28,6 @@
 
 void OperatingSystemLoop(void);
 void SetNextRobotStateInAutomaticMode();
-char * itoa (int);
+void SetRobotState(unsigned char);
+void SetRobotAutoControlState(unsigned char);
 #endif

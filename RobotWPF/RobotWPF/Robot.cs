@@ -143,8 +143,8 @@ namespace RobotWPF
                     Motor2 = (int) msgPayload[1] - 128;
                     break;
                 case 0x0050:
-                    int instant = (((int)msgPayload[1]) << 24) + (((int) msgPayload[2])) << 16 + (((int) msgPayload[3]) << 8) + ((int) msgPayload[4]);
-                    decodedText += "[STATE] " + ((StateRobot) (msgPayload[0])).ToString() + " − " + instant.ToString() + " ms\n";
+                    int instant = (((int) msgPayload[1]) << 24) + (((int) msgPayload[2]) << 16) + (((int) msgPayload[3]) << 8) + ((int) msgPayload[4] << 0);
+                    decodedText += "[STATE] " + ((StateRobot) (msgPayload[0])).ToString() + " − " +  instant.ToString() + " ms\n";
                     actualState = ((StateRobot)(msgPayload[0])).ToString();
                     break;
 

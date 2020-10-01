@@ -28,7 +28,8 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="LED" HorizontalAlignment="Center" Margin="26,49,1,13" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="74" Grid.RowSpan="3" Grid.Column="3" Background="#FF343434" FontFamily="Consolas"/>
+        <GroupBox Header="Manual" HorizontalAlignment="Center" Margin="44,52,108,21" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="79" Grid.RowSpan="2" Grid.Column="3" Background="#FF343434" FontFamily="Consolas" Grid.ColumnSpan="2"/>
+        <GroupBox Header="LED" HorizontalAlignment="Center" Margin="66,52,62,10" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="74" Grid.RowSpan="3" Grid.Column="2" Background="#FF343434" FontFamily="Consolas" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="comboSerial" Margin="0,10,0,0" VerticalAlignment="Center" Height="20" FontFamily="Consolas" AutomationProperties.Name="Test" IsSynchronizedWithCurrentItem="False" Background="#FF7D7D7D" BorderBrush="#FF686868" Foreground="Black" OpacityMask="#FF373737" GotFocus="comboSerial_Opening" Grid.Column="1">
             <ComboBoxItem Content="Null" IsSelected="True"/>
             <Separator/>
@@ -55,9 +56,9 @@
         </GroupBox>
         <Button x:Name="buttonEnvoyer" Content="Send" Margin="0,10,0,20" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" Height="30" FontSize="20" Click="ButtonEnvoyer_Click" Grid.Column="1" Grid.Row="4" RenderTransformOrigin="0.093,0.29" HorizontalAlignment="Left" Width="101"/>
         <Button x:Name="buttonClear" Content="Clear" Margin="0,10,0,20" VerticalAlignment="Center" FontFamily="Consolas" Background="#FF3C3C3C" BorderBrush="#FF050505" Foreground="White" FontSize="20" Click="buttonClear_Click" Grid.Column="3" Grid.Row="4" RenderTransformOrigin="0.093,0.29" Height="30"/>
-        <CheckBox x:Name="checkLed1" Content="Led 1" Grid.Column="3" HorizontalAlignment="Left" Margin="34,9,0,0" Grid.Row="6" VerticalAlignment="Top" Background="#FFBBBBBB" BorderBrush="Black" Foreground="White" OpacityMask="White"/>
-        <CheckBox x:Name="checkLed2" Content="Led 2" Grid.Column="3" HorizontalAlignment="Left" Margin="34,32,0,14" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Background="#FFBBBBBB" BorderBrush="Black" RenderTransformOrigin="0.714,0.067"/>
-        <CheckBox x:Name="checkLed3" Content="Led 3" Grid.Column="3" HorizontalAlignment="Left" Margin="34,0,0,21" Grid.Row="6" Background="#FFBBBBBB" Foreground="White" BorderBrush="Black" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
+        <CheckBox x:Name="checkLed1" Content="Led 1" Grid.Column="2" HorizontalAlignment="Left" Margin="74,12,0,0" Grid.Row="6" VerticalAlignment="Top" Background="#FFBBBBBB" BorderBrush="Black" Foreground="White" OpacityMask="White" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="checkLed2" Content="Led 2" Grid.Column="2" HorizontalAlignment="Left" Margin="74,35,0,11" Grid.Row="6" VerticalAlignment="Center" Foreground="White" Background="#FFBBBBBB" BorderBrush="Black" RenderTransformOrigin="0.714,0.067" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="checkLed3" Content="Led 3" Grid.Column="2" HorizontalAlignment="Left" Margin="74,0,0,18" Grid.Row="6" Background="#FFBBBBBB" Foreground="White" BorderBrush="Black" VerticalAlignment="Bottom" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         <GroupBox Grid.ColumnSpan="2" Header="Motor" HorizontalAlignment="Center" Grid.Column="1" Margin="0,52,43,1" Grid.Row="4" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="159" Grid.RowSpan="2" Background="#FF343434" FontFamily="Consolas"/>
         <GroupBox Grid.ColumnSpan="3" Header="IR " HorizontalAlignment="Center" Margin="29,57,43,10" Grid.Row="5" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="160" Grid.RowSpan="3" Background="#FF343434" FontFamily="Consolas"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,12,0,0" Grid.Row="5" TextWrapping="Wrap" Text="Motor 1: " VerticalAlignment="Top" Height="18" Width="87" Foreground="White" FontFamily="Consolas" FontSize="16"/>
@@ -73,8 +74,9 @@
         <TextBlock x:Name="textBoxIR1" Grid.Column="1" HorizontalAlignment="Left" Margin="59.6,15.2,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
         <TextBlock x:Name="textBoxIR2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,35,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Text="0"/>
         <TextBlock x:Name="textBoxIR3" Grid.Column="1" HorizontalAlignment="Left" Margin="60,54,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="90" Foreground="White" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,1.278" Grid.RowSpan="2" Text="0"/>
-        <GroupBox Grid.ColumnSpan="3" Header="State" HorizontalAlignment="Center" Margin="62.8,52,129.4,8.8" Grid.Row="4" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="139" Background="#FF343434" Grid.Column="2" Grid.RowSpan="2" FontFamily="Consolas">
-            <TextBlock x:Name="textState" HorizontalAlignment="Left" Margin="0,10,-1.8,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="129" FontFamily="Consolas"/>
+        <GroupBox Grid.ColumnSpan="3" Header="State" HorizontalAlignment="Center" Margin="63,52,73,9" Grid.Row="4" RenderTransformOrigin="0.335,0.53" Foreground="White" Width="196" Background="#FF343434" Grid.Column="2" Grid.RowSpan="2" FontFamily="Consolas">
+            <TextBlock x:Name="textState" HorizontalAlignment="Left" Margin="0,10,-2,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="18" Width="186" FontFamily="Consolas"/>
         </GroupBox>
+        <CheckBox x:Name="checkManual" Content="Manual" Grid.Column="3" HorizontalAlignment="Left" Margin="53,12,0,0" Grid.Row="6" VerticalAlignment="Top" Background="#FFBBBBBB" BorderBrush="Black" Foreground="White" OpacityMask="White" Grid.ColumnSpan="2" RenderTransformOrigin="0.746,0.933" Click="checkManual_Checked"/>
     </Grid>
 </Window>
