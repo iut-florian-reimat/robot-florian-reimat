@@ -87,7 +87,7 @@ namespace RobotWPF
                     msgDecodedPayloadLength += (ushort)(c << 0);
                     if (msgDecodedPayloadLength > 0)
                     {
-                        if (msgDecodedPayloadLength < 255) {
+                        if (msgDecodedPayloadLength < 50) {
                             msgDecodedPayload = new byte[msgDecodedPayloadLength];
                             rcvState = StateReception.Payload;
                         } else
@@ -184,7 +184,11 @@ namespace RobotWPF
 
             // Append all bytes
             byte[] msg = new byte[] { 0xFE, HbyteFunction, LbyteFunction, HbytePayloadsLength, LbytePayloadsLength };
-            msg = Combine(msg, msgPayload);
+            if (msgPayload.Length != null)
+            {
+                msg = Combine(msg, msgPayload);
+            }
+            
             return msg;
         }
         private static byte[] Combine(byte[] first, byte[] second)

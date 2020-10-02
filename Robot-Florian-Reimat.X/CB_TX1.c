@@ -57,8 +57,11 @@ void SendOne()
 }
 
 int CB_TX1_RemainingSize(void)
-{
-    return CBTX1_BUFFER_SIZE - abs(cbTx1Head - cbTx1Tail);
+{    
+    if (cbTx1Head > cbTx1Tail)
+        return CBTX1_BUFFER_SIZE - (cbTx1Head - cbTx1Tail);
+    else
+        return CBTX1_BUFFER_SIZE - (cbTx1Tail - cbTx1Head);
 }
 
 unsigned char CB_TX1_IsTranmitting(void)
