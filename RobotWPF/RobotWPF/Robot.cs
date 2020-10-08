@@ -37,7 +37,8 @@ namespace RobotWPF
             STATE_ARRET = 12,
             STATE_ARRET_EN_COURS = 13,
             STATE_RECULE = 14,
-            STATE_RECULE_EN_COURS = 15
+            STATE_RECULE_EN_COURS = 15,
+            STATE_FAST = 16
         }
 
         public StateReception rcvState = StateReception.Waiting;

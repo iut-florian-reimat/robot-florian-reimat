@@ -118,6 +118,14 @@ void OperatingSystemLoop(void) {
         case STATE_RECULE_EN_COURS:
             SetNextRobotStateInAutomaticMode();
             break;
+        case STATE_FAST:
+            PWMSetSpeedConsigne(100, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(100, MOTEUR_GAUCHE);
+            stateRobot = STATE_FAST_EN_COURS;
+            break;
+        case STATE_FAST_EN_COURS:
+            SetNextRobotStateInAutomaticMode();
+            break;
         default:
             stateRobot = STATE_ATTENTE;
             break;

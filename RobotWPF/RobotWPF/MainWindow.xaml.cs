@@ -37,6 +37,7 @@ namespace RobotWPF
         Robot robot = new Robot();
 
         Paragraph receptionPara;
+        private byte [] input_keyboard = new byte[5]{ 0,0,0,0,0 };
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace RobotWPF
             m_KeyboardHookManager = new KeyboardHookListener(new GlobalHooker());
             m_KeyboardHookManager.Enabled = true;
             m_KeyboardHookManager.KeyDown += HookManager_KeyDown;
+            m_KeyboardHookManager.KeyUp += HookManager_KeyUp;
 
         }
 
@@ -280,7 +282,7 @@ namespace RobotWPF
                 if (robot.serialPort != null)
                 {
                     // Can't close the serial
-                    //serialPort.Close();
+                    // serialPort.Close();
                 }
                 else
                 {
@@ -296,36 +298,106 @@ namespace RobotWPF
             textboxText.Text += msg;
         }
 
-        private void HookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        
+
+        private void UpdateManualCommand()
         {
             if (autoControlActivated == false)
             {
-                switch (e.KeyCode)
+                int Keys =(int) (input_keyboard[0] << 4) + (int) (input_keyboard[1] << 3) + (int) (input_keyboard[2] << 2) + (int) (input_keyboard[3] << 1) + (int) (input_keyboard[4] << 0);
+                Console.Write("[");
+                int i;
+                for (i=0; i<4; i++)
                 {
-                    case Keys.Left:
-                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
-                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE }) ;
-                        break;
-                    case Keys.Right :
-                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
-                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_DROITE });
-                        break;
-                    case Keys.Up:
-                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] { 
-                            (byte) Robot.StateRobot.STATE_AVANCE });
-                        break;
-                    case Keys.Down:
+                    Console.Write(input_keyboard[i]);
+                }
+                Console.WriteLine("]:" + Keys);
+                switch (Keys)
+                {
+                    case 0:
                         robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
                             (byte) Robot.StateRobot.STATE_ARRET });
                         break;
-                    case Keys.PageDown :
+                    case 1:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_DROITE });
+                        break;
+                    case 2:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE });
+                        break;
+                    case 4:
                         robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
                             (byte) Robot.StateRobot.STATE_RECULE });
                         break;
+                    case 8:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_AVANCE });
+                        break;
+                    case 9:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_GAUCHE });
+                        break;
+                    case 10:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_TOURNE_DROITE});
+                        break;
+                    case 24:
+                        robot.UartEncodeAndSendMessage(0x0051, 1, new byte[] {
+                            (byte) Robot.StateRobot.STATE_FAST});
+                        break;
+
                 }
             }
         }
 
+        private void HookManager_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            // UP | DOWN | LEFT | RIGHT
+
+            switch (e.KeyCode)
+            {
+                case Keys.Space:
+                    input_keyboard[0] = 1;
+                    break;
+                case Keys.Up:
+                    input_keyboard[1] = 1;
+                    break;
+                case Keys.Down:
+                    input_keyboard[2] = 1;
+                    break;
+                case Keys.Left:
+                    input_keyboard[3] = 1;
+                    break;
+                case Keys.Right:
+                    input_keyboard[4] = 1;
+                    break;
+            }
+            UpdateManualCommand();
+        }
+
+        private void HookManager_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Space:
+                    input_keyboard[0] = 0;
+                    break;
+                case Keys.Up:
+                    input_keyboard[1] = 0;
+                    break;
+                case Keys.Down:
+                    input_keyboard[2] = 0;
+                    break;
+                case Keys.Left:
+                    input_keyboard[3] = 0;
+                    break;
+                case Keys.Right:
+                    input_keyboard[4] = 0;
+                    break;
+            }
+            UpdateManualCommand();
+        }
         private void checkManual_Checked(object sender, RoutedEventArgs e)
         {
             autoControlActivated = !(bool)checkManual.IsChecked;
