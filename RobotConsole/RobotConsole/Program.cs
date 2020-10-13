@@ -13,6 +13,7 @@ namespace RobotConsole
     {
         ReliableSerialPort serialPort;
         
+        static CMDGui cmdGui;
         static MsgEncoder msgEncoder;
         static MsgDecoder msgDecoder;
         
@@ -21,10 +22,11 @@ namespace RobotConsole
             ConsoleTitleFormat("MAIN", "Begin Booting Sequence", true);
             msgDecoder = new MsgDecoder();
             msgEncoder = new MsgEncoder();
-
+            cmdGui = new CMDGui();
             GetSerialPort();
             ConsoleTitleFormat("MAIN", "End  Booting Sequence", true);
             Console.ReadKey();
+            //cmdGui.InitializeCMDGui(); 
         }
 
         static public void ConsoleTitleFormat(string title, string content, bool isCorrect)
