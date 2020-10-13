@@ -18,7 +18,7 @@ using ExtendedSerialPort;
 using System.Windows.Threading;
 using MouseKeyboardActivityMonitor.WinApi;
 using MouseKeyboardActivityMonitor;
-
+using System.Management;
 
 namespace RobotWPF
 {
@@ -402,6 +402,28 @@ namespace RobotWPF
         {
             autoControlActivated = !(bool)checkManual.IsChecked;
             robot.UartEncodeAndSendMessage(0x0052, 1, new byte[1] { autoControlActivated?(byte) 1:(byte) 0});
+        }
+
+        private void GetSerialPort()
+        {
+            try
+            {
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity");
+
+                foreach (ManagementObject queryObj in searcher.Get())
+                {
+                    if (queryObj["Caption"].ToString().Contains("(COM"))
+                    {
+                        Console.WriteLine("serial port : {0}", queryObj["Caption"]);
+                    }
+
+                }
+            }
+            catch (ManagementException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
     }
 }
