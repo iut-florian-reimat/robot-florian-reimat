@@ -11,6 +11,7 @@ namespace RobotConsole
 
     class MsgDecoder 
     {
+        
         private enum State
         {
             Waiting,
@@ -44,14 +45,14 @@ namespace RobotConsole
         private static byte msgChecksum;
 
         private static int msgPayloadIndex = 0; // Maybe edit type
-        public static void ByteReceived(byte b)
+        public void ByteReceived(byte b)
         {
             switch (actualState)
             {
                 case State.Waiting:
                     if (b == SOF)
                     {
-                        OnSOFReceived(new DecodeByteArgs(b));
+                        OnSOFReceived(b);
                     }
                     else
                     {
@@ -85,38 +86,43 @@ namespace RobotConsole
             }
         }
 
-
-        private static void OnSOFReceived(DecodeByteArgs e) 
+        public event EventHandler<DecodeByteArgs> byteReceivedReached;
+        public virtual void OnSOFReceived(byte e)
         {
             actualState = State.FunctionMSB;
+            var handler = byteReceivedReached;
+            if (handler != null)
+            {
+                handler?.Invoke(this,new DecodeByteArgs(e));
+            }
+            
         }
 
-        private static void OnUnknowReceived(DecodeByteArgs e)
+        public static void OnUnknowReceived(DecodeByteArgs e)
         {
 
         }
-        private static void OnFunctionMSBReceived(DecodeByteArgs e)
+        public static void OnFunctionMSBReceived(DecodeByteArgs e)
         {
             functionMSB = e.b;
             msgFunction = (ushort)(e.b << 8);
             actualState = State.FunctionLSB;
         }
 
-        private static void OnFunctionLSBReceived(DecodeByteArgs e)
+        public static void OnFunctionLSBReceived(DecodeByteArgs e)
         {
             functionLSB = e.b;
             msgFunction += (ushort)(e.b << 0);
             actualState = State.PayloadLengthMSB;
         }
 
-        private static void OnPayloadLenghtMSBReceided(DecodeByteArgs e)
+        public static void OnPayloadLenghtMSBReceided(DecodeByteArgs e)
         {
             payloadLenghtMSB = e.b;
             msgPayloadLenght = (ushort)(e.b << 8);
             actualState = State.PayloadLengthLSB;
         }
-
-        private static void OnPayloadLenghtLSBReceided(DecodeByteArgs e)
+        public static void OnPayloadLenghtLSBReceided(DecodeByteArgs e)
         {
             payloadLenghtLSB = e.b;
             msgPayloadLenght += (ushort)(e.b << 0);
@@ -126,7 +132,7 @@ namespace RobotConsole
             msgPayload = new byte[msgPayloadLenght];
         }
 
-        private static void OnPayloadByteReceived(DecodeByteArgs e)
+        public static void OnPayloadByteReceived(DecodeByteArgs e)
         {
             msgPayload[msgPayloadIndex] = e.b;
             msgPayloadIndex++;
@@ -136,12 +142,12 @@ namespace RobotConsole
             }
         }
 
-        private static void OnPayloadReceived(DecodeByteArgs e)
+        public static void OnPayloadReceived(DecodeByteArgs e)
         {
             actualState = State.CheckSum;
         }
 
-        private static void OnCheckSumReceived(DecodeByteArgs e)
+        public static void OnCheckSumReceived(DecodeByteArgs e)
         {
             msgChecksum = e.b;
             if (msgChecksum == CalculateChecksum())
@@ -154,12 +160,12 @@ namespace RobotConsole
             actualState = State.Waiting;
         }
 
-        private static void OnCorrectChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
+        public static void OnCorrectChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
         {
 
         }
 
-        private static void OnWrongChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
+        public static void OnWrongChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
         {
 
         }
