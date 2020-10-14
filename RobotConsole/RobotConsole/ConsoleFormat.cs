@@ -34,11 +34,59 @@ namespace RobotConsole
             Console.ForegroundColor = color;
             Console.WriteLine("    - " + content);
         }
-
-        static public void ConsoleSOFFormat(object sender, MsgDecoder.DecodeByteArgs e)
+        static public void PrintUnknowByte(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintSOF(object sender, MsgDecoder.DecodeByteArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write(e.b);
+            Console.Write("0x" + e.b.ToString("X")+ " ");
+            Console.ResetColor();
+        }
+        static public void PrintFunctionMSB(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintFunctionLSB(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintLenghtMSB(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintLenghtLSB(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintPayloadByte(object sender, MsgDecoder.DecodeByteArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("0x" + e.b.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintCorrectChecksum(object sender, MsgDecoder.DecodeMsgArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("0x" + e.msgChecksum.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        static public void PrintWrongChecksum(object sender, MsgDecoder.DecodeMsgArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("0x" + e.msgChecksum.ToString("X2") + " ");
+            Console.ResetColor();
         }
     }
 }

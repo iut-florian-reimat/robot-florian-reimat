@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using ExtendedSerialPort;
 using System.Management;
 using System.IO.Ports;
+using System.Security.Cryptography.X509Certificates;
+
 namespace RobotConsole
 {
     class Program
@@ -24,12 +26,35 @@ namespace RobotConsole
             msgEncoder = new MsgEncoder();
             serial = new Serial();
             cmdGui = new CMDGui();
-            if (serial.AutoConnectSerial())
+            if (/*serial.AutoConnectSerial()  TEMPO */ true)
             {
-                // msgDecoder.OnSOFReceived ----- TODO
+                msgDecoder.OnUnknowByteEvent += ConsoleFormat.PrintUnknowByte;
+                msgDecoder.OnSOFByteReceivedEvent += ConsoleFormat.PrintSOF;
+                msgDecoder.OnFunctionMSBByteReceivedEvent += ConsoleFormat.PrintFunctionMSB;
+                msgDecoder.OnFunctionLSBByteReceivedEvent += ConsoleFormat.PrintFunctionLSB;
+                msgDecoder.OnPayloadLenghtMSBByteReceivedEvent += ConsoleFormat.PrintLenghtMSB;
+                msgDecoder.OnPayloadLenghtLSBByteReceivedEvent += ConsoleFormat.PrintLenghtLSB;
+                msgDecoder.OnPayloadByteReceivedEvent += ConsoleFormat.PrintPayloadByte;
+                msgDecoder.OnCorrectChecksumEvent += ConsoleFormat.PrintCorrectChecksum;
+                msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongChecksum;
+                
             }
 
+            
+            
+            Console.WriteLine();
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
+            for (int i = 0; i < 999999; i++)
+            {
+                Random rnd = new Random();
+                Byte[] randombyte = new Byte[255];
+                rnd.NextBytes(randombyte);
+                foreach (byte x in randombyte)
+                {
+                    msgDecoder.ByteReceived(x);
+                }
+
+            }
             Console.ReadKey();
             //cmdGui.InitializeCMDGui(); 
         }

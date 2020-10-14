@@ -22,7 +22,6 @@ namespace RobotConsole
             Payload,
             CheckSum
         }
-
         private enum FunctionName
         {
             Set_LED     = 0x0020,
@@ -34,6 +33,8 @@ namespace RobotConsole
 
         static State actualState = State.Waiting;
         const byte SOF = 0xFE;
+        const ushort MAX_MSG_LENGHT = 255;
+
         private static byte functionMSB;
         private static byte functionLSB;
         private static byte payloadLenghtMSB;
@@ -56,120 +57,134 @@ namespace RobotConsole
                     }
                     else
                     {
-                        OnUnknowReceived(new DecodeByteArgs(b));
+                        OnUnknowReceived(b);
                     }
                     break;
 
                 case State.FunctionMSB:
-                    OnFunctionMSBReceived(new DecodeByteArgs(b));
+                    OnFunctionMSBReceived(b);
                     break;
 
                 case State.FunctionLSB:
-                    OnFunctionLSBReceived(new DecodeByteArgs(b));
+                    OnFunctionLSBReceived(b);
                     break;
 
                 case State.PayloadLengthMSB:
-                    OnPayloadLenghtMSBReceided(new DecodeByteArgs(b));
+                    OnPayloadLenghtMSBReceided(b);
                     break;
 
                 case State.PayloadLengthLSB:
-                    OnPayloadLenghtLSBReceided(new DecodeByteArgs(b));
+                    OnPayloadLenghtLSBReceided(b);
                     break;
 
                 case State.Payload:
-                    OnPayloadByteReceived(new DecodeByteArgs(b));
+                    OnPayloadByteReceived(b);
                     break;
 
                 case State.CheckSum:
-                    OnCheckSumReceived(new DecodeByteArgs(b));
+                    OnCheckSumReceived(b);
                     break;
-            }
-        }
-
-        public event EventHandler<DecodeByteArgs> byteReceivedReached;
-        public virtual void OnSOFReceived(byte e)
-        {
-            actualState = State.FunctionMSB;
-            var handler = byteReceivedReached;
-            if (handler != null)
-            {
-                handler?.Invoke(this,new DecodeByteArgs(e));
             }
             
         }
 
-        public static void OnUnknowReceived(DecodeByteArgs e)
+        public event EventHandler<DecodeByteArgs> OnSOFByteReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnUnknowByteEvent;
+        public event EventHandler<DecodeByteArgs> OnFunctionMSBByteReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnFunctionLSBByteReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnPayloadLenghtMSBByteReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnPayloadLenghtLSBByteReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnPayloadByteReceivedEvent;
+        public event EventHandler<DecodePayloadArgs> OnPayloadReceivedEvent;
+        public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
+        public event EventHandler<DecodeMsgArgs> OnCorrectChecksumEvent;
+        public event EventHandler<DecodeMsgArgs> OnWrongChecksumEvent;
+
+        public virtual void OnSOFReceived(byte e)
         {
+            actualState = State.FunctionMSB;
+            OnSOFByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
 
         }
-        public static void OnFunctionMSBReceived(DecodeByteArgs e)
+        public virtual void OnUnknowReceived(byte e)
         {
-            functionMSB = e.b;
-            msgFunction = (ushort)(e.b << 8);
+            OnUnknowByteEvent?.Invoke(this, new DecodeByteArgs(e));
+
+        }
+        public virtual void OnFunctionMSBReceived(byte e)
+        {
+            functionMSB = e;
+            msgFunction = (ushort)(e << 8);
             actualState = State.FunctionLSB;
+            OnFunctionMSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-
-        public static void OnFunctionLSBReceived(DecodeByteArgs e)
+        public virtual void OnFunctionLSBReceived(byte e)
         {
-            functionLSB = e.b;
-            msgFunction += (ushort)(e.b << 0);
+            functionLSB = e;
+            msgFunction += (ushort)(e << 0);
             actualState = State.PayloadLengthMSB;
-        }
+            OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
 
-        public static void OnPayloadLenghtMSBReceided(DecodeByteArgs e)
+        }
+        public virtual void OnPayloadLenghtMSBReceided(byte e)
         {
-            payloadLenghtMSB = e.b;
-            msgPayloadLenght = (ushort)(e.b << 8);
+            payloadLenghtMSB = e;
+            msgPayloadLenght = (ushort)(e << 8);
             actualState = State.PayloadLengthLSB;
+            OnPayloadLenghtMSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-        public static void OnPayloadLenghtLSBReceided(DecodeByteArgs e)
+        public virtual void OnPayloadLenghtLSBReceided(byte e)
         {
-            payloadLenghtLSB = e.b;
-            msgPayloadLenght += (ushort)(e.b << 0);
+            payloadLenghtLSB = e;
+            msgPayloadLenght += (ushort)(e << 0);
             actualState = State.Payload;
-
-            msgPayloadIndex = 0;
-            msgPayload = new byte[msgPayloadLenght];
+            
+            if (msgPayloadLenght <= MAX_MSG_LENGHT)
+            {
+                msgPayloadIndex = 0;
+                msgPayload = new byte[msgPayloadLenght];   
+            } else
+            {
+                actualState = State.Waiting;
+            }
+            OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-
-        public static void OnPayloadByteReceived(DecodeByteArgs e)
+        public virtual void OnPayloadByteReceived(byte e)
         {
-            msgPayload[msgPayloadIndex] = e.b;
+            msgPayload[msgPayloadIndex] = e;
             msgPayloadIndex++;
             if (msgPayloadIndex == msgPayloadLenght)
             {
-                OnPayloadReceived(new DecodeByteArgs(msgPayload));
+                OnPayloadReceived(msgPayload);
             }
+            OnPayloadByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-
-        public static void OnPayloadReceived(DecodeByteArgs e)
+        public virtual void OnPayloadReceived(byte[] e)
         {
             actualState = State.CheckSum;
+            OnPayloadReceivedEvent?.Invoke(this, new DecodePayloadArgs(e));
         }
-
-        public static void OnCheckSumReceived(DecodeByteArgs e)
+        public virtual void OnCheckSumReceived(byte e)
         {
-            msgChecksum = e.b;
+            msgChecksum = e;
             if (msgChecksum == CalculateChecksum())
             {
-                OnCorrectChecksumReceived(new DecodeByteArgs(e.b)); // MODIFY ARGS
+                OnCorrectChecksumReceived(); 
             } else
             {
-                OnWrongChecksumReceived(new DecodeByteArgs(e.b)); // MODIFY ARGS
+                OnWrongChecksumReceived(); 
             }
             actualState = State.Waiting;
+            OnChecksumByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
         }
-
-        public static void OnCorrectChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
+        public virtual void OnCorrectChecksumReceived()
         {
-
+            OnCorrectChecksumEvent?.Invoke(this, new DecodeMsgArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
-
-        public static void OnWrongChecksumReceived(DecodeByteArgs e) // MODIFY ARGS
+        public virtual void OnWrongChecksumReceived() 
         {
-
+            OnWrongChecksumEvent?.Invoke(this, new DecodeMsgArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
-
         private static byte CalculateChecksum()
         {
             byte checksum = SOF;
@@ -187,15 +202,34 @@ namespace RobotConsole
         public class DecodeByteArgs : EventArgs
         {
             public byte b { get; set; }
-            public byte [] payload { get; set; }
-
-            public DecodeByteArgs(byte[] payload_a)
-            {
-                payload = payload_a;
-            }
+            
             public DecodeByteArgs(byte b_a)
             {
                 b = b_a;
+            }
+        }
+        public class DecodePayloadArgs : EventArgs
+        {
+            public byte[] payload { get; set; }
+
+            public DecodePayloadArgs(byte[] payload_a)
+            {
+                payload = payload_a;
+            }
+        }
+        public class DecodeMsgArgs : EventArgs
+        {
+            public ushort msgFunction { get; set; }
+            public ushort msgPayloadLenght { get; set; }
+            public byte[] msgPayload { get; set; }
+            public byte msgChecksum { get; set; }
+
+            public DecodeMsgArgs(ushort msgFunction_a, ushort msgPayloadLenght_a,  byte[] msgPayload_a, byte msgChecksum_a)
+            {
+                msgFunction = msgFunction_a;
+                msgPayloadLenght = msgPayloadLenght_a;
+                msgPayload = msgPayload_a;
+                msgChecksum = msgChecksum_a;
             }
         }
     }
