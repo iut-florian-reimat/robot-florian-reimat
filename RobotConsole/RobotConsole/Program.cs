@@ -41,7 +41,7 @@ namespace RobotConsole
                     msgDecoder.OnPayloadLenghtLSBByteReceivedEvent += ConsoleFormat.PrintLenghtLSB;
                     msgDecoder.OnPayloadByteReceivedEvent += ConsoleFormat.PrintPayloadByte;
                     msgDecoder.OnCorrectChecksumEvent += ConsoleFormat.PrintCorrectChecksum;
-                    msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongChecksum;                    
+                    msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongChecksum;
                 }
 
                 if (hex_error_viewer)
@@ -51,13 +51,10 @@ namespace RobotConsole
                     msgDecoder.OnWrongLenghtFunctionEvent += ConsoleFormat.PrintWrongFonctionLenght;
                     msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongMessage;
                 }
-
             }
-
-            
-       
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
-           
+            byte[] array = new byte[] { 1 };
+            msgEncoder.UartEncodeAndSendMessage((ushort) Protocol.FunctionName.SET_STATE, array);
             Console.ReadKey();
             //cmdGui.InitializeCMDGui(); 
         }

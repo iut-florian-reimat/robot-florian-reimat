@@ -22,20 +22,9 @@ namespace RobotConsole
             Payload,
             CheckSum
         }
-        private enum FunctionName : ushort
-        {
-            SET_LED     = 0x0020,
-            GET_IR      = 0x0030,
-            SET_MOTOR   = 0x0040,
-            GET_STATE   = 0x0050,
-            GET_TEXT    = 0x0080
-            // Add all protocol
-        }
-
+        
         static State actualState = State.Waiting;
-        const byte SOF = 0xFE;
-        const ushort MAX_MSG_LENGHT = 255;
-
+        
         private static byte functionMSB;
         private static byte functionLSB;
         private static byte payloadLenghtMSB;
@@ -52,7 +41,7 @@ namespace RobotConsole
             switch (actualState)
             {
                 case State.Waiting:
-                    if (b == SOF)
+                    if (b == Protocol.SOF)
                     {
                         OnSOFReceived(b);
                     }
@@ -127,7 +116,7 @@ namespace RobotConsole
             functionLSB = e;
             msgFunction += (ushort)(e << 0);
             OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (CheckFunctionLenght() != -2)
+            if (Protocol.CheckFunctionLenght(msgFunction) != -2)
             {
                 actualState = State.PayloadLengthMSB;
             } else
@@ -150,9 +139,9 @@ namespace RobotConsole
             msgPayloadLenght += (ushort)(e << 0);
             actualState = State.Waiting;
             OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-            if (msgPayloadLenght <= MAX_MSG_LENGHT)
+            if (msgPayloadLenght <= Protocol.MAX_MSG_LENGHT)
             {
-                short allowedLenght = CheckFunctionLenght();
+                short allowedLenght = Protocol.CheckFunctionLenght(msgFunction);
                 if (allowedLenght != -2)
                 {
                     if (allowedLenght == -1 || allowedLenght == msgPayloadLenght)
@@ -176,30 +165,8 @@ namespace RobotConsole
             
         }
 
-        private static short CheckFunctionLenght()
-        {
-            switch (msgFunction)
-            {
-                // -2               : UNKNOW
-                // -1               : UNLIMITED 
-                // [0:MAX_LENGHT]   : FIXED
-                case (ushort) FunctionName.SET_LED:
-                    return 2;
-                case (ushort) FunctionName.GET_IR:
-                    return 3;
-                case (ushort) FunctionName.SET_MOTOR:
-                    return 2;
-                case (ushort) FunctionName.GET_TEXT:
-                    return -1;
-                case (ushort) FunctionName.GET_STATE:
-                    return 5;
-                default:
-                    return -2;
-
-
-            }
-        }
-
+       
+        
         public virtual void OnOverLenghtMessage()
         {
             OnOverLenghtMessageEvent?.Invoke(this,new EventArgs());
@@ -250,7 +217,7 @@ namespace RobotConsole
         }
         private static byte CalculateChecksum()
         {
-            byte checksum = SOF;
+            byte checksum = Protocol.SOF;
             checksum ^= functionMSB;
             checksum ^= functionLSB;
             checksum ^= payloadLenghtMSB;
