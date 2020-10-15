@@ -19,6 +19,9 @@ namespace RobotConsole
         static MsgEncoder msgEncoder;
         public static MsgDecoder msgDecoder;
         static Serial serial;
+
+        private static bool hex_viewer = true;
+        private static bool hex_error_viewer = true;
         static void Main(string[] args)
         {
             ConsoleFormat.ConsoleInformationFormat("MAIN", "Begin Booting Sequence", true);
@@ -26,35 +29,35 @@ namespace RobotConsole
             msgEncoder = new MsgEncoder();
             serial = new Serial();
             cmdGui = new CMDGui();
-            if (/*serial.AutoConnectSerial()  TEMPO */ true)
+            if (serial.AutoConnectSerial())
             {
-                msgDecoder.OnUnknowByteEvent += ConsoleFormat.PrintUnknowByte;
-                msgDecoder.OnSOFByteReceivedEvent += ConsoleFormat.PrintSOF;
-                msgDecoder.OnFunctionMSBByteReceivedEvent += ConsoleFormat.PrintFunctionMSB;
-                msgDecoder.OnFunctionLSBByteReceivedEvent += ConsoleFormat.PrintFunctionLSB;
-                msgDecoder.OnPayloadLenghtMSBByteReceivedEvent += ConsoleFormat.PrintLenghtMSB;
-                msgDecoder.OnPayloadLenghtLSBByteReceivedEvent += ConsoleFormat.PrintLenghtLSB;
-                msgDecoder.OnPayloadByteReceivedEvent += ConsoleFormat.PrintPayloadByte;
-                msgDecoder.OnCorrectChecksumEvent += ConsoleFormat.PrintCorrectChecksum;
-                msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongChecksum;
-                
-            }
-
-            
-            
-            Console.WriteLine();
-            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
-            for (int i = 0; i < 999999; i++)
-            {
-                Random rnd = new Random();
-                Byte[] randombyte = new Byte[255];
-                rnd.NextBytes(randombyte);
-                foreach (byte x in randombyte)
+                if (hex_viewer)
                 {
-                    msgDecoder.ByteReceived(x);
+                    msgDecoder.OnUnknowByteEvent += ConsoleFormat.PrintUnknowByte;
+                    msgDecoder.OnSOFByteReceivedEvent += ConsoleFormat.PrintSOF;
+                    msgDecoder.OnFunctionMSBByteReceivedEvent += ConsoleFormat.PrintFunctionMSB;
+                    msgDecoder.OnFunctionLSBByteReceivedEvent += ConsoleFormat.PrintFunctionLSB;
+                    msgDecoder.OnPayloadLenghtMSBByteReceivedEvent += ConsoleFormat.PrintLenghtMSB;
+                    msgDecoder.OnPayloadLenghtLSBByteReceivedEvent += ConsoleFormat.PrintLenghtLSB;
+                    msgDecoder.OnPayloadByteReceivedEvent += ConsoleFormat.PrintPayloadByte;
+                    msgDecoder.OnCorrectChecksumEvent += ConsoleFormat.PrintCorrectChecksum;
+                    msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongChecksum;                    
+                }
+
+                if (hex_error_viewer)
+                {
+                    msgDecoder.OnOverLenghtMessageEvent += ConsoleFormat.PrintOverLenghtWarning;
+                    msgDecoder.OnUnknowFunctionEvent += ConsoleFormat.PrintUnknowFunction;
+                    msgDecoder.OnWrongLenghtFunctionEvent += ConsoleFormat.PrintWrongFonctionLenght;
+                    msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongMessage;
                 }
 
             }
+
+            
+       
+            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
+           
             Console.ReadKey();
             //cmdGui.InitializeCMDGui(); 
         }

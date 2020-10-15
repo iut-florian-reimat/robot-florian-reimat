@@ -112,7 +112,7 @@ void UartDecodeMessage(unsigned char c) {
 
 void UartProcessDecodedMessage(int function, int payloadLength, unsigned char* payload) {
     switch (function) {
-        case SET_LED_STATE:
+        case GET_LED_STATE:
             switch(payload[0]) {
                 case 0x01:
                     LED_ORANGE = (payload[1] == 0x01)?1:0;
@@ -125,11 +125,12 @@ void UartProcessDecodedMessage(int function, int payloadLength, unsigned char* p
                     break;
             }
             break;
-        case SET_ROBOT_STATE:
-            SetRobotState(payload[0]);
+        case GET_MOTOR_SPEED:
+            SetCustomMotorSpeed(payload[0], payload[1]);
+            SetRobotState(STATE_CUSTOM);
             break;
-        case SET_ROBOT_MANUAL_CONTROL:
-            SetRobotAutoControlState(payload[0]);
+        case GET_ROBOT_STATE:
+            SetRobotState(payload[0]);
             break;
         
     }

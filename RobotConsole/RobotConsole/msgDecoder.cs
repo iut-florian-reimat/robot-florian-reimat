@@ -22,12 +22,13 @@ namespace RobotConsole
             Payload,
             CheckSum
         }
-        private enum FunctionName
+        private enum FunctionName : ushort
         {
-            Set_LED     = 0x0020,
-            Get_IR      = 0x0030,
-            Set_Motor   = 0x0040,
-            Get_Text    = 0x0080
+            SET_LED     = 0x0020,
+            GET_IR      = 0x0030,
+            SET_MOTOR   = 0x0040,
+            GET_STATE   = 0x0050,
+            GET_TEXT    = 0x0080
             // Add all protocol
         }
 
@@ -99,6 +100,9 @@ namespace RobotConsole
         public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
         public event EventHandler<DecodeMsgArgs> OnCorrectChecksumEvent;
         public event EventHandler<DecodeMsgArgs> OnWrongChecksumEvent;
+        public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
+        public event EventHandler<EventArgs> OnUnknowFunctionEvent;
+        public event EventHandler<EventArgs> OnWrongLenghtFunctionEvent;
 
         public virtual void OnSOFReceived(byte e)
         {
@@ -122,9 +126,16 @@ namespace RobotConsole
         {
             functionLSB = e;
             msgFunction += (ushort)(e << 0);
-            actualState = State.PayloadLengthMSB;
             OnFunctionLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
-
+            if (CheckFunctionLenght() != -2)
+            {
+                actualState = State.PayloadLengthMSB;
+            } else
+            {
+                actualState = State.Waiting;
+                OnUnknowFunction();
+            }
+            
         }
         public virtual void OnPayloadLenghtMSBReceided(byte e)
         {
@@ -137,17 +148,69 @@ namespace RobotConsole
         {
             payloadLenghtLSB = e;
             msgPayloadLenght += (ushort)(e << 0);
-            actualState = State.Payload;
-            
+            actualState = State.Waiting;
+            OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
             if (msgPayloadLenght <= MAX_MSG_LENGHT)
             {
-                msgPayloadIndex = 0;
-                msgPayload = new byte[msgPayloadLenght];   
+                short allowedLenght = CheckFunctionLenght();
+                if (allowedLenght != -2)
+                {
+                    if (allowedLenght == -1 || allowedLenght == msgPayloadLenght)
+                    {
+                        actualState = State.Payload;
+                        msgPayloadIndex = 0;
+                        msgPayload = new byte[msgPayloadLenght];
+                    } else
+                    {
+                        OnWrongLenghtFunction();
+                    }
+                } else
+                {
+                    OnUnknowFunction();
+                }
+                
             } else
             {
-                actualState = State.Waiting;
+                OnOverLenghtMessage();
             }
-            OnPayloadLenghtLSBByteReceivedEvent?.Invoke(this, new DecodeByteArgs(e));
+            
+        }
+
+        private static short CheckFunctionLenght()
+        {
+            switch (msgFunction)
+            {
+                // -2               : UNKNOW
+                // -1               : UNLIMITED 
+                // [0:MAX_LENGHT]   : FIXED
+                case (ushort) FunctionName.SET_LED:
+                    return 2;
+                case (ushort) FunctionName.GET_IR:
+                    return 3;
+                case (ushort) FunctionName.SET_MOTOR:
+                    return 2;
+                case (ushort) FunctionName.GET_TEXT:
+                    return -1;
+                case (ushort) FunctionName.GET_STATE:
+                    return 5;
+                default:
+                    return -2;
+
+
+            }
+        }
+
+        public virtual void OnOverLenghtMessage()
+        {
+            OnOverLenghtMessageEvent?.Invoke(this,new EventArgs());
+        }
+        public virtual void OnUnknowFunction()
+        {
+            OnUnknowFunctionEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnWrongLenghtFunction()
+        {
+            OnWrongLenghtFunctionEvent?.Invoke(this, new EventArgs());
         }
         public virtual void OnPayloadByteReceived(byte e)
         {

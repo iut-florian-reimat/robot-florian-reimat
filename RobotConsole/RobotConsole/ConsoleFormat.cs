@@ -8,6 +8,7 @@ namespace RobotConsole
 {
     class ConsoleFormat
     {
+        private static long hex_index = 0;
         static public void ConsoleTitleFormat(string title, bool isCorrect)
         {
             Console.Write("[");
@@ -42,6 +43,8 @@ namespace RobotConsole
         }
         static public void PrintSOF(object sender, MsgDecoder.DecodeByteArgs e)
         {
+            Console.ResetColor();
+            Console.Write(hex_index++ + ": ");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("0x" + e.b.ToString("X")+ " ");
             Console.ResetColor();
@@ -75,17 +78,46 @@ namespace RobotConsole
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("0x" + e.b.ToString("X2") + " ");
             Console.ResetColor();
+            
         }
         static public void PrintCorrectChecksum(object sender, MsgDecoder.DecodeMsgArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("0x" + e.msgChecksum.ToString("X2") + " ");
+            Console.WriteLine("0x" + e.msgChecksum.ToString("X2") + " ");
             Console.ResetColor();
         }
         static public void PrintWrongChecksum(object sender, MsgDecoder.DecodeMsgArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("0x" + e.msgChecksum.ToString("X2") + " ");
+            Console.WriteLine("0x" + e.msgChecksum.ToString("X2") + " ");
+            Console.ResetColor();
+        }
+        
+        static public void PrintOverLenghtWarning(object sender, EventArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\n /!\\ WARNING A MESSAGE HAS EXCEED THE MAX LENGHT /!\\");
+            Console.ResetColor();
+        }
+
+        static public void PrintWrongFonctionLenght(object sender, EventArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("\n /!\\ WARNING A FUNCTION HAS WRONG LENGHT /!\\");
+            Console.ResetColor();
+        }
+
+        static public void PrintUnknowFunction(object sender, EventArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\n /!\\ WARNING AN UNKNOW FUNCTION HAD BEEN SENT /!\\");
+            Console.ResetColor();
+        }
+
+        static public void PrintWrongMessage(object sender, MsgDecoder.DecodeMsgArgs e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n /!\\ WARNING AN MESSAGED HAD BEEN CORRUPTED /!\\"); 
             Console.ResetColor();
         }
     }
