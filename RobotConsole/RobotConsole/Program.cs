@@ -15,21 +15,36 @@ namespace RobotConsole
     {
         public static ReliableSerialPort serialPort;
         
-        static CMDGui cmdGui;
-        static MsgEncoder msgEncoder;
+        public static MsgEncoder msgEncoder;
         public static MsgDecoder msgDecoder;
+        public static MsgGenerator msgGenerator;
+        public static MsgProcessor msgProcessor;
         static Serial serial;
 
         private static bool hex_viewer = true;
         private static bool hex_error_viewer = true;
+        private static bool hex_sender = true;
+        private static bool hex_error_sender = true;
+        private static bool function_received = true;
+
         static void Main(string[] args)
         {
             ConsoleFormat.ConsoleInformationFormat("MAIN", "Begin Booting Sequence", true);
+            
+            serial = new Serial();
             msgDecoder = new MsgDecoder();
             msgEncoder = new MsgEncoder();
-            serial = new Serial();
-            cmdGui = new CMDGui();
-            if (serial.AutoConnectSerial())
+            msgProcessor = new MsgProcessor();
+            msgGenerator = new MsgGenerator();
+           
+            ConsoleFormat.ConsoleInformationFormat("SERIAL", "Begin Auto-Connection", true);
+            bool isSerialConnected = serial.AutoConnectSerial();
+
+            ConsoleFormat.ConsoleInformationFormat("DECODER", "Message Decoder is launch", true);
+            ConsoleFormat.ConsoleInformationFormat("ENCODER", "Message Encoder is launch", true);
+            ConsoleFormat.ConsoleInformationFormat("PROCESSOR", "Message Processor is launch", true);
+            ConsoleFormat.ConsoleInformationFormat("GENERATOR", "Message Generator is launch", true);
+            if (isSerialConnected)
             {
                 if (hex_viewer)
                 {
@@ -47,18 +62,30 @@ namespace RobotConsole
                 if (hex_error_viewer)
                 {
                     msgDecoder.OnOverLenghtMessageEvent += ConsoleFormat.PrintOverLenghtWarning;
-                    msgDecoder.OnUnknowFunctionEvent += ConsoleFormat.PrintUnknowFunction;
-                    msgDecoder.OnWrongLenghtFunctionEvent += ConsoleFormat.PrintWrongFonctionLenght;
+                    msgDecoder.OnUnknowFunctionEvent += ConsoleFormat.PrintUnknowFunctionReceived;
+                    msgDecoder.OnWrongLenghtFunctionEvent += ConsoleFormat.PrintWrongFonctionLenghtReceived;
                     msgDecoder.OnWrongChecksumEvent += ConsoleFormat.PrintWrongMessage;
+                }
+
+                if (hex_sender)
+                {
+                    msgEncoder.OnSendMessageEvent += ConsoleFormat.PrintSendMsg;
+                }
+
+                if (hex_error_sender)
+                {
+                    msgEncoder.OnSerialDisconnectedEvent += ConsoleFormat.PrintOnSerialDisconnectedError;
+                    msgEncoder.OnUnknownFunctionSentEvent += ConsoleFormat.PrintUnknowFunctionSent;
+                    msgEncoder.OnWrongPayloadSentEvent += ConsoleFormat.PrintWrongFunctionLenghtSent;
+                }
+
+                if (function_received)
+                {
+                    msgProcessor.OnIRMessageReceivedEvent += ConsoleFormat.PrintIRMessageReceived;
                 }
             }
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
-            byte[] array = new byte[] { 1 };
-            msgEncoder.UartEncodeAndSendMessage((ushort) Protocol.FunctionName.SET_STATE, array);
             Console.ReadKey();
-            //cmdGui.InitializeCMDGui(); 
         }
-
-
     }
 }

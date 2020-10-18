@@ -87,8 +87,8 @@ namespace RobotConsole
         public event EventHandler<DecodeByteArgs> OnPayloadByteReceivedEvent;
         public event EventHandler<DecodePayloadArgs> OnPayloadReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
-        public event EventHandler<DecodeMsgArgs> OnCorrectChecksumEvent;
-        public event EventHandler<DecodeMsgArgs> OnWrongChecksumEvent;
+        public event EventHandler<Protocol.MessageByteArgs> OnCorrectChecksumEvent;
+        public event EventHandler<Protocol.MessageByteArgs> OnWrongChecksumEvent;
         public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
         public event EventHandler<EventArgs> OnUnknowFunctionEvent;
         public event EventHandler<EventArgs> OnWrongLenghtFunctionEvent;
@@ -209,11 +209,11 @@ namespace RobotConsole
         }
         public virtual void OnCorrectChecksumReceived()
         {
-            OnCorrectChecksumEvent?.Invoke(this, new DecodeMsgArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
+            OnCorrectChecksumEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
         public virtual void OnWrongChecksumReceived() 
         {
-            OnWrongChecksumEvent?.Invoke(this, new DecodeMsgArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
+            OnWrongChecksumEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
         private static byte CalculateChecksum()
         {
@@ -245,21 +245,6 @@ namespace RobotConsole
             public DecodePayloadArgs(byte[] payload_a)
             {
                 payload = payload_a;
-            }
-        }
-        public class DecodeMsgArgs : EventArgs
-        {
-            public ushort msgFunction { get; set; }
-            public ushort msgPayloadLenght { get; set; }
-            public byte[] msgPayload { get; set; }
-            public byte msgChecksum { get; set; }
-
-            public DecodeMsgArgs(ushort msgFunction_a, ushort msgPayloadLenght_a,  byte[] msgPayload_a, byte msgChecksum_a)
-            {
-                msgFunction = msgFunction_a;
-                msgPayloadLenght = msgPayloadLenght_a;
-                msgPayload = msgPayload_a;
-                msgChecksum = msgChecksum_a;
             }
         }
     }

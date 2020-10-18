@@ -21,6 +21,17 @@ namespace RobotConsole
             // Add all protocol
         }
 
+        public enum State : ushort
+        {
+            FORWARD             ,
+            BACKWARD            ,
+            FORWARD_LEFT        ,
+            FORWARD_RIGHT       ,
+            TURN_LEFT           ,
+            TURN_RIGHT          ,
+            FAST_FORWARD        ,
+            SLOW_FORWARD
+        }
         public static short CheckFunctionLenght(ushort msgFunction)
         {
             switch (msgFunction)
@@ -44,6 +55,103 @@ namespace RobotConsole
                     return -2;
 
 
+            }
+        }
+        public class MessageByteArgs : EventArgs
+        {
+            public byte SOF { get; set; }
+            public byte functionMsb { get; set; }
+            public byte functionLsb { get; set; }
+            public byte lenghtMsb { get; set; }
+            public byte lenghtLsb { get; set; }
+            public byte checksum { get; set; }
+            public ushort msgFunction { get; set; }
+            public ushort msgPayloadLenght { get; set; }
+            public byte[] msgPayload { get; set; }
+
+            public MessageByteArgs(byte SOF_a, byte functionMsb_a, byte functionLsb_a, byte lenghtMsb_a, byte lenghtLsb_a, byte[] msgPaylaod_a, byte checksum_a)
+            {
+                SOF = SOF_a;
+                functionMsb = functionMsb_a;
+                functionLsb = functionLsb_a;
+                lenghtMsb = lenghtMsb_a;
+                lenghtLsb = lenghtLsb_a;
+                msgPayload = msgPaylaod_a;
+                checksum = checksum_a;
+                ConvertByteToFunction();
+            }
+
+            public MessageByteArgs(ushort msgFunction_a, ushort msgPayloadLenght_a, byte[] msgPayload_a, byte checksum_a)
+            {
+                msgFunction = msgFunction_a;
+                msgPayloadLenght = msgPayloadLenght_a;
+                msgPayload = msgPayload_a;
+                checksum = checksum_a;
+                ConvertFunctionToByte();
+            }
+            private void ConvertByteToFunction()
+            {
+                msgFunction = (ushort)(functionMsb << 8 + functionLsb << 0);
+                msgPayloadLenght = (ushort)(lenghtMsb << 8 + lenghtLsb << 0);
+            }
+
+            private void ConvertFunctionToByte()
+            {
+                functionLsb = (byte)(msgFunction >> 0);
+                functionMsb = (byte)(msgFunction >> 8);
+
+                lenghtLsb = (byte)(msgPayloadLenght >> 0);
+                lenghtMsb = (byte)(msgPayloadLenght >> 8);
+            }
+        }
+        public class LedMessageArgs : EventArgs
+        {
+            public ushort led_number { get; set; }
+            public bool state { get; set; }
+
+            public LedMessageArgs(ushort led_number_a, bool state_a)
+            {
+                led_number = led_number_a;
+                state = state_a;
+            }
+        }
+        public class MotorMessageArgs : EventArgs
+        {
+            public sbyte left_speed { get; set; }
+            public sbyte right_speed { get; set; }
+
+            public MotorMessageArgs(sbyte left_speed_a, sbyte right_speed_a)
+            {
+                left_speed = left_speed_a;
+                right_speed = right_speed_a;
+            }
+        }
+        public class StateMessageArgs : EventArgs
+        {
+            public ushort state { get; set; }
+            public uint time { get; set; }
+            public StateMessageArgs(ushort state_a)
+            {
+                state = state_a;
+            }
+
+            public StateMessageArgs(ushort state_a, uint time_a)
+            {
+                state = state_a;
+                time = time_a;
+            }
+        }
+        public class IRMessageArgs : EventArgs
+        {
+            public ushort left_IR { get; set; }
+            public ushort center_IR { get; set; }
+            public ushort right_IR { get; set; }
+        
+            public IRMessageArgs(ushort left, ushort center, ushort right)
+            {
+                left_IR = left;
+                center_IR = center;
+                right_IR = right;
             }
         }
     }

@@ -8,30 +8,44 @@ namespace RobotConsole
 {
     class MsgEncoder
     {
-        
+
         public bool UartEncodeAndSendMessage(ushort msgFunction, byte[] msgPayload)
         {
             short PayloadLenghtTest = Protocol.CheckFunctionLenght(msgFunction);
+            ushort msgPayloadLenght = (ushort)msgPayload.Length;
             if (PayloadLenghtTest != -2)
             {
-                ushort msgPayloadLenght = (ushort)msgPayload.Length;
                 if (PayloadLenghtTest != -1)
                 {
                     msgPayloadLenght = (ushort)PayloadLenghtTest;
-                    
                 }
-                if (msgPayloadLenght == msgPayload.Length)
-                {
-                    byte[] msg = EncodeWithoutChecksum(msgFunction, msgPayloadLenght, msgPayload);
-                    byte checksum = CalculateChecksum(msgFunction, msgPayloadLenght, msgPayload);
+            }
+            
+            if (msgPayloadLenght == msgPayload.Length)
+            {
+                byte[] msg = EncodeWithoutChecksum(msgFunction, msgPayloadLenght, msgPayload);
+                byte checksum = CalculateChecksum(msgFunction, msgPayloadLenght, msgPayload);
 
-                    msg[msg.Length - 1] = checksum;
-                    if (Program.serialPort != null)
-                    {
-                        Program.serialPort.Write(msg, 0, msg.Length);
-                        return true;
-                    } 
+                msg[msg.Length - 1] = checksum;
+                OnSendMessage(msgFunction, msgPayloadLenght, msgPayload, checksum); // NEED TO BE DOWN /!\ ONLY FOR TESTING
+                if (Program.serialPort != null)
+                {
+                    Program.serialPort.Write(msg, 0, msg.Length);
+                    // JUST HERE 
+                    return true;
                 }
+                else
+                {
+                    OnSerialDisconnected();
+                }
+            }
+            else
+            {
+                OnWrongPayloadSent();
+            }
+            if (PayloadLenghtTest == -2)
+            {
+                OnUnknownFunctionSent();
             }
             return false;
         }
@@ -70,6 +84,55 @@ namespace RobotConsole
                 checksum ^= msg[i];
             }
             return checksum;
+        }
+
+        public event EventHandler<Protocol.MessageByteArgs> OnSendMessageEvent;
+        public event EventHandler<Protocol.LedMessageArgs> OnSetLedEvent;
+        public event EventHandler<Protocol.MotorMessageArgs> OnSetMotorSpeedEvent;
+        public event EventHandler<Protocol.StateMessageArgs> OnSetStateEvent;
+        public event EventHandler<EventArgs> OnSerialDisconnectedEvent;
+        public event EventHandler<EventArgs> OnWrongPayloadSentEvent;
+        public event EventHandler<EventArgs> OnUnknownFunctionSentEvent;
+        public virtual void OnSendMessage(ushort msgFunction, ushort msgPayloadLenght, byte[] msgPayload, byte checksum)
+        {
+            OnSendMessageEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, checksum));
+            switch (msgFunction)
+            {
+                case (ushort)Protocol.FunctionName.SET_LED:
+                    OnSetLed(msgPayload[0], (msgPayload[1] == 0x00) ? false : true);
+                    break;
+                case (ushort)Protocol.FunctionName.SET_MOTOR:
+                    OnSetMotorSpeed((sbyte)msgPayload[0], (sbyte)msgPayload[1]);
+                    break;
+                case (ushort)Protocol.FunctionName.SET_STATE:
+                    OnSetState(msgPayload[0]);
+                    break;
+            }
+        }
+        public virtual void OnSetLed(ushort led_number, bool state)
+        {
+            OnSetLedEvent?.Invoke(this, new Protocol.LedMessageArgs(led_number, state));
+        }
+        public virtual void OnSetMotorSpeed(sbyte left_motor_speed, sbyte right_motor_speed)
+        {
+            OnSetMotorSpeedEvent?.Invoke(this, new Protocol.MotorMessageArgs(left_motor_speed, right_motor_speed));
+        }
+        public virtual void OnSetState(ushort state)
+        {
+            OnSetStateEvent?.Invoke(this, new Protocol.StateMessageArgs(state));
+        }
+
+        public virtual void OnSerialDisconnected()
+        {
+            OnSerialDisconnectedEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnWrongPayloadSent()
+        {
+            OnWrongPayloadSentEvent?.Invoke(this, new EventArgs());
+        }
+        public virtual void OnUnknownFunctionSent()
+        {
+            OnUnknownFunctionSentEvent?.Invoke(this, new EventArgs());
         }
     }
 }
