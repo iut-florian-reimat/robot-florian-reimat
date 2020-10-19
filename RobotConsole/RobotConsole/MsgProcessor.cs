@@ -8,7 +8,7 @@ namespace RobotConsole
 {
     class MsgProcessor
     {
-        public virtual void MessageProcessor(object sender, Protocol.MessageByteArgs e)
+        public void MessageProcessor(object sender, Protocol.MessageByteArgs e)
         {
             switch (e.msgFunction)
             {
@@ -31,6 +31,7 @@ namespace RobotConsole
 
         public virtual void OnIRMessageReceived(Protocol.MessageByteArgs e)
         {
+            
             OnIRMessageReceivedEvent?.Invoke(this, new Protocol.IRMessageArgs(e.msgPayload[0], e.msgPayload[1], e.msgPayload[2])); 
         }
 

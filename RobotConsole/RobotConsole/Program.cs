@@ -46,6 +46,7 @@ namespace RobotConsole
             ConsoleFormat.ConsoleInformationFormat("GENERATOR", "Message Generator is launch", true);
             if (isSerialConnected)
             {
+                
                 if (hex_viewer)
                 {
                     msgDecoder.OnUnknowByteEvent += ConsoleFormat.PrintUnknowByte;
@@ -83,9 +84,12 @@ namespace RobotConsole
                 {
                     msgProcessor.OnIRMessageReceivedEvent += ConsoleFormat.PrintIRMessageReceived;
                 }
+                msgDecoder.OnCorrectChecksumEvent += msgProcessor.MessageProcessor;
             }
-            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
+
+            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);            
             Console.ReadKey();
+            
         }
     }
 }
