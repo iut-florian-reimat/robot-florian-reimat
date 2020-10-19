@@ -20,3 +20,4 @@ C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CoreCompileInputs.cache
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CoreCompileInputs.cache
