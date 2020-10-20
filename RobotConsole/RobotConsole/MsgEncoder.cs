@@ -27,11 +27,10 @@ namespace RobotConsole
                 byte checksum = CalculateChecksum(msgFunction, msgPayloadLenght, msgPayload);
 
                 msg[msg.Length - 1] = checksum;
-                OnSendMessage(msgFunction, msgPayloadLenght, msgPayload, checksum); // NEED TO BE DOWN /!\ ONLY FOR TESTING
                 if (Program.serialPort != null)
                 {
                     Program.serialPort.Write(msg, 0, msg.Length);
-                    // JUST HERE 
+                    OnSendMessage(msgFunction, msgPayloadLenght, msgPayload, checksum);
                     return true;
                 }
                 else

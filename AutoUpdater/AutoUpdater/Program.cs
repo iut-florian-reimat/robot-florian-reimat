@@ -21,7 +21,7 @@ namespace AutoUpdater
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = false;
+            cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
 
@@ -33,7 +33,7 @@ namespace AutoUpdater
             //cmd.WaitForExit();
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
             cmd.Close();
-            Process.Start(ABSOLUTE_HOME_DIRECTORY + "\\" + RELATIVE_BIN_DIRECTORY).Close();
+            Process.Start(ABSOLUTE_HOME_DIRECTORY + "\\" + RELATIVE_BIN_DIRECTORY);
             
             Console.ReadKey();
         }

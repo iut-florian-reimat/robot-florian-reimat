@@ -181,7 +181,7 @@ namespace RobotConsole
                 Console.WriteLine();
             }
             Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("/!\\ WARNING MESSAGE CAN'T BE SEND BECAUSE SERIAL IS CLOSE /!\\");
+            Console.WriteLine("/!\\ WARNING MESSAGE CAN'T BE SENT BECAUSE SERIAL IS CLOSED /!\\");
             Console.ResetColor();
         }
 
@@ -205,7 +205,7 @@ namespace RobotConsole
                 Console.WriteLine();
             }
             Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("/!\\ WARNING A FUNCTION WITH WRONG LENGHT HAS TRY TO BE SENT /!\\");
+            Console.WriteLine("/!\\ WARNING A FUNCTION WITH WRONG LENGHT HAS TRIED TO BE SENT /!\\");
             Console.ResetColor();
         }
 

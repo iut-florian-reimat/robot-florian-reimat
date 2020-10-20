@@ -38,12 +38,12 @@ namespace RobotConsole
             msgGenerator = new MsgGenerator();
            
             ConsoleFormat.ConsoleInformationFormat("SERIAL", "Begin Auto-Connection", true);
-            bool isSerialConnected = serial.AutoConnectSerial();
+            bool isSerialConnected = true;//serial.AutoConnectSerial();
 
-            ConsoleFormat.ConsoleInformationFormat("DECODER", "Message Decoder is launch", true);
-            ConsoleFormat.ConsoleInformationFormat("ENCODER", "Message Encoder is launch", true);
-            ConsoleFormat.ConsoleInformationFormat("PROCESSOR", "Message Processor is launch", true);
-            ConsoleFormat.ConsoleInformationFormat("GENERATOR", "Message Generator is launch", true);
+            ConsoleFormat.ConsoleInformationFormat("DECODER", "Message Decoder is launched", true);
+            ConsoleFormat.ConsoleInformationFormat("ENCODER", "Message Encoder is launched", true);
+            ConsoleFormat.ConsoleInformationFormat("PROCESSOR", "Message Processor is launched", true);
+            ConsoleFormat.ConsoleInformationFormat("GENERATOR", "Message Generator is launched", true);
             if (isSerialConnected)
             {
                 
@@ -87,7 +87,8 @@ namespace RobotConsole
                 msgDecoder.OnCorrectChecksumEvent += msgProcessor.MessageProcessor;
             }
 
-            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);            
+            ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
+            msgGenerator.GenerateMessageSetLed(1, true);
             Console.ReadKey();
             
         }

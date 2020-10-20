@@ -23,14 +23,16 @@ namespace RobotConsole
 
         public enum State : ushort
         {
-            FORWARD             ,
-            BACKWARD            ,
-            FORWARD_LEFT        ,
-            FORWARD_RIGHT       ,
-            TURN_LEFT           ,
-            TURN_RIGHT          ,
-            FAST_FORWARD        ,
-            SLOW_FORWARD
+            CUSTOM          = 0 ,
+            FORWARD         = 1 ,
+            FORWARD_LEFT    = 2 ,
+            FORWARD_RIGHT   = 3 ,
+            TURN_LEFT       = 4 ,
+            TURN_RIGHT      = 5 ,
+            STOP            = 6 ,
+            BACKWARD        = 7 ,
+            FAST_FORWARD    = 8 ,
+            SLOW_FORWARD    = 9
         }
         public static short CheckFunctionLenght(ushort msgFunction)
         {
