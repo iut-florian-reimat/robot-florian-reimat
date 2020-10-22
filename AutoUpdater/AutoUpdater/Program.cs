@@ -101,7 +101,7 @@ namespace AutoUpdater
         private static void ReloadProgram()
         {
             CloseProgram();
-            ExecCMDCommand("git fetch origin " + BRANCH);
+            ExecCMDCommand("git pull");
             CompileProgram();
             LaunchProgram();
         }
