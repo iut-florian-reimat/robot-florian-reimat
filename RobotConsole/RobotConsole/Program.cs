@@ -20,7 +20,7 @@ namespace RobotConsole
         public static MsgGenerator msgGenerator;
         public static MsgProcessor msgProcessor;
         static Serial serial;
-        // 
+        
         private static bool hex_viewer = true;
         private static bool hex_error_viewer = true;
         private static bool hex_sender = true;
