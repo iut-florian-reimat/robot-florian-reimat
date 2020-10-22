@@ -21,8 +21,8 @@ namespace RobotConsole
         public static MsgProcessor msgProcessor;
         static Serial serial;
 
-        private static bool hex_viewer = true;
-        private static bool hex_error_viewer = false;
+        private static bool hex_viewer = false;
+        private static bool hex_error_viewer = true;
         private static bool hex_sender = true;
         private static bool hex_error_sender = true;
         private static bool function_received = true;
