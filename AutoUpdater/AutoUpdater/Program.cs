@@ -101,8 +101,10 @@ namespace AutoUpdater
         private static void ReloadProgram()
         {
             CloseProgram();
+            Thread.Sleep(2000);
             ExecCMDCommand("git pull");
             CompileProgram();
+            Thread.Sleep(2000);
             LaunchProgram();
         }
 
