@@ -105,6 +105,11 @@ namespace AutoUpdater
             CompileProgram();
             Thread.Sleep(2000);
             LaunchProgram();
+            CloseProgram();
+            Thread.Sleep(2000);
+            CompileProgram();
+            Thread.Sleep(2000);
+            LaunchProgram();
         }
 
         public static string CommandOutput(string command, string workingDirectory = null)
