@@ -27,8 +27,8 @@ namespace AutoUpdater
             CompileProgram();
             CloseCMD();
 
-            Timer timerAffichage = new Timer(RefreshGithub, null, 10000, 10000);
             LaunchProgram();
+            Timer timerAffichage = new Timer(RefreshGithub, null, 10000, 30000);
             Console.ReadKey();
             
         }
