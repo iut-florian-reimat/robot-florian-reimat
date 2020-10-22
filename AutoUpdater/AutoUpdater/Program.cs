@@ -27,7 +27,7 @@ namespace AutoUpdater
             CompileProgram();
             CloseCMD();
 
-            Timer timerAffichage = new Timer(RefreshGithub, null, 0, 10000);
+            Timer timerAffichage = new Timer(RefreshGithub, null, 10000, 10000);
             LaunchProgram();
             Console.ReadKey();
             
@@ -35,10 +35,19 @@ namespace AutoUpdater
 
         private static void RefreshGithub(object state)
         {
-            Console.WriteLine("Try to Update");
-            string isRepoUpToDateData = CommandOutput("git status -uno", ABSOLUTE_HOME_DIRECTORY);
-            if (!isRepoUpToDateData.Contains("Your branch is up to date with 'origin/"))
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("AUTO-UPDATER");
+            Console.ResetColor();
+            Console.Write("] Try to Update");
+            string isRepoUpToDateData = CommandOutput("git pull", ABSOLUTE_HOME_DIRECTORY);
+            if (!isRepoUpToDateData.Contains("Already up to date."))
             {
+                Console.Write("[");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("AUTO-UPDATER");
+                Console.ResetColor();
+                Console.Write("] Updating...");
                 ReloadProgram();
             }
         }
