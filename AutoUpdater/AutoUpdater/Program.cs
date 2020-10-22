@@ -102,7 +102,6 @@ namespace AutoUpdater
         {
             CloseProgram();
             Thread.Sleep(2000);
-            ExecCMDCommand("git pull origin " + BRANCH);
             CompileProgram();
             Thread.Sleep(2000);
             LaunchProgram();
