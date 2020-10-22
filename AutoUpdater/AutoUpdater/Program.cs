@@ -40,7 +40,7 @@ namespace AutoUpdater
             Console.Write("AUTO-UPDATER");
             Console.ResetColor();
             Console.Write("] Try to Update");
-            string isRepoUpToDateData = CommandOutput("git pull", ABSOLUTE_HOME_DIRECTORY);
+            string isRepoUpToDateData = CommandOutput("git pull origin " + BRANCH, ABSOLUTE_HOME_DIRECTORY);
             if (!isRepoUpToDateData.Contains("Already up to date."))
             {
                 Console.Write("[");
@@ -102,7 +102,7 @@ namespace AutoUpdater
         {
             CloseProgram();
             Thread.Sleep(2000);
-            ExecCMDCommand("git pull");
+            ExecCMDCommand("git pull origin " + BRANCH);
             CompileProgram();
             Thread.Sleep(2000);
             LaunchProgram();
