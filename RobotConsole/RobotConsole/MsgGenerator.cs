@@ -11,7 +11,7 @@ namespace RobotConsole
     {
         public void GenerateMessageSetLed(ushort led_number, bool state)
         {
-            byte[] msgPayload = new byte[] {(byte) led_number,(byte)(state?0x00:0x01) };
+            byte[] msgPayload = new byte[] {(byte) led_number,(byte)(state?0x01:0x00) };
             Program.msgEncoder.UartEncodeAndSendMessage((ushort) Protocol.FunctionName.SET_LED, msgPayload);
         }
 

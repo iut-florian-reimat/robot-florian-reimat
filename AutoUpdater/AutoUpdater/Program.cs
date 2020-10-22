@@ -10,6 +10,7 @@ namespace AutoUpdater
         
 
         const string MS_BUILD_DIRECTORY = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe";
+        const string NUGET_DIRECTORY = "C:\\Users\\Table 7\\Desktop\\nuget.exe";
         const string ABSOLUTE_HOME_DIRECTORY = "C:\\Users\\TABLE 6\\Desktop\\robot-florian-reimat";
         const string RELATIVE_PROJECT_DIRECTORY = "RobotConsole\\RobotConsole.sln";
         const string RELATIVE_BIN_DIRECTORY = "RobotConsole\\RobotConsole\\bin\\Debug\\RobotConsole.exe";
@@ -26,6 +27,7 @@ namespace AutoUpdater
             cmd.Start();
 
             cmd.StandardInput.WriteLine("git clone " + GITHUB_REPOSITORY + " \"" +  ABSOLUTE_HOME_DIRECTORY + "\"");
+            cmd.StandardInput.WriteLine("\"" + NUGET_DIRECTORY + "\" restore \"" + ABSOLUTE_HOME_DIRECTORY + "\\" + RELATIVE_PROJECT_DIRECTORY + "\"");
             cmd.StandardInput.WriteLine("\"" + MS_BUILD_DIRECTORY + "\" \"" + ABSOLUTE_HOME_DIRECTORY + "\\" + RELATIVE_PROJECT_DIRECTORY + "\"");
             cmd.StandardInput.Flush();
           
@@ -34,8 +36,7 @@ namespace AutoUpdater
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
             cmd.Close();
             Process.Start(ABSOLUTE_HOME_DIRECTORY + "\\" + RELATIVE_BIN_DIRECTORY);
-            
-            Console.ReadKey();
+
         }
     }
 }

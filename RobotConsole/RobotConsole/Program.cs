@@ -38,7 +38,7 @@ namespace RobotConsole
             msgGenerator = new MsgGenerator();
            
             ConsoleFormat.ConsoleInformationFormat("SERIAL", "Begin Auto-Connection", true);
-            bool isSerialConnected = true;//serial.AutoConnectSerial();
+            bool isSerialConnected = serial.AutoConnectSerial();
 
             ConsoleFormat.ConsoleInformationFormat("DECODER", "Message Decoder is launched", true);
             ConsoleFormat.ConsoleInformationFormat("ENCODER", "Message Encoder is launched", true);
@@ -89,6 +89,7 @@ namespace RobotConsole
 
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
             msgGenerator.GenerateMessageSetLed(1, true);
+            msgGenerator.GenerateMessageSetLed(3, true);
             Console.ReadKey();
             
         }
