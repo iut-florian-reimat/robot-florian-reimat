@@ -2,7 +2,6 @@
 #include "timer.h"
 #include "IO.h"
 #include "Robot.h"
-#include "ADC.h"
 #include "main.h"
 
 //Initialisation d?un timer 32 bits
@@ -56,7 +55,6 @@ void SetFreqTimer1(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
     PWMUpdateSpeed();
-    ADC1StartConversionSequence();
 }
 
 void InitTimer4(void) {

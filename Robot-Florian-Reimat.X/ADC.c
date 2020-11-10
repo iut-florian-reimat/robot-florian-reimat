@@ -2,7 +2,6 @@
 #include "ADC.h"
 #include "Robot.h"
 #include "main.h"
-#include "UART_Protocol.h"
 
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[4];

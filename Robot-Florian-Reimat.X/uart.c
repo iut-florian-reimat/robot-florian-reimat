@@ -33,23 +33,7 @@ void InitUART(void)
 void SendMessageDirect(unsigned char * message, int length) {
     unsigned char i = 0;
     for (i = 0; i < length; i++) {
-        while (U1STAbits.UTXBF); // w ai t w hil e Tx b u f f e r f u l l
-        U1TXREG = *(message)++; // Transmit one c h a r a c t e r
+        while (U1STAbits.UTXBF); // wait while Tx buffer full
+        U1TXREG = *(message)++; // Transmit one character
     }
 }
-
-/*
-void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void)
-{
-    IFS0bits.U1RXIF = 0; // clear RX interrupt flag
-    // check for receive errors
-    if (U1STAbits.FERR == 1)
-        U1STAbits.FERR = 0;
-    // must clear the overrun error to keep uart receiving
-    if (U1STAbits.OERR == 1)
-        U1STAbits.OERR = 0;
-    // get the data
-    while (U1STAbits.URXDA == 1)
-        U1TXREG = U1RXREG;
-}
-*/

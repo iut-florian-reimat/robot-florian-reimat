@@ -4,6 +4,14 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Serial" projectFiles="true">
+        <itemPath>CB_TX1.h</itemPath>
+        <itemPath>CB_RX1.h</itemPath>
+        <itemPath>msgDecoder.h</itemPath>
+        <itemPath>msgEncoder.h</itemPath>
+        <itemPath>msgGenerator.h</itemPath>
+        <itemPath>msgProcessor.h</itemPath>
+      </logicalFolder>
       <itemPath>ChipConfig.h</itemPath>
       <itemPath>IO.h</itemPath>
       <itemPath>timer.h</itemPath>
@@ -13,9 +21,6 @@
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>uart.h</itemPath>
-      <itemPath>CB_TX1.h</itemPath>
-      <itemPath>CB_RX1.h</itemPath>
-      <itemPath>UART_Protocol.h</itemPath>
       <itemPath>QEI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -25,6 +30,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="Serial" projectFiles="true">
+        <itemPath>msgDecoder.c</itemPath>
+        <itemPath>msgEncoder.c</itemPath>
+        <itemPath>msgGenerator.c</itemPath>
+        <itemPath>msgProcessor.c</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>ChipConfig.c</itemPath>
       <itemPath>IO.c</itemPath>
@@ -36,7 +47,6 @@
       <itemPath>uart.c</itemPath>
       <itemPath>CB_TX1.c</itemPath>
       <itemPath>CB_RX1.c</itemPath>
-      <itemPath>UART_Protocol.c</itemPath>
       <itemPath>QEI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -45,6 +55,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
@@ -265,7 +278,6 @@
         <property key="UART 3" value="true"/>
         <property key="UART 4" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

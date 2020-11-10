@@ -11,15 +11,16 @@ int cbTx1Tail = 0;
 unsigned char cbTx1Buffer[CBTX1_BUFFER_SIZE];
 unsigned char isTransmitting = 0;
 
-void SendMessage(unsigned char* msg, int l)
+void SendMessage(unsigned char* payload, int lenght)
 {
+    lenght = sizeof(payload);
     //LED_BLEUE = !LED_BLEUE;
     unsigned char i = 0;
     
-    if (CB_TX1_RemainingSize() > l)
+    if (CB_TX1_RemainingSize() > lenght)
     {
-        for (i = 0; i < l; i++)
-            CB_TX1_Add(msg[i]);
+        for (i = 0; i < lenght; i++)
+            CB_TX1_Add(payload[i]);
         if (!CB_TX1_IsTranmitting())
             SendOne();
     }

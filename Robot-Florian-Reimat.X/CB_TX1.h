@@ -3,7 +3,7 @@
 
 
 // Function
-void SendMessage(unsigned char *, int);
+void SendMessage(unsigned char *);
 void CB_TX1_Add(unsigned char);
 unsigned char CB_TX1_Get(void);
 void SendOne();

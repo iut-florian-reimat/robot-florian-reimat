@@ -18,10 +18,9 @@ void InitIO()
 
     //********** Configuration des sorties : _TRISxx = 0 ********************************
     // LED
-
-    _TRISC10 = 0;  // LED Orange
-    _TRISG6 = 0; //LED Blanche
-    _TRISG7 = 0; // LED Bleue
+    _TRISC10 = 0;   //  LED Orange
+    _TRISG6 = 0;    //  LED Blanche
+    _TRISG7 = 0;    //  LED Bleue
     
     // Moteurs 
     _TRISB14 = 0;
@@ -32,9 +31,7 @@ void InitIO()
     // UART
     _U1RXR = 24;
     _RP36R = 1;
-    
-    
-    
+        
     //********** Configuration des entrées : _TRISxx = 1 ********************************  
     
     // ???????????????????? QEI ?????????????????
