@@ -105,7 +105,7 @@ void ADCConversionLoop(void) {
             robotState.distanceTelemetreCentre = 34 / volts - 5;
             volts = ((float) result [0])* 3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGauche = 34 / volts - 5;
-            unsigned char msg[3] = {robotState.distanceTelemetreGauche,robotState.distanceTelemetreCentre, robotState.distanceTelemetreDroit};
-            UartEncodeAndSendMessage(48,3, msg);
+           // unsigned char msg[3] = {robotState.distanceTelemetreGauche,robotState.distanceTelemetreCentre, robotState.distanceTelemetreDroit};
+           // UartEncodeAndSendMessage(48,3, msg);
     }
 }

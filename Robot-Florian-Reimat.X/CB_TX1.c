@@ -11,9 +11,8 @@ int cbTx1Tail = 0;
 unsigned char cbTx1Buffer[CBTX1_BUFFER_SIZE];
 unsigned char isTransmitting = 0;
 
-void SendMessage(unsigned char* payload, int lenght)
+void SendMessage(unsigned char* payload, unsigned int lenght)
 {
-    lenght = sizeof(payload);
     //LED_BLEUE = !LED_BLEUE;
     unsigned char i = 0;
     

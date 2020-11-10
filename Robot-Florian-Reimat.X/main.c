@@ -8,6 +8,8 @@
 #include "uart.h"
 #include "msgGenerator.h"
 #include "msgProcessor.h"
+#include "msgDecoder.h"
+#include "CB_RX1.h"
 
 unsigned char stateRobot = STATE_ARRET;
 signed char customLeftMotorSpeed = 0;
@@ -28,6 +30,10 @@ int main(void) {
             unsigned char c = CB_RX1_Get();
             UartDecodeMessage(c);
         }
+        //__delay32(1000000);
+        // Test Bonjour        
+        unsigned char Bonjour[8] = {0x42,0x6F,0x6E,0x6A,0x6F,0x75,0x72,(unsigned char) timestamp};
+        GenerateTextMessage(Bonjour,8);
     } // fin main
 }
 
@@ -89,14 +95,12 @@ void OperatingSystemLoop(void) {
     }
 }
 
-void SetRobotState(unsigned char msg) {
-    stateRobot = (int) msg;
-    unsigned char payload[5] = {stateRobot, timestamp >> 24, timestamp >> 16, timestamp >> 8, timestamp >> 0};
-    UartEncodeAndSendMessage(SEND_ROBOT_STATE, 5, payload);
+void SetRobotState(unsigned char state) {
+    stateRobot = state;
 }
 
 void SetCustomMotorSpeed(signed char LeftSpeed, signed char RightSpeed){
-    SetRobotState(STATE_CUSTOM);
+    GenerateStateMessage(STATE_CUSTOM);
     customLeftMotorSpeed    = LeftSpeed;
     customRightMotorSpeed   = RightSpeed;
 }

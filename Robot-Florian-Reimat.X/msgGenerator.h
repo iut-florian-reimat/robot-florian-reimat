@@ -9,7 +9,7 @@
 #define	MSGGENERATOR_H
 
 void GenerateStateMessage(unsigned char);
-void GenerateTextMessage(unsigned char*);
+void GenerateTextMessage(unsigned char*,unsigned int);
 
 #endif	/* MSGGENERATOR_H */
 

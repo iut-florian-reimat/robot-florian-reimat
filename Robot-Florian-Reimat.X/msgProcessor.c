@@ -1,3 +1,4 @@
+#include "xc.h"
 #include "Protocol.h"
 #include "msgProcessor.h"
 #include "main.h"

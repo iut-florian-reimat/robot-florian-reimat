@@ -1,8 +1,7 @@
 #include "msgEncoder.h"
-#include "../CB_TX1.h"
+#include "CB_TX1.h"
 
-unsigned char UartCalculateChecksum(unsigned char msgFunction, unsigned char* msgPayload) {
-    unsigned int msgPayloadLenght = sizeof(msgPayload);
+unsigned char UartCalculateChecksum(unsigned char msgFunction,unsigned int msgPayloadLenght, unsigned char* msgPayload) {
     unsigned char msg[6 + msgPayloadLenght];
     EncodeWithoutChecksum(msg, msgFunction, msgPayloadLenght, msgPayload);
     unsigned char checksum = msg[0];
@@ -26,11 +25,10 @@ void EncodeWithoutChecksum(unsigned char * msg, unsigned char msgFunction, unsig
     }
 }
 
-void UartEncodeAndSendMessage(unsigned char msgFunction, unsigned char* msgPayload) {
-    unsigned int msgPayloadLenght = sizeof(msgPayload); 
+void UartEncodeAndSendMessage(unsigned char msgFunction,unsigned int msgPayloadLenght, unsigned char* msgPayload) {
     unsigned char payload[6 + msgPayloadLenght];
     EncodeWithoutChecksum(payload, msgFunction, msgPayloadLenght, msgPayload);
-    unsigned char checksum = UartCalculateChecksum( msgFunction, msgPayload);
+    unsigned char checksum = UartCalculateChecksum( msgFunction,msgPayloadLenght, msgPayload);
     payload[5 + msgPayloadLenght] = checksum;
-    SendMessage(payload);
+    SendMessage(payload, 6 + msgPayloadLenght);
 }

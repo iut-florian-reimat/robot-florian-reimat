@@ -1,20 +1,10 @@
 #include "msgDecoder.h"
+#include "msgEncoder.h"
+#include "msgProcessor.h"
 #include <xc.h>
 #include "main.h"
 #include "CB_RX1.h"
 #include "Protocol.h"
-
-unsigned char UartCalculateChecksum(unsigned char msgFunction, unsigned char* msgPayload) {
-    unsigned int msgPayloadLenght = sizeof(msgPayload);
-    unsigned char msg[6 + msgPayloadLenght];
-    EncodeWithoutChecksum(msg, msgFunction, msgPayloadLenght, msgPayload);
-    unsigned char checksum = msg[0];
-    unsigned int i;
-    for (i = 1; i <  5 + msgPayloadLenght; i++) {
-        checksum ^= msg[i];
-    }
-    return checksum;
-}
 
 unsigned char msgDecodedFunction = 0;
 unsigned int msgDecodedPayloadLength = 0;
@@ -80,10 +70,10 @@ void UartDecodeMessage(unsigned char c) {
             
         case CheckSum:
             receivedChecksum = c;
-            calculatedChecksum = UartCalculateChecksum(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+            calculatedChecksum = UartCalculateChecksum(msgDecodedFunction,msgDecodedPayloadLength, msgDecodedPayload);
             if (calculatedChecksum == receivedChecksum) {
                 // Success, on a un message 
-                UartProcessDecodedMessage(msgDecodedFunction,msgDecodedPayloadLength,msgDecodedPayload);
+                UartProcessDecodedMessage(msgDecodedFunction,msgDecodedPayload);
             }
             rcvState = Waiting;
             break;

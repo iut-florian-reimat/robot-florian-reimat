@@ -8,7 +8,6 @@
 #ifndef MSGDECODER_H
 #define	MSGDECODER_H
 
-unsigned char UartCalculateChecksum(unsigned char , unsigned char* );
 void UartDecodeMessage(unsigned char );
 #endif	/* MSGDECODER_H */
 

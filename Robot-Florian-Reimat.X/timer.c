@@ -1,5 +1,6 @@
 #include <xc.h>
 #include "timer.h"
+#include "PWM.h"
 #include "IO.h"
 #include "Robot.h"
 #include "main.h"
@@ -28,9 +29,10 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
 }
 
 void InitTimer1(void) {
+    timestamp = 0;
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
-    SetFreqTimer1(50.00f);
+    SetFreqTimer1(250.00f);
     T1CONbits.TCS = 0; //clock source = internal clock
     IFS0bits.T1IF = 0; // Clear Timer Interrupt Flag
     IEC0bits.T1IE = 1; // Enable Timer interrupt

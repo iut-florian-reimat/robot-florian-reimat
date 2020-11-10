@@ -8,6 +8,6 @@
 #ifndef MSGPROCESSOR_H
 #define	MSGPROCESSOR_H
 
-void UartProcessDecodedMessage(int , unsigned char* );
+void UartProcessDecodedMessage(unsigned char , unsigned char* );
 #endif	/* MSGPROCESSOR_H */
 

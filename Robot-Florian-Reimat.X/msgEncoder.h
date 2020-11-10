@@ -8,9 +8,9 @@
 #ifndef MSGENCODER_H
 #define	MSGENCODER_H
 
-unsigned char UartCalculateChecksum(unsigned char, unsigned char*); 
-void EncodeWithoutChecksum(unsigned char * , unsigned char msgFunction, unsigned int, unsigned char*);
-void UartEncodeAndSendMessage(unsigned char , unsigned char*);
+unsigned char UartCalculateChecksum(unsigned char,unsigned int , unsigned char*); 
+void EncodeWithoutChecksum(unsigned char * , unsigned char , unsigned int, unsigned char*);
+void UartEncodeAndSendMessage(unsigned char,unsigned int , unsigned char*);
 
 #endif	/* MSGENCODER_H */
 

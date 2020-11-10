@@ -5,12 +5,13 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Serial" projectFiles="true">
-        <itemPath>CB_TX1.h</itemPath>
         <itemPath>CB_RX1.h</itemPath>
         <itemPath>msgDecoder.h</itemPath>
         <itemPath>msgEncoder.h</itemPath>
         <itemPath>msgGenerator.h</itemPath>
         <itemPath>msgProcessor.h</itemPath>
+        <itemPath>Protocol.h</itemPath>
+        <itemPath>CB_TX1.h</itemPath>
       </logicalFolder>
       <itemPath>ChipConfig.h</itemPath>
       <itemPath>IO.h</itemPath>
@@ -35,6 +36,8 @@
         <itemPath>msgEncoder.c</itemPath>
         <itemPath>msgGenerator.c</itemPath>
         <itemPath>msgProcessor.c</itemPath>
+        <itemPath>CB_RX1.c</itemPath>
+        <itemPath>CB_TX1.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>ChipConfig.c</itemPath>
@@ -45,8 +48,6 @@
       <itemPath>PWM.c</itemPath>
       <itemPath>ADC.c</itemPath>
       <itemPath>uart.c</itemPath>
-      <itemPath>CB_TX1.c</itemPath>
-      <itemPath>CB_RX1.c</itemPath>
       <itemPath>QEI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -278,6 +279,7 @@
         <property key="UART 3" value="true"/>
         <property key="UART 4" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
