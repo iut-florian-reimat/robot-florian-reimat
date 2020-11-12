@@ -8,8 +8,12 @@
 #ifndef PWM_H
 #define	PWM_H
 
+#define COEFF_VITESSE_LINEAIRE_PERCENT 1 / 25.
+#define COEFF_VITESSE_ANGULAIRE_PERCENT 1 / 50.
+
 void InitPWM(void);
 //void PWMSetSpeed(float,unsigned char);
 void PWMUpdateSpeed();
 void PWMSetSpeedConsigne(float, char);
+void PWMSetSpeedConsignePolaire();
 #endif	/* PWM_H */

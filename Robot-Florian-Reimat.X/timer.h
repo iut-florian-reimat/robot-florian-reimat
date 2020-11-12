@@ -3,6 +3,8 @@
 
 extern unsigned long timestamp;
 
+#define FREQ_ECH_QEI 250
+
 void InitTimer23(void) ;
 void InitTimer1(void) ;
 void InitTimer4(void) ;

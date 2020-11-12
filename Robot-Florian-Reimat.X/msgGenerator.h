@@ -10,6 +10,7 @@
 
 void GenerateStateMessage(unsigned char);
 void GenerateTextMessage(unsigned char*,unsigned int);
+void GeneratePositionMessage();
 
 #endif	/* MSGGENERATOR_H */
 

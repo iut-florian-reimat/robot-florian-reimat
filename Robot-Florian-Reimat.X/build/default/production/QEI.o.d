@@ -3,4 +3,6 @@ QEI.c  \
 QEI.h  \
 main.h  \
 Robot.h  \
-Utilities.h 
+Utilities.h  \
+ msgGenerator.h  \
+timer.h 

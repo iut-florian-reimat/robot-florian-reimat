@@ -10,4 +10,5 @@ uart.h  \
 msgGenerator.h  \
 msgProcessor.h  \
 msgDecoder.h  \
-CB_RX1.h 
+CB_RX1.h  \
+ QEI.h 

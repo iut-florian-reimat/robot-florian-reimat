@@ -4,4 +4,6 @@ timer.h  \
 PWM.h  \
 IO.h  \
 Robot.h  \
- main.h 
+ main.h  \
+QEI.h  \
+msgGenerator.h 

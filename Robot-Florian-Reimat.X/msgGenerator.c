@@ -15,7 +15,7 @@ void GenerateTextMessage(unsigned char* message,unsigned int lenght){
     UartEncodeAndSendMessage(SEND_MESSAGE,lenght, message);
 }
 
-void SendPositionData() {
+void GeneratePositionMessage() {
     unsigned char positionPayload [24];
     getBytesFromInt32(positionPayload, 0, timestamp);
     getBytesFromFloat(positionPayload, 4, (float) (robotState.xPosFromOdometry));
@@ -25,3 +25,4 @@ void SendPositionData() {
     getBytesFromFloat(positionPayload, 20, (float) (robotState.vitesseAngulaireFromOdometry));
     UartEncodeAndSendMessage(SEND_POSITION, 24, positionPayload);
 }
+

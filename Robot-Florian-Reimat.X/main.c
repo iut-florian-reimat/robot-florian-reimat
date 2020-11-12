@@ -10,6 +10,7 @@
 #include "msgProcessor.h"
 #include "msgDecoder.h"
 #include "CB_RX1.h"
+#include "QEI.h"
 
 unsigned char stateRobot = STATE_ARRET;
 signed char customLeftMotorSpeed = 0;
@@ -23,6 +24,8 @@ int main(void) {
     InitTimer1();
     InitTimer4();
     InitUART();
+    InitQEI1();
+    InitQEI2();
     // Boucle Principale
     while (1) {
         unsigned int i;
@@ -32,8 +35,8 @@ int main(void) {
         }
         //__delay32(1000000);
         // Test Bonjour        
-        unsigned char Bonjour[8] = {0x42,0x6F,0x6E,0x6A,0x6F,0x75,0x72,(unsigned char) timestamp};
-        GenerateTextMessage(Bonjour,8);
+        //unsigned char Bonjour[8] = {0x42,0x6F,0x6E,0x6A,0x6F,0x75,0x72,(unsigned char) timestamp};
+        //GenerateTextMessage(Bonjour,8);
     } // fin main
 }
 

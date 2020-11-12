@@ -3,4 +3,6 @@ PWM.c  \
 IO.h  \
 PWM.h  \
 Robot.h  \
-Utilities.h 
+Utilities.h  \
+ timer.h  \
+QEI.h 
