@@ -8,7 +8,9 @@
 #ifndef QEI__H
 #define	QEI__H
 
-#define DISTROUES 281.2
+// mm
+#define DISTROUES 221
+#define WHEEL_DIAMETER 0.01620
 
 
 void InitQEI1();

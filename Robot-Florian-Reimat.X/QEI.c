@@ -36,8 +36,8 @@ void QEIUpdateData() {
     QEI2RawValue += ((long) POS2HLD << 16);
     
     // Conversion en mm ( regle pour la taille des roues codeuses)
-    QeiDroitPosition    =   0.01620 * QEI1RawValue;
-    QeiGauchePosition   = - 0.01620 * QEI2RawValue;
+    QeiDroitPosition    =   WHEEL_DIAMETER * QEI1RawValue;
+    QeiGauchePosition   = - WHEEL_DIAMETER * QEI2RawValue;
     
     if((QeiDroitPosition-QeiDroitPosition_T_1>100) || (QeiDroitPosition-QeiDroitPosition_T_1<-100))
         QeiDroitPosition = QeiDroitPosition_T_1;
