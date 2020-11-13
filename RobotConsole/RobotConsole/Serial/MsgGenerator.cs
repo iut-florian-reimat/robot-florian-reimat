@@ -9,10 +9,14 @@ namespace RobotConsole
 {
     class MsgGenerator
     {
+        public MsgGenerator()
+        {
+            OnMessageGeneratorCreated();
+        }
         public void GenerateMessageSetLed(ushort led_number, bool state)
         {
             byte[] msgPayload = new byte[] {(byte) led_number,(byte)(state?0x01:0x00) };
-            Program.msgEncoder.UartEncodeAndSendMessage((ushort) Protocol.FunctionName.SET_LED, msgPayload);
+            Serial.msgEncoder.UartEncodeAndSendMessage((ushort) Protocol.FunctionName.SET_LED, msgPayload);
         }
 
         public void GenerateMessageSetMotorSpeed(sbyte left_motor_speed, sbyte right_motor_speed)
@@ -32,13 +36,20 @@ namespace RobotConsole
             {
                 msgPayload[1] = (byte)((right_motor_speed > 0) ? 100 : -100);
             }
-            Program.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_MOTOR, msgPayload);
+            Serial.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_MOTOR, msgPayload);
         }
 
         public void GenerateMessageSetState(ushort state)
         {
             byte[] msgPayload = new byte[] { (byte) state};
-            Program.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_STATE, msgPayload);
-        }       
+            Serial.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_STATE, msgPayload);
+        }
+
+        public event EventHandler<EventArgs> OnMessageGeneratorCreatedEvent;
+
+        public virtual void OnMessageGeneratorCreated()
+        {
+            OnMessageGeneratorCreatedEvent?.Invoke(this, new EventArgs());
+        }
     }
 }

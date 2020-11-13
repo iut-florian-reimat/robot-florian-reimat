@@ -11,6 +11,8 @@ namespace RobotConsole
     {
         private static long hex_received_index = 0;
         private static long hex_sender_index = 0;
+
+        #region General Method
         static public void ConsoleTitleFormat(string title, bool isCorrect)
         {
             if (Console.CursorLeft != 0)
@@ -41,6 +43,29 @@ namespace RobotConsole
             Console.ForegroundColor = color;
             Console.WriteLine("    - " + content);
         }
+        #endregion
+        #region Serial Init
+        static public void PrintMessageDecoderCreated(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("DECODER", "Message Decoder is launched", true);
+        }
+
+        static public void PrintMessageEncoderCreated(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("ENCODER", "Message Encoder is launched", true);
+        }
+
+        static public void PrintMessageProcessorCreated(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("PROCESSOR", "Message Processor is launched", true);
+        }
+
+        static public void PrintMessageGeneratorCreated(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("GENERATOR", "Message Generator is launched", true);
+        }
+        #endregion
+        #region Hex Decoder
         static public void PrintUnknowByte(object sender, MsgDecoder.DecodeByteArgs e)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -103,7 +128,8 @@ namespace RobotConsole
             Console.WriteLine("0x" + e.checksum.ToString("X2") + " ");
             Console.ResetColor();
         }
-        
+        #endregion
+        #region Hex Decoder Error
         static public void PrintOverLenghtWarning(object sender, EventArgs e)
         {
             if (Console.CursorLeft != 0)
@@ -147,7 +173,8 @@ namespace RobotConsole
             Console.WriteLine("\n /!\\ WARNING AN MESSAGED HAD BEEN CORRUPTED /!\\"); 
             Console.ResetColor();
         }
-
+        #endregion
+        #region Hex Encoder
         static public void PrintSendMsg(object sender, Protocol.MessageByteArgs e)
         {
             Console.ResetColor();
@@ -172,7 +199,8 @@ namespace RobotConsole
             Console.Write("0x" + e.checksum.ToString("X2") + " ");
             Console.ResetColor();
         }
-
+        #endregion
+        #region Hex Encoder Error
         static public void PrintOnSerialDisconnectedError(object sender, EventArgs e)
         {
             Console.ResetColor();
@@ -208,7 +236,8 @@ namespace RobotConsole
             Console.WriteLine("/!\\ WARNING A FUNCTION WITH WRONG LENGHT HAS TRIED TO BE SENT /!\\");
             Console.ResetColor();
         }
-
+        #endregion
+        #region Hex Processor
         static public void PrintIRMessageReceived(object sender, Protocol.IRMessageArgs e)
         {
             Console.ResetColor();
@@ -226,5 +255,8 @@ namespace RobotConsole
         {
             ConsoleInformationFormat("STATE", "Actual State: " + e.state + " - " +  e.time, true);
         }
+        #endregion
+
+        
     }
 }

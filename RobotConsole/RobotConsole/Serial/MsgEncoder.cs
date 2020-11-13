@@ -8,6 +8,10 @@ namespace RobotConsole
 {
     class MsgEncoder
     {
+        public MsgEncoder()
+        {
+
+        }
 
         public bool UartEncodeAndSendMessage(ushort msgFunction, byte[] msgPayload)
         {
@@ -27,9 +31,9 @@ namespace RobotConsole
                 byte checksum = CalculateChecksum(msgFunction, msgPayloadLenght, msgPayload);
 
                 msg[msg.Length - 1] = checksum;
-                if (Program.serialPort != null)
+                if (Serial.serialPort != null)
                 {
-                    Program.serialPort.Write(msg, 0, msg.Length);
+                    Serial.serialPort.Write(msg, 0, msg.Length);
                     OnSendMessage(msgFunction, msgPayloadLenght, msgPayload, checksum);
                     return true;
                 }
@@ -85,6 +89,7 @@ namespace RobotConsole
             return checksum;
         }
 
+        public event EventHandler<EventArgs> OnMessageEncoderCreatedEvent;
         public event EventHandler<Protocol.MessageByteArgs> OnSendMessageEvent;
         public event EventHandler<Protocol.LedMessageArgs> OnSetLedEvent;
         public event EventHandler<Protocol.MotorMessageArgs> OnSetMotorSpeedEvent;
@@ -92,6 +97,11 @@ namespace RobotConsole
         public event EventHandler<EventArgs> OnSerialDisconnectedEvent;
         public event EventHandler<EventArgs> OnWrongPayloadSentEvent;
         public event EventHandler<EventArgs> OnUnknownFunctionSentEvent;
+
+        public virtual void OnMessageEncoderCreated()
+        {
+            OnMessageEncoderCreatedEvent?.Invoke(this, new EventArgs());
+        }
         public virtual void OnSendMessage(ushort msgFunction, ushort msgPayloadLenght, byte[] msgPayload, byte checksum)
         {
             OnSendMessageEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, checksum));

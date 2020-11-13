@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 namespace RobotConsole
 {
 
-    class MsgDecoder 
+    class MsgDecoder
     {
-        
+        public MsgDecoder()
+        {
+            OnMessageDecoderCreated();
+        }
+
         private enum State
         {
             Waiting,
@@ -78,6 +82,7 @@ namespace RobotConsole
             
         }
 
+        public event EventHandler<EventArgs> OnMessageDecoderCreatedEvent;
         public event EventHandler<DecodeByteArgs> OnSOFByteReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnUnknowByteEvent;
         public event EventHandler<DecodeByteArgs> OnFunctionMSBByteReceivedEvent;
@@ -93,6 +98,10 @@ namespace RobotConsole
         public event EventHandler<EventArgs> OnUnknowFunctionEvent;
         public event EventHandler<EventArgs> OnWrongLenghtFunctionEvent;
 
+        public virtual void OnMessageDecoderCreated()
+        {
+            OnMessageDecoderCreatedEvent?.Invoke(this, new EventArgs());
+        }
         public virtual void OnSOFReceived(byte e)
         {
             actualState = State.FunctionMSB;

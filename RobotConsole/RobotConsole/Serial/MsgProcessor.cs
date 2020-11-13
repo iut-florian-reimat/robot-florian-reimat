@@ -8,6 +8,11 @@ namespace RobotConsole
 {
     class MsgProcessor
     {
+        public MsgProcessor()
+        {
+            OnMessageProcessorCreated();
+        }
+
         public void MessageProcessor(object sender, Protocol.MessageByteArgs e)
         {
             switch (e.msgFunction)
@@ -24,10 +29,16 @@ namespace RobotConsole
                     break;
             }
         }
-        
+
+        public event EventHandler<EventArgs> OnMessageProcessorCreatedEvent;
         public event EventHandler<Protocol.IRMessageArgs> OnIRMessageReceivedEvent;
         public event EventHandler<Protocol.StateMessageArgs> OnStateMessageReceivedEvent;
         public event EventHandler<Protocol.MessageByteArgs> OnUnknowFunctionReceivedEvent;
+
+        public virtual void OnMessageProcessorCreated()
+        {
+            OnMessageProcessorCreatedEvent?.Invoke(this, new EventArgs());
+        }
 
         public virtual void OnIRMessageReceived(Protocol.MessageByteArgs e)
         {
