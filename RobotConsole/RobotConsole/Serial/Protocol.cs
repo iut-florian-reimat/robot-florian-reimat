@@ -12,12 +12,13 @@ namespace RobotConsole
         public const ushort MAX_MSG_LENGHT = 255;
         public enum FunctionName : ushort
         {
-            SET_LED     = 0x0020,
-            GET_IR      = 0x0030,
-            SET_MOTOR   = 0x0040,
-            GET_STATE   = 0x0050,
-            SET_STATE   = 0x0051,
-            GET_TEXT    = 0x0080
+            SET_LED         = 0x0020,
+            GET_IR          = 0x0030,
+            SET_MOTOR       = 0x0040,
+            GET_STATE       = 0x0050,
+            SET_STATE       = 0x0051,
+            GET_POSITION    = 0x0061,
+            GET_TEXT        = 0x0080
             // Add all protocol
         }
 
@@ -53,12 +54,16 @@ namespace RobotConsole
                     return 5;
                 case (ushort)FunctionName.SET_STATE:
                     return 1;
+                case (ushort)FunctionName.GET_POSITION:
+                    return 24;
                 default:
                     return -2;
 
 
             }
         }
+
+        #region Class
         public class MessageByteArgs : EventArgs
         {
             public byte SOF { get; set; }
@@ -106,6 +111,7 @@ namespace RobotConsole
                 lenghtMsb = (byte)(msgPayloadLenght >> 8);
             }
         }
+
         public class LedMessageArgs : EventArgs
         {
             public ushort led_number { get; set; }
@@ -156,5 +162,35 @@ namespace RobotConsole
                 right_IR = right;
             }
         }
+
+        public class PositionMessageArgs : EventArgs
+        {
+            public uint timestamp { get; set; }
+            public float x { get; set; }
+            public float y { get; set; }
+            public float theta { get; set; }
+            public float linearSpeed { get; set; }
+            public float angularSpeed { get; set; }
+
+            public PositionMessageArgs(uint time, float x_a, float y_a, float theta_a, float linear, float angular)
+            {
+                timestamp = time;
+                x = x_a;
+                y = y_a;
+                theta = theta_a;
+                linearSpeed = linear;
+                angularSpeed = angular;
+            }
+        }
+
+        public class TextMessageArgs : EventArgs
+        {
+            public string text { get; set; }
+            public TextMessageArgs(string text_a)
+            {
+                text = text_a;
+            }
+        }
+        #endregion
     }
 }

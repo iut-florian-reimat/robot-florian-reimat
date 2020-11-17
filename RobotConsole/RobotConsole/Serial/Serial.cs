@@ -20,8 +20,7 @@ namespace RobotConsole
         public static MsgGenerator msgGenerator;
         public static MsgProcessor msgProcessor;
         #endregion
-
-        #region Construsctor
+        #region Constructor
         public Serial()
         {
             msgDecoder = new MsgDecoder();
@@ -29,10 +28,9 @@ namespace RobotConsole
             msgProcessor = new MsgProcessor();
             msgGenerator = new MsgGenerator();
 
-            msgDecoder.OnCorrectChecksumEvent += msgProcessor.MessageProcessor;
+            
         }
         #endregion
-
         #region Method
         public bool AutoConnectSerial(uint timespan = 1000, uint trial_max = 255)
         {
@@ -42,7 +40,6 @@ namespace RobotConsole
             {
                 i++;
                 OnNewSerialAttempts(i);
-                // ConsoleFormat.ConsoleInformationFormat("SERIAL", "Attempt Connection #" + i, true);
                 string AvailableCOM = GetSerialPort();
 
                 if (AvailableCOM != "")
@@ -52,7 +49,6 @@ namespace RobotConsole
                 else
                 {
                     OnNoConnectionAvailable();
-                    //ConsoleFormat.ConsoleInformationFormat("SERIAL", "No Connection Available", false);
                 }
                 System.Threading.Thread.Sleep((int)timespan); // Not Good 
             } while (serialPort == null && i <= trial_max);
@@ -64,7 +60,7 @@ namespace RobotConsole
             try
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity");
-                ConsoleFormat.ConsoleInformationFormat("SERIAL", "List of Serial available:", true);
+                OnSerialAvailableList();
                 string AvailableCOM = "";
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
@@ -85,7 +81,6 @@ namespace RobotConsole
                             {
                                 OnWrongCOMAvailable(COM_Name);
                             }
-                            // ConsoleFormat.ConsoleListFormat(COM_Name, foreground_color);
                         }
                     }
                 }
@@ -94,26 +89,33 @@ namespace RobotConsole
             catch (ManagementException)
             {
                 OnErrorWhileGettingDescription();
-                //ConsoleFormat.ConsoleInformationFormat("SERIAL", "ERROR while getting descritption", false);
                 return "";
             }
         }
         #endregion
         #region Event
+        public event EventHandler<SerialEventArgs> OnSerialConnectedEvent;
+        public event EventHandler<EventArgs> OnAutoConnectionLaunchedEvent;
+        public event EventHandler<AttemptsEventArgs> OnNewSerialAttemptsEvent;
+        public event EventHandler<EventArgs> OnSerialAvailableListEvent;
+        public event EventHandler<SerialEventArgs> OnWrongCOMAvailableEvent;
+        public event EventHandler<SerialEventArgs> OnCorrectCOMAvailableEvent;
+        public event EventHandler<SerialEventArgs> OnSerialAvailableEvent;
+        public event EventHandler<EventArgs> OnNoConnectionAvailableEvent;
+        public event EventHandler<EventArgs> OnErrorWhileGettingDescriptionEvent;
+
         public virtual void OnSerialConnected(string COM)
         {
             serialPort = new ReliableSerialPort(COM, 115200, Parity.None, 8, StopBits.One);
             serialPort.DataReceived += SerialPort_DataReceived;
             serialPort.Open();
             OnSerialConnectedEvent?.Invoke(this, new SerialEventArgs(COM));
-            // ConsoleFormat.ConsoleInformationFormat("SERIAL", "Connection Enabled: " + COM, true);
         }
 
         public virtual void OnSerialAvailable(string COM)
         {
             OnSerialConnected(COM);
             OnSerialAvailableEvent?.Invoke(this, new SerialEventArgs(COM));
-            // ConsoleFormat.ConsoleInformationFormat("SERIAL", "Available Serial: " + AvailableCOM, true);
         }
 
         public virtual void OnAutoConnectionLaunched()
@@ -146,6 +148,11 @@ namespace RobotConsole
             OnNewSerialAttemptsEvent?.Invoke(this, new AttemptsEventArgs(attempts));
         }
 
+        public virtual void OnSerialAvailableList()
+        {
+            OnSerialAvailableListEvent?.Invoke(this, new EventArgs());
+        }
+
         public void SerialPort_DataReceived(object sender, DataReceivedArgs e)
         {
             for (int i = 0; i < e.Data.Length; i++)
@@ -153,39 +160,27 @@ namespace RobotConsole
                 msgDecoder.ByteReceived(e.Data[i]);
             }
         }
+        #endregion
+        #region Class Args
+        public class AttemptsEventArgs : EventArgs
+        {
+            public uint attempts { get; set; }
 
-        public event EventHandler<SerialEventArgs> OnSerialConnectedEvent;
-        public event EventHandler<EventArgs> OnAutoConnectionLaunchedEvent;
-        public event EventHandler<AttemptsEventArgs> OnNewSerialAttemptsEvent; 
-        public event EventHandler<EventArgs> OnSerialAvailableListEvent;
-        public event EventHandler<SerialEventArgs> OnWrongCOMAvailableEvent;
-        public event EventHandler<SerialEventArgs> OnCorrectCOMAvailableEvent;
-        public event EventHandler<SerialEventArgs> OnSerialAvailableEvent;
-        public event EventHandler<EventArgs> OnNoConnectionAvailableEvent;
-        public event EventHandler<EventArgs> OnErrorWhileGettingDescriptionEvent;
+            public AttemptsEventArgs(uint attempts_a)
+            {
+                attempts = attempts_a;
+            }
+        }
 
+        public class SerialEventArgs : EventArgs
+        {
+            public string COM { get; set; }
+
+            public SerialEventArgs(string COM_a)
+            {
+                COM = COM_a;
+            }
+        }
         #endregion
     }
-
-    #region Class Args
-    class AttemptsEventArgs : EventArgs
-    {
-        public uint attempts { get; set; }
-
-        public AttemptsEventArgs(uint attempts_a)
-        {
-            attempts = attempts_a;
-        }
-    }
-
-    class SerialEventArgs : EventArgs
-    {
-        public string COM { get; set; }
-
-        public SerialEventArgs(string COM_a)
-        {
-            COM = COM_a;
-        }
-    }
-    #endregion
 }

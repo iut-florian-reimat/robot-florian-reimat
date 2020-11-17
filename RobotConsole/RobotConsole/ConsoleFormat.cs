@@ -32,13 +32,13 @@ namespace RobotConsole
             Console.ResetColor();
             Console.Write("] ");
         }
-        static public void ConsoleInformationFormat(string title, string content, bool isCorrect)
+        static public void ConsoleInformationFormat(string title, string content, bool isCorrect = true)
         {
             ConsoleTitleFormat(title, isCorrect);
             Console.WriteLine(content);
         }
 
-        static public void ConsoleListFormat(string content, ConsoleColor color)
+        static public void ConsoleListFormat(string content, ConsoleColor color = ConsoleColor.White)
         {
             Console.ForegroundColor = color;
             Console.WriteLine("    - " + content);
@@ -63,6 +63,51 @@ namespace RobotConsole
         static public void PrintMessageGeneratorCreated(object sender, EventArgs e)
         {
             ConsoleInformationFormat("GENERATOR", "Message Generator is launched", true);
+        }
+        #endregion
+        #region Serial
+        static public void PrintAutoConnectionStarted(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "Auto-Connection Started", true);
+        }
+
+        static public void PrintNewSerialAttempts(object sender, Serial.AttemptsEventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "Attempt Connection #" + e.attempts, true);
+        }
+        
+        static public void PrintSerialListAvailable(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "List of Serial available:", true);
+        }
+
+        static public void PrintCorrectAvailableCOM(object sender, Serial.SerialEventArgs e)
+        {
+            ConsoleListFormat(e.COM, ConsoleColor.Green);
+        }
+
+        static public void PrintWrongAvailableCOM(object sender, Serial.SerialEventArgs e)
+        {
+            ConsoleListFormat(e.COM, ConsoleColor.Gray);
+        }
+        static public void PrintNoConnectionAvailable(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "No Connection Available", false);
+        }
+
+        static public void PrintErrorWhileGettingDescription(object sender, EventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "ERROR while getting descritption", false);
+        }
+
+        static public void PrintCOMAvailable(object sender, Serial.SerialEventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "Available Serial: " + e.COM, true);
+        }
+
+        static public void PrintConnectionEnabled(object sender, Serial.SerialEventArgs e)
+        {
+            ConsoleInformationFormat("SERIAL", "Connection Enabled: " + e.COM, true);
         }
         #endregion
         #region Hex Decoder
@@ -246,14 +291,30 @@ namespace RobotConsole
                 Console.WriteLine();
             }
             ConsoleInformationFormat("IR", "IR Received:",  true);
-            ConsoleListFormat("Left   : " + e.left_IR   + "cm", ConsoleColor.White);
-            ConsoleListFormat("Center : " + e.center_IR + "cm", ConsoleColor.White);
-            ConsoleListFormat("Right  : " + e.right_IR  + "cm", ConsoleColor.White);
+            ConsoleListFormat("Left   : " + e.left_IR   + "cm");
+            ConsoleListFormat("Center : " + e.center_IR + "cm");
+            ConsoleListFormat("Right  : " + e.right_IR  + "cm");
         }
 
         static public void PrintStateMessageReceived(object sender, Protocol.StateMessageArgs e)
         {
             ConsoleInformationFormat("STATE", "Actual State: " + e.state + " - " +  e.time, true);
+        }
+
+        static public void PrintPositionMessageReceived(object sender, Protocol.PositionMessageArgs e)
+        {
+            ConsoleInformationFormat("POSITION", "Position Received:", true);
+            ConsoleListFormat("timestamp: " + e.timestamp);
+            ConsoleListFormat("x: " + e.x);
+            ConsoleListFormat("y: " + e.y);
+            ConsoleListFormat("a: " + e.theta);
+            ConsoleListFormat("linear  :" + e.linearSpeed);
+            ConsoleListFormat("angular :" + e.angularSpeed);
+        }
+
+        static public void PrintTextMessageReceived(object sender, Protocol.TextMessageArgs e)
+        {
+            ConsoleInformationFormat("TEXT", "Text Received: " + e.text, true);
         }
         #endregion
 

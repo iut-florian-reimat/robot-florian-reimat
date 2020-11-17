@@ -24,15 +24,24 @@ namespace RobotConsole
                 case (ushort)Protocol.FunctionName.GET_STATE:
                     OnStateMessageReceived(e);
                     break;
+                case (ushort)Protocol.FunctionName.GET_POSITION:
+                    OnPositionMessageReceived(e);
+                    break;
+                case (ushort)Protocol.FunctionName.GET_TEXT:
+                    OnTextMessageReceived(e);
+                    break;
                 default:
                     OnUnknowFunctionReceived(e);
                     break;
             }
         }
 
+        #region Event
         public event EventHandler<EventArgs> OnMessageProcessorCreatedEvent;
         public event EventHandler<Protocol.IRMessageArgs> OnIRMessageReceivedEvent;
         public event EventHandler<Protocol.StateMessageArgs> OnStateMessageReceivedEvent;
+        public event EventHandler<Protocol.PositionMessageArgs> OnPositionMessageReceivedEvent;
+        public event EventHandler<Protocol.TextMessageArgs> OnTextMessageReceivedEvent;
         public event EventHandler<Protocol.MessageByteArgs> OnUnknowFunctionReceivedEvent;
 
         public virtual void OnMessageProcessorCreated()
@@ -52,9 +61,27 @@ namespace RobotConsole
             OnStateMessageReceivedEvent?.Invoke(this, new Protocol.StateMessageArgs(e.msgPayload[0], time));
         }
 
+        public virtual void OnPositionMessageReceived(Protocol.MessageByteArgs e)
+        {
+            uint time = (uint) BitConverter.ToInt32(e.msgPayload, 0);
+            float x = BitConverter.ToSingle(e.msgPayload, 4);
+            float y = BitConverter.ToSingle(e.msgPayload, 8);
+            float theta = BitConverter.ToSingle(e.msgPayload, 12);
+            float linearSpeed = BitConverter.ToSingle(e.msgPayload, 16);
+            float angularSpeed = BitConverter.ToSingle(e.msgPayload, 20);
+            OnPositionMessageReceivedEvent?.Invoke(this, new Protocol.PositionMessageArgs(time, x, y, theta, linearSpeed, angularSpeed));
+        }
+
+        public virtual void OnTextMessageReceived(Protocol.MessageByteArgs e)
+        {
+            string text = Encoding.UTF8.GetString(e.msgPayload, 0, e.msgPayload.Length);
+            OnTextMessageReceivedEvent?.Invoke(this, new Protocol.TextMessageArgs(text));
+        }
+
         public virtual void OnUnknowFunctionReceived(Protocol.MessageByteArgs e)
         {
             OnUnknowFunctionReceivedEvent?.Invoke(this, e);
         }
+        #endregion
     }
 }
