@@ -34,21 +34,42 @@ namespace Utilities
         public double Distance;
         public double Angle;
 
-        public PolarPoint(double distance, double angle)
+        public PolarPoint(double angle, double distance)
         {
             Distance = distance;
             Angle = angle;
         }
     }
+    public class PolarPointRssi
+    {
+        public double Distance;
+        public double Angle;
+        public double Rssi;
+
+        public PolarPointRssi(double angle, double distance, double rssi)
+        {
+            Distance = distance;
+            Angle = angle;
+            Rssi = rssi;
+        }
+
+    }
+
+    public class PointDExtended
+    {
+        public double X;
+        public double Y;
+        public ObjectType type;
+    }
 
     public class Location
     {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Theta { get; set; }
-        public double Vx { get; set; }
-        public double Vy { get; set; }
-        public double Vtheta { get; set; }
+        public double X;
+        public double Y;
+        public double Theta;
+        public double Vx;
+        public double Vy;
+        public double Vtheta;
 
         public Location(double x, double y, double theta, double vx, double vy, double vtheta)
         {
@@ -61,6 +82,28 @@ namespace Utilities
         }
     }
 
+    public class LocationExtended
+    {
+        public double X;
+        public double Y;
+        public double Theta;
+        public double Vx;
+        public double Vy;
+        public double Vtheta;
+        public ObjectType Type;
+
+        public LocationExtended(double x, double y, double theta, double vx, double vy, double vtheta, ObjectType type)
+        {
+            X = x;
+            Y = y;
+            Theta = theta;
+            Vx = vx;
+            Vy = vy;
+            Vtheta = vtheta;
+            Type = type;
+        }
+    }
+
     public class PolygonExtended
     {
         public Polygon polygon = new Polygon();
@@ -68,20 +111,28 @@ namespace Utilities
         public System.Drawing.Color borderColor = System.Drawing.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF);
         public double borderOpacity = 1;
         public double[] borderDashPattern = new double[] { 1.0 };
-        public System.Drawing.Color backgroundColor = System.Drawing.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF);
+        public System.Drawing.Color backgroundColor = System.Drawing.Color.FromArgb(0x66, 0xFF, 0xFF, 0xFF);
     }
 
     public class PolarPointListExtended
     {
-        public List<PolarPoint> PolarPointList;        
-        public System.Drawing.Color DisplayColor;
-        public double DisplayWidth;
+        public List<PolarPointRssi> polarPointList;
+        public ObjectType type;
+        //public System.Drawing.Color displayColor;
+        //public double displayWidth=1;
+    }
 
-        public PolarPointListExtended(List<PolarPoint> polarPointList, System.Drawing.Color displayColor, double displayWidth)
-        {
-            PolarPointList = polarPointList;
-            DisplayColor = displayColor;
-            DisplayWidth = displayWidth;
-        }
+    public enum ObjectType
+    {
+        Balle,
+        Obstacle,
+        Robot,
+        Poteau,
+        Balise,
+        LimiteHorizontaleHaute,
+        LimiteHorizontaleBasse,
+        LimiteVerticaleGauche,
+        LimiteVerticaleDroite,
+
     }
 }

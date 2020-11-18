@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Utilities
 {
@@ -21,73 +20,30 @@ namespace Utilities
         /// <param name="bs">Array d'octets à traduire.</param>
         public static string GetString(this byte[] bs) => Encoding.ASCII.GetString(bs);
 
-        /// <summary>
-        /// Permet d'obtenir le tableau d'octets correspondant à ce float.
-        /// </summary>
-        /// <param name="f"><see cref="float"/> à traduire.</param>
-        public static unsafe byte[] GetBytes(this float f)
+
+        public static byte[] GetBytes(this float f)
         {
-            byte* f_ptr = (byte*)&f;
-
-            byte[] bytes = new byte[4];
-            for (int i = 0; i < 4; i++)
-                bytes[i] = f_ptr[i];
-
-            return bytes;
+            return BitConverter.GetBytes(f);
         }
 
-        /// <summary>
-        /// Permet d'obtenir le tableau d'octets correspondant à ce double.
-        /// </summary>
-        /// <param name="d"><see cref="double"/> à traduire.</param>
-        public static unsafe byte[] GetBytes(this double d)
+        public static byte[] GetBytes(this double d)
         {
-            byte* d_ptr = (byte*)&d;
-
-            byte[] bytes = new byte[8];
-            for (int i = 0; i < 8; i++)
-                bytes[i] = d_ptr[i];
-
-            return bytes;
+            return BitConverter.GetBytes(d);
         }
 
-        /// <summary>
-        /// Permet d'obtenir le tableau d'octets correspondant à ce INT32.
-        /// </summary>
-        /// <param name="d"><see cref="double"/> à traduire.</param>
-        public static unsafe byte[] GetBytes(this Int32 i)
+        public static byte[] GetBytes(this Int32 x)
         {
-            byte[] bytes = new byte[4];
-            bytes[0] = (byte)(i >> 24);
-            bytes[1] = (byte)(i >> 16);
-            bytes[2] = (byte)(i >> 8);
-            bytes[3] = (byte)i;
-            return bytes;
-        }
-        /// <summary>
-        /// Permet d'obtenir le <see cref="float"/> correspondant au tableau d'octets rentré.
-        /// </summary>
-        /// <param name="b">Array d'octets à traduire.</param>
-        public static unsafe float GetFloat(this byte[] b)
-        {
-            float f;
-            fixed (byte* b_ptr = b)
-                f = *(float*)b_ptr;
-
-            return f;
+            return BitConverter.GetBytes(x);
         }
 
-        /// <summary>
-        /// Permet d'obtenir le <see cref="double"/> correspondant au tableau d'octets rentré.
-        /// </summary>
-        /// <param name="b">Array d'octets à traduire.</param>
-        public static unsafe double GetDouble(this byte[] b)
+        public static float GetFloat(this byte[] tab)
         {
-            double d;
-            fixed (byte* b_ptr = b)
-                d = *(double*)b_ptr;
+            return BitConverter.ToSingle(tab, 0);
+        }
 
-            return d;
+        public static double GetDouble(this byte[] tab)
+        {
+            return BitConverter.ToDouble(tab, 0);
         }
 
         /// <summary>
@@ -130,5 +86,43 @@ namespace Utilities
             else
                 d.Add(key, value);
         }
+    }
+
+    public class RollingList<T> : List<T>
+    {
+        private readonly LinkedList<T> _list = new LinkedList<T>();
+
+        public RollingList(int maximumCount)
+        {
+            if (maximumCount <= 0)
+                throw new ArgumentException(null, nameof(maximumCount));
+
+            MaximumCount = maximumCount;
+        }
+
+        public int MaximumCount { get; }
+        new public int Count => _list.Count;
+
+        new public void Add(T value)
+        {
+            if (_list.Count == MaximumCount)
+            {
+                _list.RemoveFirst();
+            }
+            _list.AddLast(value);
+        }
+
+        new public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count)
+                    throw new ArgumentOutOfRangeException();
+
+                return _list.Skip(index).First();
+            }
+        }
+
+        new public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
     }
 }

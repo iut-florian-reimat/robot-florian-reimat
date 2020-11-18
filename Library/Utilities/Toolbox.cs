@@ -65,7 +65,7 @@ namespace Utilities
         }
 
         /// <summary>Décale un angle dans un intervale de [-PI, PI] autour d'un autre.</summary>
-        public static double ModuloAroundAngle(double angleToCenterAround, double angleToCorrect)
+        public static double ModuloByAngle(double angleToCenterAround, double angleToCorrect)
         {
             // On corrige l'angle obtenu pour le moduloter autour de l'angle Kalman
             int decalageNbTours = (int)Math.Round((angleToCorrect - angleToCenterAround) / (2 * Math.PI));
@@ -90,5 +90,15 @@ namespace Utilities
         {
             return Math.Sqrt(Math.Pow(xPt2 - xPt1, 2) + Math.Pow(yPt2 - yPt1, 2));
         }
+
+        /// <summary>Calcul le modulo autour d'un angle d'un autre angle donné.</summary>
+        //public static double ModuloAroundAngle(double angleToCenterAround, double angleToCorrect)
+        //{
+        //    // On corrige l'angle obtenu pour le moduloter autour de l'angle Kalman
+        //    int decalageNbTours = (int)Math.Round(angleToCenterAround / (2 * Math.PI));
+        //    double thetaCorrected = angleToCorrect + decalageNbTours * 2 * Math.PI;
+
+        //    return thetaCorrected;
+        //}
     }
 }

@@ -16,9 +16,6 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Robot" Margin="0" Background="#FF4E4E4E" BorderBrush="White" Foreground="White" FontFamily="Consolas">
-            <TextBlock HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-        </GroupBox>
     </Grid>
 </Window>
 
