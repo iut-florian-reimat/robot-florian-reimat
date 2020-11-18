@@ -50,7 +50,7 @@ namespace RobotConsole
                 {
                     OnNoConnectionAvailable();
                 }
-                System.Threading.Thread.Sleep((int)timespan); // Not Good 
+                System.Threading.Thread.Sleep((int) timespan); // Not Good 
             } while (serialPort == null && i <= trial_max);
             return (serialPort != null);
         }

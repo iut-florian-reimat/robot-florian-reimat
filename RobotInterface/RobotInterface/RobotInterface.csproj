@@ -110,5 +110,11 @@
   <ItemGroup>
     <Resource Include="robot.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\WpfAsservissementDisplay\WpfAsservissementDisplay.csproj">
+      <Project>{f0a887e9-d0a2-47e3-994a-94a0dcae8d4f}</Project>
+      <Name>WpfAsservissementDisplay</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

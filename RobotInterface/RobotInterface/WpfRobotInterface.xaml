@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RobotInterface"
+        xmlns:ext="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
         mc:Ignorable="d"
         Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="{x:Null}">
 
@@ -16,6 +17,8 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+        <ext:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="20" MouseDoubleClick="ZoomOnGraph_MouseDoubleClick"/>
     </Grid>
 </Window>
 
