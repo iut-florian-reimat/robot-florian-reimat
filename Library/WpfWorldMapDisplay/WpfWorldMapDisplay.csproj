@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0A887E9-D0A2-47E3-994A-94A0DCAE8D4F}</ProjectGuid>
+    <ProjectGuid>{89604641-927E-47FF-8DB6-91CF5C4976C1}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>WpfAsservissementDisplay</RootNamespace>
-    <AssemblyName>WpfAsservissementDisplay</AssemblyName>
+    <RootNamespace>WpfWorldMapDisplay</RootNamespace>
+    <AssemblyName>WpfWorldMapDisplay</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,10 +32,33 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.2</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.2</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,16 +73,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AsservissementXYThetaControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="AsservissementXYThetaControl.xaml.cs">
-      <DependentUpon>AsservissementXYThetaControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="ObstacleDisplay.cs" />
+    <Compile Include="BallDisplay.cs" />
+    <Compile Include="PolygonRenderableSeries.cs" />
+    <Compile Include="RobotDisplay.cs" />
+    <Compile Include="GlobalWorldMapDisplay.xaml.cs">
+      <DependentUpon>GlobalWorldMapDisplay.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="LocalWorldMapDisplay.xaml.cs">
+      <DependentUpon>LocalWorldMapDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,10 +106,45 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GlobalWorldMapDisplay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LocalWorldMapDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Constants\Constants.csproj">
+      <Project>{0540B497-B2CE-40A1-84B5-3109CE2F3146}</Project>
+      <Name>Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HeatMap\HeatMap.csproj">
+      <Project>{BDF7D4A0-1E8B-4487-862E-2DA58A7BC267}</Project>
+      <Name>HeatMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HighFreqTimer\AdvancedTimers.csproj">
+      <Project>{ECC907ED-F9B2-457F-901E-720987934E47}</Project>
+      <Name>AdvancedTimers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Perception\Perception.csproj">
+      <Project>{DD8FD061-D3B2-43AE-B74D-03D94A2876A3}</Project>
+      <Name>Perception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
+      <Project>{8E7D0DA4-9A13-4B18-A90E-0243BBCCE40A}</Project>
       <Name>Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WorldMap\WorldMap.csproj">
+      <Project>{B2D0126F-8C82-4EAA-87E5-67415F589098}</Project>
+      <Name>WorldMap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SciChart">
+      <Version>6.2.1.13304</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
