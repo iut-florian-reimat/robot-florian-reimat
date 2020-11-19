@@ -55,7 +55,7 @@ namespace RobotConsole
                 case (ushort)FunctionName.SET_STATE:
                     return 1;
                 case (ushort)FunctionName.GET_POSITION:
-                    return 24;
+                    return 32;
                 default:
                     return -2;
 
@@ -171,8 +171,10 @@ namespace RobotConsole
             public float theta { get; set; }
             public float linearSpeed { get; set; }
             public float angularSpeed { get; set; }
+            public float distanceRight { get; set; }
+            public float distanceLeft { get; set; }
 
-            public PositionMessageArgs(uint time, float x_a, float y_a, float theta_a, float linear, float angular)
+            public PositionMessageArgs(uint time, float x_a, float y_a, float theta_a, float linear, float angular, float distanceRight_a, float distanceLeft_a)
             {
                 timestamp = time;
                 x = x_a;
@@ -180,6 +182,8 @@ namespace RobotConsole
                 theta = theta_a;
                 linearSpeed = linear;
                 angularSpeed = angular;
+                distanceRight = distanceRight_a;
+                distanceLeft = distanceLeft_a;
             }
         }
 

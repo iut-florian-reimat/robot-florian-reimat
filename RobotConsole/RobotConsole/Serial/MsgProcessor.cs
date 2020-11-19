@@ -69,7 +69,13 @@ namespace RobotConsole
             float theta = BitConverter.ToSingle(e.msgPayload, 12);
             float linearSpeed = BitConverter.ToSingle(e.msgPayload, 16);
             float angularSpeed = BitConverter.ToSingle(e.msgPayload, 20);
-            OnPositionMessageReceivedEvent?.Invoke(this, new Protocol.PositionMessageArgs(time, x, y, theta, linearSpeed, angularSpeed));
+            float distanceRight = BitConverter.ToSingle(e.msgPayload, 24);
+            float distanceLeft = BitConverter.ToSingle(e.msgPayload, 28);
+
+            theta = (float) (theta * 180 / Math.PI);
+            distanceLeft = (float) (distanceLeft / (0.0425 * Math.PI));
+            distanceRight = (float)(distanceRight / (0.0425 * Math.PI));
+            OnPositionMessageReceivedEvent?.Invoke(this, new Protocol.PositionMessageArgs(time, x, y, theta, linearSpeed, angularSpeed, distanceRight, distanceLeft));
         }
 
         public virtual void OnTextMessageReceived(Protocol.MessageByteArgs e)

@@ -11,7 +11,6 @@ C:\Users\Valentin\Desktop\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Users\Valentin\Desktop\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.pdb
-C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll

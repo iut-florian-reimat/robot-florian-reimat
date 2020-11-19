@@ -310,6 +310,8 @@ namespace RobotConsole
             ConsoleListFormat("a: " + e.theta);
             ConsoleListFormat("linear  :" + e.linearSpeed);
             ConsoleListFormat("angular :" + e.angularSpeed);
+            ConsoleListFormat("Right: " + e.distanceRight);
+            ConsoleListFormat("Left : " + e.distanceLeft);
         }
 
         static public void PrintTextMessageReceived(object sender, Protocol.TextMessageArgs e)

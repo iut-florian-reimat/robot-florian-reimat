@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAsservissementDisplay"
-             mc:Ignorable="d">
+             mc:Ignorable="d" d:DesignWidth="410">
 
     <Border BorderBrush="#AAAAAA" BorderThickness="1">
         <Grid >
@@ -19,14 +19,12 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
 
@@ -38,7 +36,7 @@
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="5" Grid.ColumnSpan="8"/>
             <Border BorderBrush="#AAAAAA" BorderThickness="1" Grid.Row="7" Grid.ColumnSpan="8"/>
 
-            <Label x:Name="LabelTitre" Content="Asservissement en ..." Foreground="White" Margin="0" Padding="0" ></Label>
+            <Label x:Name="LabelTitre" Content="Asservissement en ..." Foreground="White" Margin="0,0,0.2,0" Padding="0" Height="16" VerticalAlignment="Bottom" ></Label>
             <Label Grid.Row="1" Content="Consigne : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="2" Content="Measure : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="3" Content="Error : " Foreground="White"  Margin="0" Padding="0"></Label>
@@ -164,7 +162,7 @@
                 <Label x:Name="LabelCorrPM1" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrMaxPM1" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
             </Grid>
-            
+
             <Grid x:Name="CorrPM2Grid" Grid.Column="5" MinWidth="50" Grid.Row="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -182,7 +180,8 @@
             <Grid x:Name="CorrIXGrid" Grid.Column="1" MinWidth="50" Grid.Row="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="30"/>                </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
