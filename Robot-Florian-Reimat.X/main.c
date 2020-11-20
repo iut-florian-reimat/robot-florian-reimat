@@ -32,6 +32,7 @@ int main(void) {
         for (i = 0; i < CB_RX1_GetDataSize(); i++) {
             unsigned char c = CB_RX1_Get();
             UartDecodeMessage(c);
+            BLUE_LED = !BLUE_LED;
         }
         //__delay32(1000000);
         // Test Bonjour        
