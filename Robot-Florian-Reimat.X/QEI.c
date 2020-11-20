@@ -22,7 +22,7 @@ void InitQEI2() {
     QEI2CONbits.QEIEN = 1; // Enable QEI Module
 }
 
-float QeiDroitPosition_T_1, QeiGauchePosition_T_1, delta_d, delta_g, delta_theta, dx;
+double QeiDroitPosition_T_1, QeiGauchePosition_T_1, delta_d, delta_g, delta_theta, dx;
 
 void QEIUpdateData() {
     //On sauvegarde les anciennes valeurs
@@ -66,8 +66,8 @@ void QEIUpdateData() {
     robotState.angleRadianFromOdometry_1 = robotState.angleRadianFromOdometry;
     
     // Calcul des positions dans le referentiel du terrain
-    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(robotState.angleRadianFromOdometry_1);
-    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(robotState.angleRadianFromOdometry_1);
+    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(/*robotState.angleRadianFromOdometry_1*/0);
+    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(/*robotState.angleRadianFromOdometry_1*/0);
     robotState.angleRadianFromOdometry = robotState.angleRadianFromOdometry_1 + delta_theta;
     if (robotState.angleRadianFromOdometry > PI)
         robotState.angleRadianFromOdometry -= 2 * PI;
