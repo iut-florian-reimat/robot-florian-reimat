@@ -18,6 +18,7 @@
 #define SEND_ROBOT_STATE            0x0050
 #define GET_ROBOT_STATE             0x0051
 #define SEND_POSITION               0x0061
+#define RESET_POSITION              0x0062
 #define SEND_MESSAGE                0x0080
 
 #endif	/* PROTOCOL_H */

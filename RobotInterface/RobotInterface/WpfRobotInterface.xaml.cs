@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SciChart.Charting.Visuals;
 using WpfAsservissementDisplay;
+using System.Windows.Threading;
 
 namespace RobotInterface
 {
@@ -22,11 +23,42 @@ namespace RobotInterface
     /// </summary>
     public partial class WpfRobotInterface : Window
     {
+        public static float xPos, yPos, aPos, linearSpeed, angularSpeed, rightMotor, leftMotor;
+        DispatcherTimer dialogTime;
         public WpfRobotInterface()
         {
             InitializeComponent();
 
             SciChartSurface.SetRuntimeLicenseKey("wsCOsvBlAs2dax4o8qBefxMi4Qe5BVWax7TGOMLcwzWFYRNCa/f1rA5VA1ITvLHSULvhDMKVTc+niao6URAUXmGZ9W8jv/4jtziBzFZ6Z15ek6SLU49eIqJxGoQEFWvjANJqzp0asw+zvLV0HMirjannvDRj4i/WoELfYDubEGO1O+oAToiJlgD/e2lVqg3F8JREvC0iqBbNrmfeUCQdhHt6SKS2QpdmOoGbvtCossAezGNxv92oUbog6YIhtpSyGikCEwwKSDrlKlAab6302LLyFsITqogZychLYrVXJTFvFVnDfnkQ9cDi7017vT5flesZwIzeH497lzGp3B8fKWFQyZemD2RzlQkvj5GUWBwxiKAHrYMnQjJ/PsfojF1idPEEconVsh1LoYofNk2v/Up8AzXEAvxWUEcgzANeQggaUNy+OFet8b/yACa/bgYG7QYzFQZzgdng8IK4vCPdtg4/x7g5EdovN2PI9vB76coMuKnNVPnZN60kSjtd/24N8A==");
+
+            dialogTime = new DispatcherTimer();
+            dialogTime.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            dialogTime.Tick += UpdatePositionData;
+            dialogTime.Start();
+
+        }
+
+        public void UpdatePositionData(object sender, EventArgs e)
+        {
+            xPosText.Text = xPos + "m";
+            yPosText.Text = yPos + "m";
+            aPosText.Text = aPos + "°";
+            linearSpeedText.Text   = linearSpeed  + "m/s";
+            angularSpeedText.Text  = angularSpeed + "m/s";
+            rightMotorText.Text = rightMotor + "t";
+            leftMotorText.Text  = leftMotor  + "t";
+        }
+
+        private void OnResetPosClick(object sender, RoutedEventArgs e)
+        {
+            OnResetPosition(); // Maybe make this event better
+        }
+
+        public static event EventHandler<EventArgs> OnResetPositionEvent;
+
+        public virtual void OnResetPosition()
+        {
+            OnResetPositionEvent?.Invoke(this, new EventArgs());
         }
     }
 }

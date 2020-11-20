@@ -40,6 +40,8 @@
     <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeCoverage.16.7.1\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -49,9 +51,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleFormat.cs" />
+    <Compile Include="GUIFormat.cs" />
     <Compile Include="Serial\MsgDecoder.cs" />
     <Compile Include="Serial\MsgEncoder.cs" />
     <Compile Include="Serial\MsgGenerator.cs" />
@@ -73,6 +77,10 @@
     <ProjectReference Include="..\..\Library\Utilities\Utilities.csproj">
       <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
       <Name>Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RobotInterface\RobotInterface\RobotInterface.csproj">
+      <Project>{50848cdd-e031-494f-b8a1-d82640841d83}</Project>
+      <Name>RobotInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

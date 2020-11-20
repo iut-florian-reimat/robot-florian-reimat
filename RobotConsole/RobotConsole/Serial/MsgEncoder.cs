@@ -94,6 +94,7 @@ namespace RobotConsole
         public event EventHandler<Protocol.LedMessageArgs> OnSetLedEvent;
         public event EventHandler<Protocol.MotorMessageArgs> OnSetMotorSpeedEvent;
         public event EventHandler<Protocol.StateMessageArgs> OnSetStateEvent;
+        public event EventHandler<EventArgs> OnSetResetPositionEvent;
         public event EventHandler<EventArgs> OnSerialDisconnectedEvent;
         public event EventHandler<EventArgs> OnWrongPayloadSentEvent;
         public event EventHandler<EventArgs> OnUnknownFunctionSentEvent;
@@ -116,6 +117,9 @@ namespace RobotConsole
                 case (ushort)Protocol.FunctionName.SET_STATE:
                     OnSetState(msgPayload[0]);
                     break;
+                case (ushort)Protocol.FunctionName.SET_RESET_POSITION:
+                    OnSetResetPosition();
+                    break;
             }
         }
         public virtual void OnSetLed(ushort led_number, bool state)
@@ -129,6 +133,11 @@ namespace RobotConsole
         public virtual void OnSetState(ushort state)
         {
             OnSetStateEvent?.Invoke(this, new Protocol.StateMessageArgs(state));
+        }
+
+        public virtual void OnSetResetPosition()
+        {
+            OnSetResetPositionEvent?.Invoke(this, new EventArgs());
         }
 
         public virtual void OnSerialDisconnected()

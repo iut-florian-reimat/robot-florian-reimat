@@ -6,6 +6,7 @@
 #include <xc.h>
 #include <math.h>
 #include "timer.h"
+#include "IO.h"
 
 void InitQEI1() {
     QEI1IOCbits.SWPAB = 1; //QEAx and QEBx are swapped
@@ -74,5 +75,14 @@ void QEIUpdateData() {
         robotState.angleRadianFromOdometry += 2 * PI;
 }
 
+void QEIReset() {
+    WHITE_LED = !WHITE_LED;    
+    QEISetPosition(0,0,0);
+}
 
+void QEISetPosition(float x, float y, float theta) {
+    robotState.xPosFromOdometry = x;
+    robotState.yPosFromOdometry = y;
+    robotState.angleRadianFromOdometry = theta;
+}
 

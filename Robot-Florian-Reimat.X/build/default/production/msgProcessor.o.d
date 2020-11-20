@@ -3,4 +3,5 @@ msgProcessor.c  \
 Protocol.h  \
  msgProcessor.h  \
 main.h  \
-IO.h 
+IO.h  \
+QEI.h 

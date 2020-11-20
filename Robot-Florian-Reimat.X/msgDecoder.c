@@ -1,6 +1,7 @@
 #include "msgDecoder.h"
 #include "msgEncoder.h"
 #include "msgProcessor.h"
+#include "IO.h"
 #include <xc.h>
 #include "main.h"
 #include "CB_RX1.h"
@@ -25,8 +26,10 @@ StateReception rcvState = Waiting;
 
 void UartDecodeMessage(unsigned char c) {
     unsigned char calculatedChecksum, receivedChecksum;
+    
     switch (rcvState) {
         case Waiting:
+            
             if (c == SOF_BYTE) {
                 // Message begin
                 msgDecodedFunction = 0;
@@ -49,7 +52,8 @@ void UartDecodeMessage(unsigned char c) {
             break;
         case PayloadLengthLSB:
             msgDecodedPayloadLength += (unsigned int) (c << 0);
-            if (msgDecodedPayloadLength >= MAX_PAYLOAD_LENGHT){
+            
+            if (msgDecodedPayloadLength <= MAX_PAYLOAD_LENGHT){
                 if (msgDecodedPayloadLength > 0) {
                     rcvState = Payload;
                 } else {
@@ -71,6 +75,7 @@ void UartDecodeMessage(unsigned char c) {
         case CheckSum:
             receivedChecksum = c;
             calculatedChecksum = UartCalculateChecksum(msgDecodedFunction,msgDecodedPayloadLength, msgDecodedPayload);
+            
             if (calculatedChecksum == receivedChecksum) {
                 // Success, on a un message 
                 UartProcessDecodedMessage(msgDecodedFunction,msgDecodedPayload);

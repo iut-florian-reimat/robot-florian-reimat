@@ -111,10 +111,17 @@
     <Resource Include="robot.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Library\Utilities\Utilities.csproj">
+      <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Library\WpfAsservissementDisplay\WpfAsservissementDisplay.csproj">
       <Project>{f0a887e9-d0a2-47e3-994a-94a0dcae8d4f}</Project>
       <Name>WpfAsservissementDisplay</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

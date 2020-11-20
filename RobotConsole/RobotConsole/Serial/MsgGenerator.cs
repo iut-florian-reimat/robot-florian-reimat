@@ -45,6 +45,12 @@ namespace RobotConsole
             Serial.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_STATE, msgPayload);
         }
 
+        public void GenerateMessageSetResetPosition()
+        {
+            byte[] msgPayload = new byte[] { 0x00 };
+            Serial.msgEncoder.UartEncodeAndSendMessage((ushort)Protocol.FunctionName.SET_RESET_POSITION, msgPayload);
+        }
+
         public event EventHandler<EventArgs> OnMessageGeneratorCreatedEvent;
 
         public virtual void OnMessageGeneratorCreated()

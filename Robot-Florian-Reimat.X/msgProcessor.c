@@ -3,6 +3,7 @@
 #include "msgProcessor.h"
 #include "main.h"
 #include "IO.h"
+#include "QEI.h"
 
 void UartProcessDecodedMessage(unsigned char function , unsigned char* payload) {
     switch (function) {
@@ -26,6 +27,8 @@ void UartProcessDecodedMessage(unsigned char function , unsigned char* payload) 
         case GET_ROBOT_STATE:
             SetRobotState(payload[0]);
             break;
-        
+        case RESET_POSITION:
+            QEIReset();
+            break;
     }
 }

@@ -12,13 +12,14 @@ namespace RobotConsole
         public const ushort MAX_MSG_LENGHT = 255;
         public enum FunctionName : ushort
         {
-            SET_LED         = 0x0020,
-            GET_IR          = 0x0030,
-            SET_MOTOR       = 0x0040,
-            GET_STATE       = 0x0050,
-            SET_STATE       = 0x0051,
-            GET_POSITION    = 0x0061,
-            GET_TEXT        = 0x0080
+            SET_LED             = 0x0020,
+            GET_IR              = 0x0030,
+            SET_MOTOR           = 0x0040,
+            GET_STATE           = 0x0050,
+            SET_STATE           = 0x0051,
+            GET_POSITION        = 0x0061,
+            SET_RESET_POSITION  = 0x0062,
+            GET_TEXT            = 0x0080
             // Add all protocol
         }
 
@@ -56,6 +57,8 @@ namespace RobotConsole
                     return 1;
                 case (ushort)FunctionName.GET_POSITION:
                     return 32;
+                case (ushort)FunctionName.SET_RESET_POSITION:
+                    return 1;
                 default:
                     return -2;
 

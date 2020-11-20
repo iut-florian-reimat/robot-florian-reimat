@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RobotInterface"
         xmlns:ext="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
         mc:Ignorable="d"
-        Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="{x:Null}"
+        Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
 >
 
     <Grid x:Name="Background" Background="#FF747474" Margin="0,0,0,15.4">
@@ -21,7 +21,25 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <GroupBox Header="Position" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="240" Margin="0,56.6,0,0" Grid.Row="1" Background="#FF565656" Foreground="White">
+            <Button x:Name="resetPosButton" Content="Reset" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Background="#FFA5A5A5" Foreground="White" FontFamily="Consolas" Click="OnResetPosClick"/>
+        </GroupBox>
+
         <ext:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0,0.2,283.6,0.2" Background="#FF565656" Grid.ColumnSpan="2" />
+        <TextBlock HorizontalAlignment="Left" Margin="7,75.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="x: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,91.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="y: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,110.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="θ: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,131.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Linear Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Angular Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,173.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Right Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,194.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Left Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock x:Name="xPosText" HorizontalAlignment="Left" Margin="24,75.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
+        <TextBlock x:Name="yPosText" HorizontalAlignment="Left" Margin="24,91.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
+        <TextBlock x:Name="aPosText" HorizontalAlignment="Left" Margin="24,110.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0°" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"/>
+        <TextBlock x:Name="linearSpeedText" HorizontalAlignment="Left" Margin="99,131.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
+        <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="99,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
+        <TextBlock x:Name="rightMotorText" HorizontalAlignment="Left" Margin="87,173.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="83"><Run Text="0"/><Run Text="t"/></TextBlock>
+        <TextBlock x:Name="leftMotorText" HorizontalAlignment="Left" Margin="80,194.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="90"><Run Text="0"/><Run Text="t"/></TextBlock>
 
     </Grid>
 </Window>

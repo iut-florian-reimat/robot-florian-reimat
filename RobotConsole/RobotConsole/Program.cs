@@ -8,6 +8,7 @@ using ExtendedSerialPort;
 using System.Management;
 using System.IO.Ports;
 using System.Security.Cryptography.X509Certificates;
+using RobotInterface;
 
 namespace RobotConsole
 {
@@ -15,6 +16,8 @@ namespace RobotConsole
     {
 
         static Serial serial;
+        public static WpfRobotInterface interfaceRobot;
+
         private static bool serial_viewer = true;
         private static bool hex_viewer = false;
         private static bool hex_error_viewer = true;
@@ -99,11 +102,36 @@ namespace RobotConsole
             Serial.msgDecoder.OnCorrectChecksumEvent += Serial.msgProcessor.MessageProcessor; // Obligatory
 
 
+            #region GUI
+            // Create GUI
+            StartRobotInterface();
+            #region Event
+            #region FromConsole
+            Serial.msgProcessor.OnPositionMessageReceivedEvent += GUIFormat.UpdatePosition;
+            #endregion
+            #region FromInterface
+            WpfRobotInterface.OnResetPositionEvent += GUIFormat.ResetPosition;
+            #endregion
+            #endregion
+            #endregion
+
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
             Serial.msgGenerator.GenerateMessageSetLed(1, true);
             Serial.msgGenerator.GenerateMessageSetLed(3, true);
             Console.ReadKey();
 
+        }
+        static Thread t1;
+        static void StartRobotInterface()
+        {
+            t1 = new Thread(() =>
+            {
+                //Attention, il est nécessaire d'ajouter PresentationFramework, PresentationCore, WindowBase and your wpf window application aux ressources.
+                interfaceRobot = new RobotInterface.WpfRobotInterface();
+                interfaceRobot.ShowDialog();
+            });
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
     }
 }
