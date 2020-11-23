@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RobotInterface"
-        xmlns:ext="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
+        xmlns:AsservDisplay="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
         mc:Ignorable="d"
         Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
 >
@@ -25,7 +25,7 @@
             <Button x:Name="resetPosButton" Content="Reset" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Background="#FFA5A5A5" Foreground="White" FontFamily="Consolas" Click="OnResetPosClick"/>
         </GroupBox>
 
-        <ext:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0,0.2,283.6,0.2" Background="#FF565656" Grid.ColumnSpan="2" />
+        <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0,0.2,283.6,0.2" Background="#FF565656" Grid.ColumnSpan="2" />
         <TextBlock HorizontalAlignment="Left" Margin="7,75.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="x: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
         <TextBlock HorizontalAlignment="Left" Margin="7,91.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="y: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
         <TextBlock HorizontalAlignment="Left" Margin="7,110.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="θ: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
@@ -40,6 +40,5 @@
         <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="99,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
         <TextBlock x:Name="rightMotorText" HorizontalAlignment="Left" Margin="87,173.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="83"><Run Text="0"/><Run Text="t"/></TextBlock>
         <TextBlock x:Name="leftMotorText" HorizontalAlignment="Left" Margin="80,194.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="90"><Run Text="0"/><Run Text="t"/></TextBlock>
-
     </Grid>
 </Window>

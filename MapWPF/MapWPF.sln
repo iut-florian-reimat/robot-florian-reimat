@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapWPF", "MapWPF\MapWPF.csproj", "{98DE6C54-61AB-456B-9138-D239F885FF59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMapDisplay", "..\Library\WpfMapDisplay\WpfMapDisplay.csproj", "{64FF3C72-89BD-451E-B4CC-F27466147911}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveDataDisplay.WPF", "..\Library\InteractiveDataDisplay\InteractiveDataDisplay.WPF.csproj", "{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Debug|x64.Build.0 = Debug|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Release|x64.ActiveCfg = Release|Any CPU
+		{98DE6C54-61AB-456B-9138-D239F885FF59}.Release|x64.Build.0 = Release|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Debug|x64.Build.0 = Debug|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Release|x64.ActiveCfg = Release|Any CPU
+		{64FF3C72-89BD-451E-B4CC-F27466147911}.Release|x64.Build.0 = Release|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9A99A82-5040-4F34-B70F-0B2A840F5E4D}
+	EndGlobalSection
+EndGlobal

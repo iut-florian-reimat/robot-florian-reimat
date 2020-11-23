@@ -9,6 +9,7 @@ using System.Management;
 using System.IO.Ports;
 using System.Security.Cryptography.X509Certificates;
 using RobotInterface;
+using SciChart.Charting.Visuals;
 
 namespace RobotConsole
 {
@@ -98,9 +99,9 @@ namespace RobotConsole
             #endregion
             #endregion
 
-            bool isSerialConnected = serial.AutoConnectSerial();
+            // bool isSerialConnected = serial.AutoConnectSerial();
             Serial.msgDecoder.OnCorrectChecksumEvent += Serial.msgProcessor.MessageProcessor; // Obligatory
-
+            
 
             #region GUI
             // Create GUI
@@ -117,7 +118,6 @@ namespace RobotConsole
 
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
             Serial.msgGenerator.GenerateMessageSetLed(1, true);
-            Serial.msgGenerator.GenerateMessageSetLed(3, true);
             Console.ReadKey();
 
         }
@@ -127,7 +127,7 @@ namespace RobotConsole
             t1 = new Thread(() =>
             {
                 //Attention, il est nécessaire d'ajouter PresentationFramework, PresentationCore, WindowBase and your wpf window application aux ressources.
-                interfaceRobot = new RobotInterface.WpfRobotInterface();
+                interfaceRobot = new WpfRobotInterface();
                 interfaceRobot.ShowDialog();
             });
             t1.SetApartmentState(ApartmentState.STA);
