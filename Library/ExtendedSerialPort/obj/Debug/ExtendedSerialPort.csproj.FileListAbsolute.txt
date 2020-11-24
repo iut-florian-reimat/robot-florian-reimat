@@ -29,3 +29,12 @@ C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Data.xml
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Drawing.xml
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CopyComplete
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Charting.dll
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Core.dll
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Data.dll
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Drawing.dll
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Charting.xml
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Core.xml
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Data.xml
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Drawing.xml
+C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CopyComplete

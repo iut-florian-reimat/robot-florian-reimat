@@ -99,7 +99,7 @@ namespace RobotConsole
             #endregion
             #endregion
 
-            // bool isSerialConnected = serial.AutoConnectSerial();
+            bool isSerialConnected = serial.AutoConnectSerial();
             Serial.msgDecoder.OnCorrectChecksumEvent += Serial.msgProcessor.MessageProcessor; // Obligatory
             
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfMapDisplay;
 
 namespace MapWPF
 {
@@ -38,10 +39,10 @@ namespace MapWPF
             Random random = new Random();
             if (mapDisplay.Circle != null)
             {
-                mapDisplay.Circle[0].x = (random.NextDouble() - 0.5) * 1500;
-                mapDisplay.Circle[0].y = (random.NextDouble() - 0.5) * 1000;
-                mapDisplay.Circle[1].x = (random.NextDouble() - 0.5) * 1500;
-                mapDisplay.Circle[1].y = (random.NextDouble() - 0.5) * 1000;
+                Color Red = Color.FromRgb(0xFF, 0x00, 0x00);
+                Color Green = Color.FromRgb(0x00, 0xFF, 0x00);
+                mapDisplay.Circle[0] = (new Ecocup() { id = (uint) mapDisplay.Circle.Count(), x = (random.NextDouble() - 0.5) * 1500, y = (random.NextDouble() - 0.5) * 1500, color = Red });
+                mapDisplay.Circle[1] = (new Ecocup() { id = (uint) mapDisplay.Circle.Count(), x = (random.NextDouble() - 0.5) * 1500, y = (random.NextDouble() - 0.5) * 1500, color = Green });
                 mapDisplay.UpdateCanPosition();
             }
             

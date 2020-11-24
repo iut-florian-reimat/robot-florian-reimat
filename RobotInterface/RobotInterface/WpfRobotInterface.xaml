@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RobotInterface"
         xmlns:AsservDisplay="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
+        xmlns:MapDisplauy="clr-namespace:WpfMapDisplay;assembly=WpfMapDisplay"
         mc:Ignorable="d"
         Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
 >
@@ -40,5 +41,6 @@
         <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="99,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
         <TextBlock x:Name="rightMotorText" HorizontalAlignment="Left" Margin="87,173.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="83"><Run Text="0"/><Run Text="t"/></TextBlock>
         <TextBlock x:Name="leftMotorText" HorizontalAlignment="Left" Margin="80,194.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="90"><Run Text="0"/><Run Text="t"/></TextBlock>
+        <MapDisplauy:WpfMapDisplay Name="mapDisplay" Grid.Column="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2" Foreground="White"/>
     </Grid>
 </Window>

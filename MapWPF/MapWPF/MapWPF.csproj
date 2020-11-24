@@ -95,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Library\InteractiveDataDisplay\InteractiveDataDisplay.WPF.csproj">
+      <Project>{2d34544c-2df2-4b20-a43a-6c8d2df3dd82}</Project>
+      <Name>InteractiveDataDisplay.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Library\WpfMapDisplay\WpfMapDisplay.csproj">
       <Project>{64ff3c72-89bd-451e-b4cc-f27466147911}</Project>
       <Name>WpfMapDisplay</Name>

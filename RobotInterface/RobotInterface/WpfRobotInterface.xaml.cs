@@ -43,10 +43,18 @@ namespace RobotInterface
             xPosText.Text = xPos + "m";
             yPosText.Text = yPos + "m";
             aPosText.Text = aPos + "°";
-            linearSpeedText.Text   = linearSpeed  + "m/s";
-            angularSpeedText.Text  = angularSpeed + "m/s";
+            linearSpeedText.Text = linearSpeed + "m/s";
+            angularSpeedText.Text = angularSpeed + "m/s";
             rightMotorText.Text = rightMotor + "t";
-            leftMotorText.Text  = leftMotor  + "t";
+            leftMotorText.Text = leftMotor + "t";
+
+            if (mapDisplay.Robot != null)
+            {
+                mapDisplay.Robot[0].x = xPos * 1000;
+                mapDisplay.Robot[0].y = yPos * 1000;
+                mapDisplay.UpdateRobotPosition();
+            }
+            
         }
 
         private void OnResetPosClick(object sender, RoutedEventArgs e)

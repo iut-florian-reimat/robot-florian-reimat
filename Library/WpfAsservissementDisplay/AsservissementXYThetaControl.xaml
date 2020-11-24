@@ -115,12 +115,6 @@
                 <Label x:Name="LabelKpX" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrPX" Grid.Row="1" Content="0" Foreground="White" Margin="0" Padding="0"/>
                 <Label x:Name="LabelCorrMaxPX" Grid.Row="2" Content="0" Foreground="LightGray" Margin="0" Padding="0"/>
-
-                <!--<Polyline Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Points="0,0 0,30 20,30 20,0" Stroke="#00BB00" Fill="#00FF00"  StrokeThickness="2">
-                    <Polyline.Effect>
-                        <DropShadowEffect Color="#99FF99" ShadowDepth="0" Direction="0" BlurRadius="25"  />
-                    </Polyline.Effect>
-                </Polyline>-->
             </Grid>
             <Grid x:Name="CorrPYGrid" Grid.Column="2" MinWidth="50" Grid.Row="5">
                 <Grid.ColumnDefinitions>
