@@ -9,7 +9,7 @@ using System.Management;
 using System.IO.Ports;
 using System.Security.Cryptography.X509Certificates;
 using RobotInterface;
-using SciChart.Charting.Visuals;
+//using SciChart.Charting.Visuals;
 
 namespace RobotConsole
 {
