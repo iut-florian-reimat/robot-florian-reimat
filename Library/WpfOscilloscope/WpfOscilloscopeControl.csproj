@@ -96,7 +96,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib lidar\Utilities\Utilities.csproj">
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
       <Name>Utilities</Name>
     </ProjectReference>

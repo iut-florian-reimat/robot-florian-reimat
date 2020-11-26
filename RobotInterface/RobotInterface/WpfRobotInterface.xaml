@@ -12,9 +12,10 @@
 
     <Grid x:Name="Background" Background="#FF747474" Margin="0,0,0,15.4">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="205*"/>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="218*"/>
+            <RowDefinition Height="218*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
@@ -22,23 +23,23 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <GroupBox Header="Position" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="240" Margin="0,56.6,0,0" Grid.Row="1" Background="#FF565656" Foreground="White">
+        <GroupBox Header="Position" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="240" Margin="0,56.6,0,0" Grid.Row="2" Background="#FF565656" Foreground="White">
             <Button x:Name="resetPosButton" Content="Reset" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Background="#FFA5A5A5" Foreground="White" FontFamily="Consolas" Click="OnResetPosClick"/>
         </GroupBox>
 
-        <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0,0.2,283.6,0.2" Background="#FF565656" Grid.ColumnSpan="2" />
-        <TextBlock HorizontalAlignment="Left" Margin="7,75.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="x: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
-        <TextBlock HorizontalAlignment="Left" Margin="7,91.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="y: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
-        <TextBlock HorizontalAlignment="Left" Margin="7,110.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="θ: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="7,131.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Linear Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="6,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Angular Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="6,173.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Right Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
-        <TextBlock HorizontalAlignment="Left" Margin="6,194.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Left Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
-        <TextBlock x:Name="xPosText" HorizontalAlignment="Left" Margin="24,75.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
-        <TextBlock x:Name="yPosText" HorizontalAlignment="Left" Margin="24,91.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
-        <TextBlock x:Name="aPosText" HorizontalAlignment="Left" Margin="24,110.6,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0°" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"/>
-        <TextBlock x:Name="linearSpeedText" HorizontalAlignment="Left" Margin="99,131.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
-        <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="99,152.6,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
-        <MapDisplay:WpfMapDisplay Name="mapDisplay" Grid.Column="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2" Foreground="White"/>
+        <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0,0.2,283.6,0.2" Background="#FF565656" Grid.ColumnSpan="2" />
+        <TextBlock HorizontalAlignment="Left" Margin="7,75.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="x: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,91.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="y: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,110.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="θ: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="7,131.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Linear Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,152.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Angular Speed: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,173.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Right Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock HorizontalAlignment="Left" Margin="6,194.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Left Motor:" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas"/>
+        <TextBlock x:Name="xPosText" HorizontalAlignment="Left" Margin="24,75.6,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
+        <TextBlock x:Name="yPosText" HorizontalAlignment="Left" Margin="24,91.6,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"><Run Text="0"/><Run Text="m"/></TextBlock>
+        <TextBlock x:Name="aPosText" HorizontalAlignment="Left" Margin="24,110.6,0,0" Grid.Row="2" TextWrapping="Wrap" Text="0°" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="106"/>
+        <TextBlock x:Name="linearSpeedText" HorizontalAlignment="Left" Margin="99,131.6,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
+        <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="99,152.6,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111"><Run Text="0"/><Run Text="m/s"/></TextBlock>
+        <MapDisplay:WpfMapDisplay Name="mapDisplay" Grid.Column="1" Grid.ColumnSpan="2" Margin="0.4,0,-0.4,218.2" Grid.RowSpan="4" Foreground="White"/>
     </Grid>
 </Window>
