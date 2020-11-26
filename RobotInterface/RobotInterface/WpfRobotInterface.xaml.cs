@@ -12,8 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-//using SciChart.Charting.Visuals;
-//using SciChart.Charting.Visuals.Axes;
 using WpfAsservissementDisplay;
 using System.Windows.Threading;
 
@@ -24,7 +22,7 @@ namespace RobotInterface
     /// </summary>
     public partial class WpfRobotInterface : Window
     {
-        public static float xPos, yPos, aPos, linearSpeed, angularSpeed, rightMotor, leftMotor;
+        public static float xPos, yPos, aPos, linearSpeed, angularSpeed;
         DispatcherTimer dialogTime;
         public WpfRobotInterface()
         {
@@ -45,8 +43,6 @@ namespace RobotInterface
             aPosText.Text = aPos + "°";
             linearSpeedText.Text = linearSpeed + "m/s";
             angularSpeedText.Text = angularSpeed + "m/s";
-            rightMotorText.Text = rightMotor + "t";
-            leftMotorText.Text = leftMotor + "t";
 
             if (mapDisplay.Robot != null)
             {

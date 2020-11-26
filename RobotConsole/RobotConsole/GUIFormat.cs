@@ -16,8 +16,6 @@ namespace RobotConsole
             WpfRobotInterface.aPos = e.theta;
             WpfRobotInterface.linearSpeed = e.linearSpeed;
             WpfRobotInterface.angularSpeed = e.angularSpeed;
-            WpfRobotInterface.rightMotor = e.distanceRight;
-            WpfRobotInterface.leftMotor = e.distanceLeft;
         }
 
         public static void ResetPosition(object sender, EventArgs e)
