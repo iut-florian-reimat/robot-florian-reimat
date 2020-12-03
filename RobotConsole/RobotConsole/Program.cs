@@ -17,6 +17,7 @@ namespace RobotConsole
     {
 
         static Serial serial;
+        static Odometry odometry;
         public static WpfRobotInterface interfaceRobot;
 
         private static bool serial_viewer = true;
@@ -37,7 +38,12 @@ namespace RobotConsole
             Serial.msgProcessor.OnMessageProcessorCreatedEvent += ConsoleFormat.PrintMessageProcessorCreated;
             Serial.msgGenerator.OnMessageGeneratorCreatedEvent += ConsoleFormat.PrintMessageGeneratorCreated;
 
+            odometry = new Odometry();
+            ConsoleFormat.ConsoleInformationFormat("ODOMETRY", "Odometry is launched");
+
+
             #region Event
+            #region Communication
             #region Serial
             if (serial_viewer)
             {
@@ -98,6 +104,10 @@ namespace RobotConsole
             }
             #endregion
             #endregion
+            #region Odometry
+            odometry.OnUpdateOdometryEvent += OnOdometryUpdate;
+            #endregion
+            #endregion
 
             bool isSerialConnected = serial.AutoConnectSerial();
             Serial.msgDecoder.OnCorrectChecksumEvent += Serial.msgProcessor.MessageProcessor; // Obligatory
@@ -121,6 +131,7 @@ namespace RobotConsole
             Console.ReadKey();
 
         }
+        #region Start Interface
         static Thread t1;
         static void StartRobotInterface()
         {
@@ -132,6 +143,13 @@ namespace RobotConsole
             });
             t1.SetApartmentState(ApartmentState.STA);
             t1.Start();
+        }
+        #endregion
+
+        static void OnOdometryUpdate(object sender, OdometryArgs e)
+        {
+            Serial.msgGenerator.GenerateMessageSetOdometryParam(e.diameterFactor, e.distanceFactor);
+            Serial.msgGenerator.GenerateMessageSetResetPosition();
         }
     }
 }

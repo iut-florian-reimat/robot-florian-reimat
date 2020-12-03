@@ -43,6 +43,7 @@ namespace RobotConsole
         public event EventHandler<Protocol.PositionMessageArgs> OnPositionMessageReceivedEvent;
         public event EventHandler<Protocol.TextMessageArgs> OnTextMessageReceivedEvent;
         public event EventHandler<Protocol.MessageByteArgs> OnUnknowFunctionReceivedEvent;
+        
 
         public virtual void OnMessageProcessorCreated()
         {

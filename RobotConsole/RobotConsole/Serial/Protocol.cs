@@ -19,6 +19,10 @@ namespace RobotConsole
             SET_STATE           = 0x0051,
             GET_POSITION        = 0x0061,
             SET_RESET_POSITION  = 0x0062,
+            SET_POSITION        = 0x0063,
+            SET_ODOMETRY_PARAM  = 0x0071,
+            LOCK_ODOMETRY_Y     = 0x0070,
+            SET_ASSERV_PARAM    = 0x0076,
             GET_TEXT            = 0x0080
             // Add all protocol
         }
@@ -57,8 +61,14 @@ namespace RobotConsole
                     return 1;
                 case (ushort)FunctionName.GET_POSITION:
                     return 24;
+                case (ushort)FunctionName.SET_ODOMETRY_PARAM:
+                    return 24; // Not implemented on Robot
+                case (ushort)FunctionName.LOCK_ODOMETRY_Y:
+                    return 1; // Not implemented on Robot
                 case (ushort)FunctionName.SET_RESET_POSITION:
                     return 1;
+                case (ushort)FunctionName.SET_POSITION:
+                    return 1; // Not implemented
                 default:
                     return -2;
 
@@ -194,6 +204,7 @@ namespace RobotConsole
                 text = text_a;
             }
         }
+
         #endregion
     }
 }

@@ -26,17 +26,8 @@ C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\
 C:\Users\flori\OneDrive\Documents\Github\robot-iut\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CopyComplete
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.pdb
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Charting.dll
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Core.dll
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Data.dll
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Drawing.dll
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Charting.xml
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Core.xml
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Data.xml
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\SciChart.Drawing.xml
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csprojAssemblyReference.cache
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CoreCompileInputs.cache
-C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.csproj.CopyComplete
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.dll
 C:\Users\LattePanda\Desktop\robot-florian-reimat\Library\ExtendedSerialPort\obj\Debug\ExtendedSerialPort.pdb
 C:\Github\Robot_Florian_Reimat\robot-florian-reimat\Library\ExtendedSerialPort\bin\Debug\ExtendedSerialPort.dll
