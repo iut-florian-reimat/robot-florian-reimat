@@ -16,15 +16,13 @@ void GenerateTextMessage(unsigned char* message,unsigned int lenght){
 }
 
 void GeneratePositionMessage() {
-    unsigned char positionPayload [32];
+    unsigned char positionPayload [24];
     getBytesFromInt32(positionPayload, 0, 0);
     getBytesFromFloat(positionPayload, 4,  (float) (robotState.xPosFromOdometry));
     getBytesFromFloat(positionPayload, 8,  (float) (robotState.yPosFromOdometry));
     getBytesFromFloat(positionPayload, 12, (float) (robotState.angleRadianFromOdometry));
     getBytesFromFloat(positionPayload, 16, (float) (robotState.vitesseLineaireFromOdometry));
     getBytesFromFloat(positionPayload, 20, (float) (robotState.vitesseAngulaireFromOdometry));
-    getBytesFromFloat(positionPayload, 24, (float) (robotState.distanceDroitFromOdometry));
-    getBytesFromFloat(positionPayload, 28, (float) (robotState.distanceGaucheFromOdometry));
-    UartEncodeAndSendMessage(SEND_POSITION, 32, positionPayload);
+    UartEncodeAndSendMessage(SEND_POSITION, 24, positionPayload);
 }
 

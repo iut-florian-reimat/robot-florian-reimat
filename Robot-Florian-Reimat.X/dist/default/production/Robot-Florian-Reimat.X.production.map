@@ -142,11 +142,11 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x6ec           0xa62  (2658)
-.text                        0x8ec              0x11f6          0x1af1  (6897)
-.dinit                      0x1ae2                0x62            0x93  (147)
-.text                       0x1b44                0x56            0x81  (129)
+.text                        0x8ec              0x11de          0x1acd  (6861)
+.dinit                      0x1aca                0x62            0x93  (147)
+.text                       0x1b2c                0x56            0x81  (129)
 
-                 Total "program" memory used (bytes):         0x2667  (9831) 1%
+                 Total "program" memory used (bytes):         0x2643  (9795) 1%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0xc000]
@@ -332,24 +332,24 @@ External Symbols in Program Memory (by address):
                   0x0016a6                  _UartProcessDecodedMessage
                   0x00176c                  _SetUpPiAsservissementVitesseAngulaire
                   0x0017b8                  _CorrecteurVitesseAngulaire
-                  0x001832                  _GenerateStateMessage
-                  0x001872                  _GenerateTextMessage
-                  0x001884                  _GeneratePositionMessage
-                  0x0018ee                  _SendMessage
-                  0x001928                  _CB_TX1_Add
-                  0x001946                  _CB_TX1_Get
-                  0x001964                  _SendOne
-                  0x001976                  _CB_TX1_RemainingSize
-                  0x001996                  _CB_TX1_IsTranmitting
-                  0x00199e                  _CB_RX1_Add
-                  0x0019c2                  _CB_RX1_GetRemainingSize
-                  0x0019d6                  _CB_RX1_Get
-                  0x0019f4                  _CB_RX1_IsDataAvailable
-                  0x001a08                  _CB_RX1_GetDataSize
-                  0x001a14                  _InitUART
-                  0x001a44                  _SendMessageDirect
-                  0x001a7c                  _InitIO
-                  0x001b44                  _InitOscillator
+                  0x001832                  _SendMessage
+                  0x00186c                  _CB_TX1_Add
+                  0x00188a                  _CB_TX1_Get
+                  0x0018a8                  _SendOne
+                  0x0018ba                  _CB_TX1_RemainingSize
+                  0x0018da                  _CB_TX1_IsTranmitting
+                  0x0018e2                  _GenerateStateMessage
+                  0x001922                  _GenerateTextMessage
+                  0x001934                  _GeneratePositionMessage
+                  0x001986                  _CB_RX1_Add
+                  0x0019aa                  _CB_RX1_GetRemainingSize
+                  0x0019be                  _CB_RX1_Get
+                  0x0019dc                  _CB_RX1_IsDataAvailable
+                  0x0019f0                  _CB_RX1_GetDataSize
+                  0x0019fc                  _InitUART
+                  0x001a2c                  _SendMessageDirect
+                  0x001a64                  _InitIO
+                  0x001b2c                  _InitOscillator
                   0x0557fa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -360,30 +360,30 @@ External Symbols in Program Memory (by name):
                   0x0013e8                  _ADCGetResult
                   0x0013f0                  _ADCIsConversionFinished
                   0x001042                  _Abs
-                  0x00199e                  _CB_RX1_Add
-                  0x0019d6                  _CB_RX1_Get
-                  0x001a08                  _CB_RX1_GetDataSize
-                  0x0019c2                  _CB_RX1_GetRemainingSize
-                  0x0019f4                  _CB_RX1_IsDataAvailable
-                  0x001928                  _CB_TX1_Add
-                  0x001946                  _CB_TX1_Get
-                  0x001996                  _CB_TX1_IsTranmitting
-                  0x001976                  _CB_TX1_RemainingSize
+                  0x001986                  _CB_RX1_Add
+                  0x0019be                  _CB_RX1_Get
+                  0x0019f0                  _CB_RX1_GetDataSize
+                  0x0019aa                  _CB_RX1_GetRemainingSize
+                  0x0019dc                  _CB_RX1_IsDataAvailable
+                  0x00186c                  _CB_TX1_Add
+                  0x00188a                  _CB_TX1_Get
+                  0x0018da                  _CB_TX1_IsTranmitting
+                  0x0018ba                  _CB_TX1_RemainingSize
                   0x0017b8                  _CorrecteurVitesseAngulaire
                   0x001512                  _EncodeWithoutChecksum
-                  0x001884                  _GeneratePositionMessage
-                  0x001832                  _GenerateStateMessage
-                  0x001872                  _GenerateTextMessage
+                  0x001934                  _GeneratePositionMessage
+                  0x0018e2                  _GenerateStateMessage
+                  0x001922                  _GenerateTextMessage
                   0x001374                  _InitADC1
-                  0x001a7c                  _InitIO
-                  0x001b44                  _InitOscillator
+                  0x001a64                  _InitIO
+                  0x001b2c                  _InitOscillator
                   0x000b84                  _InitPWM
                   0x0008ec                  _InitQEI1
                   0x0008fe                  _InitQEI2
                   0x000e42                  _InitTimer1
                   0x000e10                  _InitTimer23
                   0x000f44                  _InitTimer4
-                  0x001a14                  _InitUART
+                  0x0019fc                  _InitUART
                   0x0010ce                  _LimitToInterval
                   0x00106e                  _Max
                   0x00109e                  _Min
@@ -395,9 +395,9 @@ External Symbols in Program Memory (by name):
                   0x000b30                  _QEIReset
                   0x000b5c                  _QEISetPosition
                   0x000910                  _QEIUpdateData
-                  0x0018ee                  _SendMessage
-                  0x001a44                  _SendMessageDirect
-                  0x001964                  _SendOne
+                  0x001832                  _SendMessage
+                  0x001a2c                  _SendMessageDirect
+                  0x0018a8                  _SendOne
                   0x00135a                  _SetCustomMotorSpeed
                   0x000e5c                  _SetFreqTimer1
                   0x000f5a                  _SetFreqTimer4
@@ -630,7 +630,7 @@ __FOSCSEL
 
 __FGS             0x0557fa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x0557fa          0x2 /CW/_FGS
+ __FGS.sec        0x0557fa          0x2 /CW/_FGSPê&
                   0x0557fa                  __FGS.sec
 
 __FUID0
@@ -689,25 +689,25 @@ __FUID3
  .debug_abbrev    0x000e7c        0x16f build/default/production/QEI.o
  .debug_abbrev    0x000feb         0xb1 build/default/production/Asservissement.o
 
-.debug_line       0x000000       0x1070
+.debug_line       0x000000       0x106e
  *(.debug_line)
  .debug_line      0x000000         0x6a build/default/production/msgDecoder.o
  .debug_line      0x00006a         0x5d build/default/production/msgEncoder.o
- .debug_line      0x0000c7         0x62 build/default/production/msgGenerator.o
- .debug_line      0x000129        0x137 build/default/production/msgProcessor.o
- .debug_line      0x000260        0x147 build/default/production/CB_RX1.o
- .debug_line      0x0003a7        0x14d build/default/production/CB_TX1.o
- .debug_line      0x0004f4        0x153 build/default/production/main.o
- .debug_line      0x000647        0x124 build/default/production/ChipConfig.o
- .debug_line      0x00076b        0x126 build/default/production/IO.o
- .debug_line      0x000891        0x186 build/default/production/timer.o
- .debug_line      0x000a17         0x30 build/default/production/Robot.o
- .debug_line      0x000a47         0x74 build/default/production/Utilities.o
- .debug_line      0x000abb        0x16b build/default/production/PWM.o
- .debug_line      0x000c26        0x16f build/default/production/ADC.o
- .debug_line      0x000d95        0x12b build/default/production/uart.o
- .debug_line      0x000ec0        0x160 build/default/production/QEI.o
- .debug_line      0x001020         0x50 build/default/production/Asservissement.o
+ .debug_line      0x0000c7         0x60 build/default/production/msgGenerator.o
+ .debug_line      0x000127        0x137 build/default/production/msgProcessor.o
+ .debug_line      0x00025e        0x147 build/default/production/CB_RX1.o
+ .debug_line      0x0003a5        0x14d build/default/production/CB_TX1.o
+ .debug_line      0x0004f2        0x153 build/default/production/main.o
+ .debug_line      0x000645        0x124 build/default/production/ChipConfig.o
+ .debug_line      0x000769        0x126 build/default/production/IO.o
+ .debug_line      0x00088f        0x186 build/default/production/timer.o
+ .debug_line      0x000a15         0x30 build/default/production/Robot.o
+ .debug_line      0x000a45         0x74 build/default/production/Utilities.o
+ .debug_line      0x000ab9        0x16b build/default/production/PWM.o
+ .debug_line      0x000c24        0x16f build/default/production/ADC.o
+ .debug_line      0x000d93        0x12b build/default/production/uart.o
+ .debug_line      0x000ebe        0x160 build/default/production/QEI.o
+ .debug_line      0x00101e         0x50 build/default/production/Asservissement.o
 
 .debug_frame      0x000000        0x8d6
  *(.debug_frame)
@@ -3063,7 +3063,7 @@ LOAD c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Robot-Florian-Reimat.X.production.elf elf32-pic30)
-LOAD /CW/_FGS
+LOAD /CW/_FGSPê&
 LOAD default_isr
 LOAD data_init
 
@@ -3295,7 +3295,7 @@ __c30_signature
  .ivt._AD1Interrupt
                   0x00002e          0x2 build/default/production/ADC.o
 
-.text             0x0008ec       0x11f6
+.text             0x0008ec       0x11de
  .text            0x0008ec        0x298 build/default/production/QEI.o
                   0x0008ec                  _InitQEI1
                   0x0008fe                  _InitQEI2
@@ -3347,32 +3347,32 @@ __c30_signature
  .text            0x00176c         0xc6 build/default/production/Asservissement.o
                   0x00176c                  _SetUpPiAsservissementVitesseAngulaire
                   0x0017b8                  _CorrecteurVitesseAngulaire
- .text            0x001832         0xbc build/default/production/msgGenerator.o
-                  0x001832                  _GenerateStateMessage
-                  0x001872                  _GenerateTextMessage
-                  0x001884                  _GeneratePositionMessage
- .text            0x0018ee         0xb0 build/default/production/CB_TX1.o
-                  0x0018ee                  _SendMessage
-                  0x001928                  _CB_TX1_Add
-                  0x001946                  _CB_TX1_Get
-                  0x001964                  _SendOne
-                  0x001976                  _CB_TX1_RemainingSize
-                  0x001996                  _CB_TX1_IsTranmitting
- .text            0x00199e         0x76 build/default/production/CB_RX1.o
-                  0x00199e                  _CB_RX1_Add
-                  0x0019c2                  _CB_RX1_GetRemainingSize
-                  0x0019d6                  _CB_RX1_Get
-                  0x0019f4                  _CB_RX1_IsDataAvailable
-                  0x001a08                  _CB_RX1_GetDataSize
- .text            0x001a14         0x68 build/default/production/uart.o
-                  0x001a14                  _InitUART
-                  0x001a44                  _SendMessageDirect
- .text            0x001a7c         0x66 build/default/production/IO.o
-                  0x001a7c                  _InitIO
+ .text            0x001832         0xb0 build/default/production/CB_TX1.o
+                  0x001832                  _SendMessage
+                  0x00186c                  _CB_TX1_Add
+                  0x00188a                  _CB_TX1_Get
+                  0x0018a8                  _SendOne
+                  0x0018ba                  _CB_TX1_RemainingSize
+                  0x0018da                  _CB_TX1_IsTranmitting
+ .text            0x0018e2         0xa4 build/default/production/msgGenerator.o
+                  0x0018e2                  _GenerateStateMessage
+                  0x001922                  _GenerateTextMessage
+                  0x001934                  _GeneratePositionMessage
+ .text            0x001986         0x76 build/default/production/CB_RX1.o
+                  0x001986                  _CB_RX1_Add
+                  0x0019aa                  _CB_RX1_GetRemainingSize
+                  0x0019be                  _CB_RX1_Get
+                  0x0019dc                  _CB_RX1_IsDataAvailable
+                  0x0019f0                  _CB_RX1_GetDataSize
+ .text            0x0019fc         0x68 build/default/production/uart.o
+                  0x0019fc                  _InitUART
+                  0x001a2c                  _SendMessageDirect
+ .text            0x001a64         0x66 build/default/production/IO.o
+                  0x001a64                  _InitIO
 
-.dinit            0x001ae2         0x62
- .dinit           0x001ae2         0x62 data_init
+.dinit            0x001aca         0x62
+ .dinit           0x001aca         0x62 data_init
 
-.text             0x001b44         0x56
- .text            0x001b44         0x56 build/default/production/ChipConfig.o
-                  0x001b44                  _InitOscillator
+.text             0x001b2c         0x56
+ .text            0x001b2c         0x56 build/default/production/ChipConfig.o
+                  0x001b2c                  _InitOscillator
