@@ -37,8 +37,8 @@ void QEIUpdateData() {
     QEI2RawValue += ((long) POS2HLD << 16);
     
     // Conversion en m ( regle pour la taille des roues codeuses)
-    robotState.distanceDroitFromOdometry    =   WHEEL_DIAMETER * QEI1RawValue;
-    robotState.distanceGaucheFromOdometry   = - WHEEL_DIAMETER * QEI2RawValue;
+    robotState.distanceDroitFromOdometry    =   POINT_TO_METER * QEI1RawValue;
+    robotState.distanceGaucheFromOdometry   = - POINT_TO_METER * QEI2RawValue;
     
     if((robotState.distanceDroitFromOdometry - QeiDroitPosition_T_1 > 100)    || (robotState.distanceDroitFromOdometry - QeiDroitPosition_T_1 < -100))
         robotState.distanceDroitFromOdometry = QeiDroitPosition_T_1;

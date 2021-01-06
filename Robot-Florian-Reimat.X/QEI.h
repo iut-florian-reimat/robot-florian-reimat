@@ -9,10 +9,17 @@
 #define	QEI__H
 
 // m
-#define DISTROUES 0.9703504043 * (360 / 0.32) 
+#define DISTROUES 0.218
+// My data 
+// 0.9703504043 * (360 / 0.32) 
 // 2 * 0.1050
 // 0.218
-#define WHEEL_DIAMETER (0.00425 * PI / 8192) * (2.60 / 64.2)
+
+// I take Keenan/Elyes Data 
+#define WHEEL_DIAMETER 0.0426;
+#define POINT_TO_METER (PI * WHEEL_DIAMETER)/8192
+// My Data :
+// (0.00425 * PI / 8192) * (2.60 / 64.2)
 // 0.00001630 / 250
 // 0.0425 * PI / 8180
 // 0.00001620

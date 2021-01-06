@@ -630,7 +630,7 @@ __FOSCSEL
 
 __FGS             0x0557fa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x0557fa          0x2 /CW/_FGSPÍ&
+ __FGS.sec        0x0557fa          0x2 /CW/_FGS‡  
                   0x0557fa                  __FGS.sec
 
 __FUID0
@@ -3063,7 +3063,7 @@ LOAD c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.60/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Robot-Florian-Reimat.X.production.elf elf32-pic30)
-LOAD /CW/_FGSPÍ&
+LOAD /CW/_FGS‡  
 LOAD default_isr
 LOAD data_init
 
