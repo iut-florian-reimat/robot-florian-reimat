@@ -26,6 +26,7 @@ int main(void) {
     InitUART();
     InitQEI1();
     InitQEI2();
+    QEIReset();
     // Boucle Principale
     while (1) {
         unsigned int i;

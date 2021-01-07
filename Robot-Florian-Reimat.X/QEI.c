@@ -66,8 +66,8 @@ void QEIUpdateData() {
     robotState.angleRadianFromOdometry_1 = robotState.angleRadianFromOdometry;
     
     // Calcul des positions dans le referentiel du terrain
-    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(robotState.angleRadianFromOdometry_1);
-    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(robotState.angleRadianFromOdometry_1);
+    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(0 /*robotState.angleRadianFromOdometry_1*/);
+    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(0 /*robotState.angleRadianFromOdometry_1*/);
     robotState.angleRadianFromOdometry = robotState.angleRadianFromOdometry_1 + delta_theta;
     if (robotState.angleRadianFromOdometry > PI)
         robotState.angleRadianFromOdometry -= 2 * PI;
@@ -77,7 +77,7 @@ void QEIUpdateData() {
 
 void QEIReset() {
     WHITE_LED = !WHITE_LED;    
-    QEISetPosition(0,0,0);
+    QEISetPosition(-1.495,1.0,0);
 }
 
 void QEISetPosition(float x, float y, float theta) {
