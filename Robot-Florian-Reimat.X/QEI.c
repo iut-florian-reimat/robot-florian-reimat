@@ -40,10 +40,12 @@ void QEIUpdateData() {
     robotState.distanceDroitFromOdometry    =   POINT_TO_METER * QEI1RawValue;
     robotState.distanceGaucheFromOdometry   = - POINT_TO_METER * QEI2RawValue;
     
+    /*
     if((robotState.distanceDroitFromOdometry - QeiDroitPosition_T_1 > 100)    || (robotState.distanceDroitFromOdometry - QeiDroitPosition_T_1 < -100))
         robotState.distanceDroitFromOdometry = QeiDroitPosition_T_1;
     if((robotState.distanceGaucheFromOdometry - QeiGauchePosition_T_1 > 100)  || (robotState.distanceGaucheFromOdometry - QeiGauchePosition_T_1 < -100))
         robotState.distanceGaucheFromOdometry = QeiGauchePosition_T_1;
+    */
     
     // Calcul des deltas de position
     delta_d = robotState.distanceDroitFromOdometry  - QeiDroitPosition_T_1;
@@ -55,9 +57,9 @@ void QEIUpdateData() {
     
     // Calcul des vitesses
     // attention a remultiplier par la  frequence d'echantillonnage
-//    robotState.vitesseDroitFromOdometry = delta_d * FREQ_ECH_QEI;
-//    robotState.vitesseGaucheFromOdometry = delta_g * FREQ_ECH_QEI;
-    robotState.vitesseLineaireFromOdometry =  dx * FREQ_ECH_QEI;//(robotState.vitesseDroitFromOdometry + robotState.vitesseGaucheFromOdometry) / 2;
+    robotState.vitesseDroitFromOdometry = delta_d * FREQ_ECH_QEI;
+    robotState.vitesseGaucheFromOdometry = delta_g * FREQ_ECH_QEI;
+    robotState.vitesseLineaireFromOdometry = dx * FREQ_ECH_QEI;//(robotState.vitesseDroitFromOdometry + robotState.vitesseGaucheFromOdometry) / 2;
     robotState.vitesseAngulaireFromOdometry = delta_theta * FREQ_ECH_QEI;
 
     //Mise à jour du positionnement terrain a t ? 1
@@ -66,8 +68,8 @@ void QEIUpdateData() {
     robotState.angleRadianFromOdometry_1 = robotState.angleRadianFromOdometry;
     
     // Calcul des positions dans le referentiel du terrain
-    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * cos(robotState.angleRadianFromOdometry_1);
-    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry * sin(robotState.angleRadianFromOdometry_1);
+    robotState.xPosFromOdometry = robotState.xPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry / FREQ_ECH_QEI * cos(robotState.angleRadianFromOdometry_1);
+    robotState.yPosFromOdometry = robotState.yPosFromOdometry_1 + robotState.vitesseLineaireFromOdometry / FREQ_ECH_QEI * sin(robotState.angleRadianFromOdometry_1);
     robotState.angleRadianFromOdometry = robotState.angleRadianFromOdometry_1 + delta_theta;
     if (robotState.angleRadianFromOdometry > PI)
         robotState.angleRadianFromOdometry -= 2 * PI;
@@ -77,7 +79,7 @@ void QEIUpdateData() {
 
 void QEIReset() {
     WHITE_LED = !WHITE_LED;    
-    QEISetPosition(0,0,0);
+    QEISetPosition(1.45,0.95,0);
 }
 
 void QEISetPosition(float x, float y, float theta) {
