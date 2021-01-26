@@ -38,7 +38,9 @@ namespace ExtendedSerialPort
             }, null)); kickoffRead();
         }
 
+#pragma warning disable CS0108 // Un membre masque un membre hérité ; le mot clé new est manquant
         public event EventHandler<DataReceivedArgs> DataReceived;
+#pragma warning restore CS0108 // Un membre masque un membre hérité ; le mot clé new est manquant
         public virtual void OnDataReceived(byte[] data)
         {
             var handler = DataReceived;
