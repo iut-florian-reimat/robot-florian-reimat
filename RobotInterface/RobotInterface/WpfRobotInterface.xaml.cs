@@ -31,11 +31,11 @@ namespace RobotInterface
             SciChartSurface.SetRuntimeLicenseKey("wsCOsvBlAs2dax4o8qBefxMi4Qe5BVWax7TGOMLcwzWFYRNCa/f1rA5VA1ITvLHSULvhDMKVTc+niao6URAUXmGZ9W8jv/4jtziBzFZ6Z15ek6SLU49eIqJxGoQEFWvjANJqzp0asw+zvLV0HMirjannvDRj4i/WoELfYDubEGO1O+oAToiJlgD/e2lVqg3F8JREvC0iqBbNrmfeUCQdhHt6SKS2QpdmOoGbvtCossAezGNxv92oUbog6YIhtpSyGikCEwwKSDrlKlAab6302LLyFsITqogZychLYrVXJTFvFVnDfnkQ9cDi7017vT5flesZwIzeH497lzGp3B8fKWFQyZemD2RzlQkvj5GUWBwxiKAHrYMnQjJ/PsfojF1idPEEconVsh1LoYofNk2v/Up8AzXEAvxWUEcgzANeQggaUNy+OFet8b/yACa/bgYG7QYzFQZzgdng8IK4vCPdtg4/x7g5EdovN2PI9vB76coMuKnNVPnZN60kSjtd/24N8A==");
             InitializeComponent();
 
-            oscilloSpeed.SetTitle("Speed Linear / Angular");
-            oscilloSpeed.AddOrUpdateLine(1, 256, "Linear Speed");
-            oscilloSpeed.AddOrUpdateLine(2, 256, "Angular Speed");
-            oscilloSpeed.ChangeLineColor(1, Colors.Red);
-            oscilloSpeed.ChangeLineColor(2, Colors.Blue);
+            oscilloLinSpeed.SetTitle("Speed Linear / Angular");
+            oscilloLinSpeed.AddOrUpdateLine(1, 256, "Linear Speed");
+            oscilloLinSpeed.AddOrUpdateLine(2, 256, "Angular Speed");
+            oscilloLinSpeed.ChangeLineColor(1, Colors.Red);
+            oscilloLinSpeed.ChangeLineColor(2, Colors.Blue);
 
             dialogTime = new DispatcherTimer();
             dialogTime.Interval = new TimeSpan(0, 0, 0, 0, 100);
@@ -56,8 +56,8 @@ namespace RobotInterface
             angularSpeedText.Text = angularSpeed + "m/s";
             
 
-            oscilloSpeed.AddPointToLine(1,timeOscillo, linearSpeed);
-            oscilloSpeed.AddPointToLine(2,timeOscillo, angularSpeed);
+            oscilloLinSpeed.AddPointToLine(1,timeOscillo, linearSpeed);
+            oscilloLinSpeed.AddPointToLine(2,timeOscillo, linearSpeed);
         }
 
         private void OnResetPosClick(object sender, RoutedEventArgs e)
