@@ -1,4 +1,4 @@
-﻿<Window x:Class="RobotInterface.WpfRobotInterface"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RobotInterface"
         xmlns:AsservDisplay="clr-namespace:WpfAsservissementDisplay;assembly=WpfAsservissementDisplay"
         xmlns:OscilloscopeDisplay="clr-namespace:WpfOscilloscopeControl;assembly=WpfOscilloscopeControl"
+        xmlns:WpfWorldMapDisplay="clr-namespace:WpfWorldMapDisplay;assembly=WpfWorldMapDisplay" x:Class="RobotInterface.WpfRobotInterface"
         mc:Ignorable="d"
         Title="Robot Interface" Height="700" Width="1000" Icon="robot.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
 >
@@ -22,8 +23,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0" Background="#FF565656" />
-        <GroupBox Header="Position" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="240" Margin="8.8,62,0,0" Grid.Row="2" Background="#FF565656" Foreground="White" Grid.Column="1">
+        <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0" Background="#FF1A1A1A" />
+        <GroupBox Header="Position" HorizontalAlignment="Left" Height="156" VerticalAlignment="Top" Width="240" Margin="8.8,62,0,0" Grid.Row="2" Background="#FF1A1A1A" Foreground="White" Grid.Column="1">
             <Button x:Name="resetPosButton" Content="Reset" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="75" Background="#FFA5A5A5" Foreground="White" FontFamily="Consolas" Click="OnResetPosClick"/>
         </GroupBox>
         <TextBlock HorizontalAlignment="Left" Margin="15.8,80,0,0" Grid.Row="2" TextWrapping="Wrap" Text="x: " VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="14" Grid.Column="1"/>
@@ -39,6 +40,7 @@
         <TextBlock x:Name="linearSpeedText" HorizontalAlignment="Left" Margin="107.8,136,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111" Grid.Column="1"><Run Text="0"/><Run Text="m/s"/></TextBlock>
         <TextBlock x:Name="angularSpeedText" HorizontalAlignment="Left" Margin="107.8,158,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Width="111" Grid.Column="1"><Run Text="0"/><Run Text="m/s"/></TextBlock>
         <OscilloscopeDisplay:WpfOscilloscope x:Name="oscilloLinSpeed" Grid.Row="0" Grid.Column="0"/>
-
+        <OscilloscopeDisplay:WpfOscilloscope x:Name="oscilloAngSpeed" Grid.Row="1" Grid.Column="0"/>
+        <WpfWorldMapDisplay:LocalWorldMapDisplay x:Name="worldMap" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>

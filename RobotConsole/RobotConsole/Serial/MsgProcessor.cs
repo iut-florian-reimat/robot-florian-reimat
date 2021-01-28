@@ -72,7 +72,7 @@ namespace RobotConsole
             float angularSpeed = BitConverter.ToSingle(e.msgPayload, 20);
 
 
-            theta = (float) (theta * 180 / Math.PI);
+            // theta = (float) (theta * 180 / Math.PI);
             OnPositionMessageReceivedEvent?.Invoke(this, new Protocol.PositionMessageArgs(time, x, y, theta, linearSpeed, angularSpeed));
         }
 

@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Utilities;
 using WorldMap;
+using SciChart.Charting.Visuals.Annotations;
 
 namespace WpfWorldMapDisplay
 {
@@ -45,10 +48,10 @@ namespace WpfWorldMapDisplay
 
         //Liste des obstacles vus par le robot à afficher
         List<ObstacleDisplay> ObstacleDisplayList = new List<ObstacleDisplay>();
+            
+        string typeTerrain = "Eurobot";
 
-        string typeTerrain = "RoboCup";
-        
-
+        TextAnnotation annotationPosition;
         public LocalWorldMapDisplay()
         {
             InitializeComponent();
@@ -124,8 +127,8 @@ namespace WpfWorldMapDisplay
                     robotShape.polygon.Points.Add(new System.Windows.Point(0.12, 0.12));
                     robotShape.polygon.Points.Add(new System.Windows.Point(-0.12, 0.12));
                     robotShape.polygon.Points.Add(new System.Windows.Point(-0.12, -0.12));
-                    robotShape.borderColor = System.Drawing.Color.Blue;
-                    robotShape.backgroundColor = System.Drawing.Color.DarkRed;
+                    robotShape.borderColor = System.Drawing.Color.Black;
+                    robotShape.backgroundColor = System.Drawing.Color.MediumVioletRed ;
                     rd = new RobotDisplay(robotShape);
                     rd.SetLocation(new Location(0, 0, 0, 0, 0, 0));
                     TeamMatesDisplayDictionary.Add(robotId, rd);
@@ -258,12 +261,16 @@ namespace WpfWorldMapDisplay
             foreach (var r in TeamMatesDisplayDictionary)
             {
                 //Affichage des robots
-                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Ghost, TeamMatesDisplayDictionary[r.Key].GetRobotGhostPolygon());
-                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Speed, TeamMatesDisplayDictionary[r.Key].GetRobotSpeedArrow());
-                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Destination, TeamMatesDisplayDictionary[r.Key].GetRobotDestinationArrow());
-                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.WayPoint, TeamMatesDisplayDictionary[r.Key].GetRobotWaypointArrow());
-                //On trace le robot en dernier pour l'avoir en couche de dessus
+                // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Ghost, TeamMatesDisplayDictionary[r.Key].GetRobotGhostPolygon());
+                
+                // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Destination, TeamMatesDisplayDictionary[r.Key].GetRobotDestinationArrow());
+                
+                // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.WayPoint, TeamMatesDisplayDictionary[r.Key].GetRobotWaypointArrow());
+                
+               
                 PolygonSeries.AddOrUpdatePolygonExtended(r.Key, TeamMatesDisplayDictionary[r.Key].GetRobotPolygon());
+
+                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Speed, TeamMatesDisplayDictionary[r.Key].GetRobotSpeedArrow());
 
                 //Rendering des points Lidar
                 lidarPts.AcceptsUnsortedData = true;
@@ -306,13 +313,16 @@ namespace WpfWorldMapDisplay
             }
         }
 
-        private void UpdateRobotLocation(int robotId, Location location)
+        public void UpdateRobotLocation(int robotId, Location location)
         {
             if (location == null)
                 return;
             if (TeamMatesDisplayDictionary.ContainsKey(robotId))
             {
                 TeamMatesDisplayDictionary[robotId].SetLocation(location);
+
+                annotationPosition.Text = "| x:" + (location.X * 1000).ToString("0000") + " | y: " + (location.Y * 1000).ToString("0000") + " | a:" + ((float)(location.Theta * 180 / Math.PI)).ToString("000") + " |";
+
                 //TeamMatesDisplayDictionary[robotId].SetPosition(location.X, location.Y, location.Theta);
                 //TeamMatesDisplayDictionary[robotId].SetSpeed(location.Vx, location.Vy, location.Vtheta);
             }
@@ -606,12 +616,58 @@ namespace WpfWorldMapDisplay
             p.backgroundColor = System.Drawing.Color.FromArgb(0x00, 0x00, 0xFF, 0x00);
             PolygonSeries.AddOrUpdatePolygonExtended((int)Terrain.PtAvantSurfaceDroit, p);
 
-        }void InitEurobotField()
+        }
+
+        public void SetFieldImageBackGround(string imagePath)
         {
-            double TerrainLowerX = -LengthGameArea/2-0.2;
-            double TerrainUpperX = LengthGameArea/2+0.2;
-            double TerrainLowerY = -WidthGameArea/2-0.2;
-            double TerrainUpperY = WidthGameArea/2+0.2;
+
+            var box = new BoxAnnotation()
+            {
+                BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x27, 0x9B, 0x27)),
+                Background = new ImageBrush(new BitmapImage(new Uri(imagePath))),
+                AnnotationCanvas = AnnotationCanvas.BelowChart,
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(1),
+                X1 = -LengthGameArea / 2,
+                X2 = +LengthGameArea / 2,
+                Y1 = -WidthGameArea / 2,
+                Y2 = +WidthGameArea / 2,
+                IsEditable = false
+            };
+
+            sciChart.XAxis.AxisBandsFill = Colors.Transparent;
+            sciChart.YAxis.AxisBandsFill = Colors.Transparent;
+
+            //SetterBase item = new Setter(VisibilityProperty, Visibility.Hidden);
+            //sciChart.XAxis.MajorGridLineStyle.Setters.Add(item);
+
+            sciChart.Annotations.Add(box);
+
+        }
+
+        public void InitPositionText()
+        {
+
+            annotationPosition = new TextAnnotation()
+            {
+                Text = "| x: 0000 | y: 0000 | a: 000 |",
+                FontSize = 15,
+                Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x33, 0x33)),
+                BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x22, 0x22, 0x22)),
+                BorderThickness = new Thickness(1, 1, 1, 1),
+                X1 = -1.65,
+                Y1 = -1.025,
+            };
+            sciChart.Annotations.Add(annotationPosition);
+
+        }
+
+        void InitEurobotField()
+        {
+            double TerrainLowerX = -LengthGameArea / 2 - 0.2;
+            double TerrainUpperX = LengthGameArea / 2 + 0.2;
+            double TerrainLowerY = -WidthGameArea / 2 - 0.2;
+            double TerrainUpperY = WidthGameArea / 2 + 0.2;
 
             int fieldLineWidth = 1;
             PolygonExtended p = new PolygonExtended();
@@ -622,13 +678,13 @@ namespace WpfWorldMapDisplay
             p.polygon.Points.Add(new Point(-1.5, -1));
             p.borderWidth = fieldLineWidth;
             p.borderColor = System.Drawing.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF);
-            p.backgroundColor = System.Drawing.Color.FromArgb(0xFF, 46, 49, 146);
+            p.backgroundColor = System.Drawing.Color.FromArgb(0x00, 46, 49, 146);
             PolygonSeries.AddOrUpdatePolygonExtended((int)Terrain.TerrainComplet, p);
-                                    
+
             p = new PolygonExtended();
             p.polygon.Points.Add(new Point(-1.5 - 0.1, 1));
-            p.polygon.Points.Add(new Point(-1.5 , 1));
-            p.polygon.Points.Add(new Point(-1.5 , 1-0.1));
+            p.polygon.Points.Add(new Point(-1.5, 1));
+            p.polygon.Points.Add(new Point(-1.5, 1 - 0.1));
             p.polygon.Points.Add(new Point(-1.5 - 0.1, 1 - 0.1));
             p.polygon.Points.Add(new Point(-1.5 - 0.1, 1));
             p.borderWidth = fieldLineWidth;

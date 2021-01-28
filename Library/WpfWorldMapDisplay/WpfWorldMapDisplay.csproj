@@ -76,6 +76,11 @@
     <Compile Include="ObstacleDisplay.cs" />
     <Compile Include="BallDisplay.cs" />
     <Compile Include="PolygonRenderableSeries.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="RobotDisplay.cs" />
     <Compile Include="GlobalWorldMapDisplay.xaml.cs">
       <DependentUpon>GlobalWorldMapDisplay.xaml</DependentUpon>
@@ -99,6 +104,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -148,6 +157,9 @@
     <PackageReference Include="SciChart">
       <Version>6.3.0.13476</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Eurobot_Background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

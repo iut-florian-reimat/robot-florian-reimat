@@ -135,9 +135,29 @@
     <Resource Include="robot.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Library\Constants\Constants.csproj">
+      <Project>{0540b497-b2ce-40a1-84b5-3109ce2f3146}</Project>
+      <Name>Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\HeatMap\HeatMap.csproj">
+      <Project>{bdf7d4a0-1e8b-4487-862e-2da58a7bc267}</Project>
+      <Name>HeatMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\HighFreqTimer\AdvancedTimers.csproj">
+      <Project>{ecc907ed-f9b2-457f-901e-720987934e47}</Project>
+      <Name>AdvancedTimers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\Perception\Perception.csproj">
+      <Project>{dd8fd061-d3b2-43ae-b74d-03d94a2876a3}</Project>
+      <Name>Perception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Library\Utilities\Utilities.csproj">
       <Project>{8e7d0da4-9a13-4b18-a90e-0243bbcce40a}</Project>
       <Name>Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\WorldMap\WorldMap.csproj">
+      <Project>{b2d0126f-8c82-4eaa-87e5-67415f589098}</Project>
+      <Name>WorldMap</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Library\WpfAsservissementDisplay\WpfAsservissementDisplay.csproj">
       <Project>{f0a887e9-d0a2-47e3-994a-94a0dcae8d4f}</Project>
@@ -146,6 +166,10 @@
     <ProjectReference Include="..\..\Library\WpfOscilloscope\WpfOscilloscopeControl.csproj">
       <Project>{88baa407-3fea-4f4b-bb41-5309ce48884e}</Project>
       <Name>WpfOscilloscopeControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\WpfWorldMapDisplay\WpfWorldMapDisplay.csproj">
+      <Project>{89604641-927E-47FF-8DB6-91CF5C4976C1}</Project>
+      <Name>WpfWorldMapDisplay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

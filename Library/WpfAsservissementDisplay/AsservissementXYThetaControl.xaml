@@ -40,8 +40,8 @@
             <Label Grid.Row="2" Content="Measure : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="3" Content="Error : " Foreground="White"  Margin="0" Padding="0"></Label>
             <Label Grid.Row="4" Content="Command : " Foreground="White"  Margin="0" Padding="0"></Label>
-            <Label Grid.Column="1" Content="X" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
-            <Label Grid.Column="2" Content="Theta" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="1" Content="Linear" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
+            <Label Grid.Column="2" Content="Angular" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
             <Label Grid.Column="3" Content="MG" Foreground="White" HorizontalAlignment="Center" Margin="0" Padding="0" ></Label>
             <Label Grid.Column="4" Content="MD" Foreground="White" HorizontalAlignment="Center"  Margin="0" Padding="0"></Label>
 
