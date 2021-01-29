@@ -59,8 +59,8 @@ void SetFreqTimer1(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
     QEIUpdateData();
-    
     PWMSetSpeedConsignePolaire();
+    PWMUpdateSpeed();
 }
 
 void InitTimer4(void) {
@@ -91,7 +91,8 @@ void SetFreqTimer4(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
-    GeneratePositionMessage();
-    OperatingSystemLoop();
+    // GeneratePositionMessage();
+    GenerateAsservPolarMessage();
+    // OperatingSystemLoop();
 }
 

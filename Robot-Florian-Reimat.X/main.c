@@ -27,6 +27,25 @@ int main(void) {
     InitQEI1();
     InitQEI2();
     QEIReset();
+    
+    // robotState.vitesseGaucheConsigne = 60;
+    // robotState.vitesseDroiteConsigne = 20;
+
+    robotState.KpLineaire = 1;
+    robotState.KpLineaireMax = 100;
+    robotState.KiLineaire = 0;
+    robotState.KiLineaireMax = 100;
+    
+    robotState.KpAngulaire = 1;
+    robotState.KpAngulaireMax = 100000;
+    robotState.KiAngulaire = 0;
+    robotState.KiAngulaireMax = 100;
+     
+    robotState.vitesseLineaireConsigne = 1;
+    robotState.vitesseAngulaireConsigne = 0;
+    
+
+    
     // Boucle Principale
     while (1) {
         unsigned int i;

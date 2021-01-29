@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventArgsLibrary;
 
 namespace RobotConsole
 {
@@ -90,10 +91,10 @@ namespace RobotConsole
         }
 
         public event EventHandler<EventArgs> OnMessageEncoderCreatedEvent;
-        public event EventHandler<Protocol.MessageByteArgs> OnSendMessageEvent;
-        public event EventHandler<Protocol.LedMessageArgs> OnSetLedEvent;
-        public event EventHandler<Protocol.MotorMessageArgs> OnSetMotorSpeedEvent;
-        public event EventHandler<Protocol.StateMessageArgs> OnSetStateEvent;
+        public event EventHandler<MessageByteArgs> OnSendMessageEvent;
+        public event EventHandler<LedMessageArgs> OnSetLedEvent;
+        public event EventHandler<MotorMessageArgs> OnSetMotorSpeedEvent;
+        public event EventHandler<StateMessageArgs> OnSetStateEvent;
         public event EventHandler<EventArgs> OnSetResetPositionEvent;
         public event EventHandler<EventArgs> OnSerialDisconnectedEvent;
         public event EventHandler<EventArgs> OnWrongPayloadSentEvent;
@@ -105,7 +106,7 @@ namespace RobotConsole
         }
         public virtual void OnSendMessage(ushort msgFunction, ushort msgPayloadLenght, byte[] msgPayload, byte checksum)
         {
-            OnSendMessageEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, checksum));
+            OnSendMessageEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, checksum));
             switch (msgFunction)
             {
                 case (ushort)Protocol.FunctionName.SET_LED:
@@ -124,15 +125,15 @@ namespace RobotConsole
         }
         public virtual void OnSetLed(ushort led_number, bool state)
         {
-            OnSetLedEvent?.Invoke(this, new Protocol.LedMessageArgs(led_number, state));
+            OnSetLedEvent?.Invoke(this, new LedMessageArgs(led_number, state));
         }
         public virtual void OnSetMotorSpeed(sbyte left_motor_speed, sbyte right_motor_speed)
         {
-            OnSetMotorSpeedEvent?.Invoke(this, new Protocol.MotorMessageArgs(left_motor_speed, right_motor_speed));
+            OnSetMotorSpeedEvent?.Invoke(this, new MotorMessageArgs(left_motor_speed, right_motor_speed));
         }
         public virtual void OnSetState(ushort state)
         {
-            OnSetStateEvent?.Invoke(this, new Protocol.StateMessageArgs(state));
+            OnSetStateEvent?.Invoke(this, new StateMessageArgs(state));
         }
 
         public virtual void OnSetResetPosition()

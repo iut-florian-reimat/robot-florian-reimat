@@ -4,6 +4,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading.Tasks;
+using EventArgsLibrary;
 
 namespace RobotConsole
 {
@@ -160,13 +161,13 @@ namespace RobotConsole
             Console.ResetColor();
             
         }
-        static public void PrintCorrectChecksum(object sender, Protocol.MessageByteArgs e)
+        static public void PrintCorrectChecksum(object sender, MessageByteArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("0x" + e.checksum.ToString("X2") + " ");
             Console.ResetColor();
         }
-        static public void PrintWrongChecksum(object sender, Protocol.MessageByteArgs e)
+        static public void PrintWrongChecksum(object sender, MessageByteArgs e)
         {
 
             Console.ForegroundColor = ConsoleColor.Red;
@@ -208,7 +209,7 @@ namespace RobotConsole
             Console.ResetColor();
         }
 
-        static public void PrintWrongMessage(object sender, Protocol.MessageByteArgs e)
+        static public void PrintWrongMessage(object sender, MessageByteArgs e)
         {
             if (Console.CursorLeft != 0)
             {
@@ -220,7 +221,7 @@ namespace RobotConsole
         }
         #endregion
         #region Hex Encoder
-        static public void PrintSendMsg(object sender, Protocol.MessageByteArgs e)
+        static public void PrintSendMsg(object sender, MessageByteArgs e)
         {
             Console.ResetColor();
             if (Console.CursorLeft != 0)
@@ -283,7 +284,7 @@ namespace RobotConsole
         }
         #endregion
         #region Hex Processor
-        static public void PrintIRMessageReceived(object sender, Protocol.IRMessageArgs e)
+        static public void PrintIRMessageReceived(object sender, IRMessageArgs e)
         {
             Console.ResetColor();
             if (Console.CursorLeft != 0)
@@ -296,12 +297,12 @@ namespace RobotConsole
             ConsoleListFormat("Right  : " + e.right_IR  + "cm");
         }
 
-        static public void PrintStateMessageReceived(object sender, Protocol.StateMessageArgs e)
+        static public void PrintStateMessageReceived(object sender, StateMessageArgs e)
         {
             ConsoleInformationFormat("STATE", "Actual State: " + e.state + " - " +  e.time, true);
         }
 
-        static public void PrintPositionMessageReceived(object sender, Protocol.PositionMessageArgs e)
+        static public void PrintPositionMessageReceived(object sender, PositionMessageArgs e)
         {
             ConsoleInformationFormat("POSITION", "Position Received:", true);
             ConsoleListFormat("timestamp: " + e.timestamp);
@@ -312,7 +313,7 @@ namespace RobotConsole
             ConsoleListFormat("angular :" + e.angularSpeed);
         }
 
-        static public void PrintTextMessageReceived(object sender, Protocol.TextMessageArgs e)
+        static public void PrintTextMessageReceived(object sender, TextMessageArgs e)
         {
             ConsoleInformationFormat("TEXT", "Text Received: " + e.text, true);
         }

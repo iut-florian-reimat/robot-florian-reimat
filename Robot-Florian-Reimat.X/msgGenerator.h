@@ -11,6 +11,7 @@
 void GenerateStateMessage(unsigned char);
 void GenerateTextMessage(unsigned char*,unsigned int);
 void GeneratePositionMessage();
+void GeneratePolarAsservMessage();
 
 #endif	/* MSGGENERATOR_H */
 

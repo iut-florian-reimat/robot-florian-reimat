@@ -4,19 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RobotInterface;
+using EventArgsLibrary;
 
 namespace RobotConsole
 {
     class GUIFormat
     {
-        public static void UpdatePosition(object sender, Protocol.PositionMessageArgs e)
+        public static void UpdatePosition(object sender, PositionMessageArgs e)
         {
-            WpfRobotInterface.xPos = e.x;
-            WpfRobotInterface.yPos = e.y;
-            WpfRobotInterface.aPos = e.theta;
-            WpfRobotInterface.linearSpeed = e.linearSpeed;
-            WpfRobotInterface.angularSpeed = e.angularSpeed;
+            WpfRobotInterface.Position_X = e.x;
+            WpfRobotInterface.Position_Y = e.y;
+            WpfRobotInterface.Position_Angular = e.theta;
+            WpfRobotInterface.polarAsserv.Measure_LinearSpeed = e.linearSpeed;
+            WpfRobotInterface.polarAsserv.Measure_AngularSpeed = e.angularSpeed;
         }
+
+        public static void UpdateAsserv(object sender, PolarAsservMessageArgs e)
+        {
+            WpfRobotInterface.polarAsserv = e;
+        }
+
+
 
         public static void ResetPosition(object sender, EventArgs e)
         {

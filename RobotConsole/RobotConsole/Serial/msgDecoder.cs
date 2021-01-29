@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventArgsLibrary;
 
 
 
@@ -92,8 +93,8 @@ namespace RobotConsole
         public event EventHandler<DecodeByteArgs> OnPayloadByteReceivedEvent;
         public event EventHandler<DecodePayloadArgs> OnPayloadReceivedEvent;
         public event EventHandler<DecodeByteArgs> OnChecksumByteReceivedEvent;
-        public event EventHandler<Protocol.MessageByteArgs> OnCorrectChecksumEvent;
-        public event EventHandler<Protocol.MessageByteArgs> OnWrongChecksumEvent;
+        public event EventHandler<MessageByteArgs> OnCorrectChecksumEvent;
+        public event EventHandler<MessageByteArgs> OnWrongChecksumEvent;
         public event EventHandler<EventArgs> OnOverLenghtMessageEvent;
         public event EventHandler<EventArgs> OnUnknowFunctionEvent;
         public event EventHandler<EventArgs> OnWrongLenghtFunctionEvent;
@@ -218,11 +219,11 @@ namespace RobotConsole
         }
         public virtual void OnCorrectChecksumReceived()
         {
-            OnCorrectChecksumEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
+            OnCorrectChecksumEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
         public virtual void OnWrongChecksumReceived() 
         {
-            OnWrongChecksumEvent?.Invoke(this, new Protocol.MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
+            OnWrongChecksumEvent?.Invoke(this, new MessageByteArgs(msgFunction, msgPayloadLenght, msgPayload, msgChecksum));
         }
         private static byte CalculateChecksum()
         {

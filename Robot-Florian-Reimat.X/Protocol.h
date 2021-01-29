@@ -20,6 +20,7 @@
 #define SEND_POSITION               0x0061
 #define RESET_POSITION              0x0062
 #define SEND_MESSAGE                0x0080
+#define SEND_POLAR_ASSERV           0x0090
 
 #endif	/* PROTOCOL_H */
 

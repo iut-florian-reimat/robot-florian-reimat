@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Library\EventArgs\EventArgsLibrary.csproj">
+      <Project>{378c05dc-50a6-4116-942b-68ae78c52498}</Project>
+      <Name>EventArgsLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Library\ExtendedSerialPort\ExtendedSerialPort.csproj">
       <Project>{21ac599e-e3d5-4181-aa0f-7c2e00cca016}</Project>
       <Name>ExtendedSerialPort</Name>

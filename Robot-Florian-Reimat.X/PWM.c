@@ -39,7 +39,7 @@ void PWMUpdateSpeed() {
     if (robotState.vitesseDroiteCommandeCourante > robotState.vitesseDroiteConsigne){
         robotState.vitesseDroiteCommandeCourante = Max(robotState.vitesseDroiteCommandeCourante - acceleration,robotState.vitesseDroiteConsigne);
     }
-    if (robotState.vitesseDroiteCommandeCourante > 0) {
+    if (robotState.vitesseDroiteCommandeCourante < 0) {
         RIGHT_MOTOR_ENL = 0; //pilotage de la pin en mode IO
         RIGHT_MOTOR_INL = 1; //Mise à 1 de la pin
         RIGHT_MOTOR_ENH = 1; //Pilotage de la pin en mode PWM
@@ -56,7 +56,7 @@ void PWMUpdateSpeed() {
     if (robotState.vitesseGaucheCommandeCourante > robotState.vitesseGaucheConsigne){
         robotState.vitesseGaucheCommandeCourante = Max(robotState.vitesseGaucheCommandeCourante - acceleration,robotState.vitesseGaucheConsigne);
     }
-    if (robotState.vitesseGaucheCommandeCourante < 0) {
+    if (robotState.vitesseGaucheCommandeCourante > 0) {
         LEFT_MOTOR_ENL = 0; //pilotage de la pin en mode IO
         LEFT_MOTOR_INL = 1; //Mise à 1 de la pin
         LEFT_MOTOR_ENH = 1; //Pilotage de la pin en mode PWM
@@ -79,23 +79,31 @@ void PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur){
 
 
 void PWMSetSpeedConsignePolaire() {
+    
     // Correction Angulaire
-    robotState.vitesseAngulaireConsigne = robotState.vitesseDroiteConsigne - robotState.vitesseGaucheConsigne / DISTROUES;
-    double erreurVitesseAngulaire = robotState.vitesseAngulaireConsigne - robotState.vitesseAngulaireFromOdometry;
-    // double sortieCorrecteurAngulaire = ; // A quoi ca sert ? 
-    double correctionVitesseAngulaire =  erreurVitesseAngulaire - robotState.vitesseAngulaireFromOdometry * COEFF_VITESSE_ANGULAIRE_PERCENT;
-    double correctionVitesseAngulairePourcent = correctionVitesseAngulaire * COEFF_VITESSE_ANGULAIRE_PERCENT;
+    robotState.vitesseAngulaireErreur = robotState.vitesseAngulaireConsigne - robotState.vitesseAngulaireFromOdometry * 0;
+    robotState.CorrectionAngulaireKp = robotState.KpAngulaire * robotState.vitesseAngulaireErreur;
+    // robotState.CorrectionAngulaireKp = LimitToInterval(robotState.CorrectionAngulaireKp,- robotState.KpAngulaireMax, robotState.KpAngulaireMax);
+    robotState.CorrectionAngulaireKi =  (robotState.KiAngulaire * robotState.vitesseAngulaireErreur)/FREQ_ECH_QEI + robotState.CorrectionAngulaireKi;
+    // robotState.CorrectionAngulaireKi = LimitToInterval(robotState.CorrectionAngulaireKi,-robotState.KiAngulaireMax, robotState.KiAngulaireMax);
+    
+    robotState.vitesseAngulaireCorrection = robotState.CorrectionAngulaireKp + robotState.CorrectionAngulaireKi;
+    robotState.vitesseAngulaireCommande = robotState.vitesseAngulaireCorrection * COEFF_VITESSE_ANGULAIRE_PERCENT;
     
     // Correction Lineaire
-    robotState.vitesseLineaireConsigne = (robotState.vitesseGaucheConsigne - robotState.vitesseDroiteConsigne) * FREQ_ECH_QEI / 2;
-    double erreurVitesseLineaire = robotState.vitesseLineaireConsigne  - robotState.vitesseLineaireFromOdometry;
-    // double sortieCorrecteurLineaire = ; // A quoi ca sert ? 
-    double correctionVitesseLineaire = erreurVitesseLineaire - robotState.vitesseLineaireFromOdometry * COEFF_VITESSE_LINEAIRE_PERCENT;
-    double correctionVitesseLineairePourcent = correctionVitesseLineaire * COEFF_VITESSE_LINEAIRE_PERCENT;
+    robotState.vitesseLineaireErreur = robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry;
+    robotState.CorrectionLineaireKp = robotState.KpLineaire * robotState.vitesseLineaireErreur;
+    // robotState.CorrectionLineaireKp = LimitToInterval(robotState.CorrectionLineaireKp,- robotState.KpLineaireMax, robotState.KpLineaireMax);
+    robotState.CorrectionLineaireKi =  (robotState.KiLineaire * robotState.vitesseLineaireErreur)/FREQ_ECH_QEI + robotState.CorrectionLineaireKi;
+    // robotState.CorrectionLineaireKi = LimitToInterval(robotState.CorrectionLineaireKi,-robotState.KiLineaireMax, robotState.KiLineaireMax);
+    
+    robotState.vitesseLineaireCorrection = robotState.CorrectionLineaireKp + robotState.CorrectionLineaireKi;
+    robotState.vitesseLineaireCommande = robotState.vitesseLineaireCorrection * COEFF_VITESSE_LINEAIRE_PERCENT;
+        
     
     // Generation des consignes droite et gauche
-    robotState.vitesseDroiteConsigne = correctionVitesseLineairePourcent + correctionVitesseAngulairePourcent;
+    robotState.vitesseDroiteConsigne = robotState.vitesseLineaireCommande + robotState.vitesseAngulaireCommande * DISTROUES / 2;
     robotState.vitesseDroiteConsigne = LimitToInterval(robotState.vitesseDroiteConsigne, -100, 100);
-    robotState.vitesseGaucheConsigne = correctionVitesseLineairePourcent - correctionVitesseAngulairePourcent;
+    robotState.vitesseGaucheConsigne = robotState.vitesseLineaireCommande - robotState.vitesseAngulaireCommande * DISTROUES / 2;
     robotState.vitesseGaucheConsigne = LimitToInterval(robotState.vitesseGaucheConsigne, -100, 100);
 }

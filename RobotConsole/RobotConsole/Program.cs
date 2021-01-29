@@ -25,7 +25,7 @@ namespace RobotConsole
         private static bool hex_error_viewer = true;
         private static bool hex_sender = true;
         private static bool hex_error_sender = true;
-        private static bool function_received = true;
+        private static bool function_received = false;
 
         static void Main(string[] args)
         {
@@ -41,6 +41,19 @@ namespace RobotConsole
             odometry = new Odometry();
             ConsoleFormat.ConsoleInformationFormat("ODOMETRY", "Odometry is launched");
 
+            #region GUI
+            // Create GUI
+            StartRobotInterface();
+            #region Event
+            #region FromConsole
+            Serial.msgProcessor.OnPositionMessageReceivedEvent += GUIFormat.UpdatePosition;
+            Serial.msgProcessor.OnPolarAsservMessageReceivedEvent += GUIFormat.UpdateAsserv;
+            #endregion
+            #region FromInterface
+            WpfRobotInterface.OnResetPositionEvent += GUIFormat.ResetPosition;
+            #endregion
+            #endregion
+            #endregion
 
             #region Event
             #region Communication
@@ -113,18 +126,7 @@ namespace RobotConsole
             Serial.msgDecoder.OnCorrectChecksumEvent += Serial.msgProcessor.MessageProcessor; // Obligatory
             
 
-            #region GUI
-            // Create GUI
-            StartRobotInterface();
-            #region Event
-            #region FromConsole
-            Serial.msgProcessor.OnPositionMessageReceivedEvent += GUIFormat.UpdatePosition;
-            #endregion
-            #region FromInterface
-            WpfRobotInterface.OnResetPositionEvent += GUIFormat.ResetPosition;
-            #endregion
-            #endregion
-            #endregion
+            
 
             ConsoleFormat.ConsoleInformationFormat("MAIN", "End  Booting Sequence", true);
             Serial.msgGenerator.GenerateMessageSetLed(1, true);
@@ -148,7 +150,6 @@ namespace RobotConsole
 
         static void OnOdometryUpdate(object sender, OdometryArgs e)
         {
-            Serial.msgGenerator.GenerateMessageSetOdometryParam(e.diameterFactor, e.distanceFactor);
             Serial.msgGenerator.GenerateMessageSetResetPosition();
         }
     }
