@@ -91,7 +91,7 @@ void PWMSetSpeedConsignePolaire() {
     robotState.vitesseAngulaireCommande = robotState.vitesseAngulaireCorrection * COEFF_VITESSE_ANGULAIRE_PERCENT;
     
     // Correction Lineaire
-    robotState.vitesseLineaireErreur = robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry;
+    robotState.vitesseLineaireErreur = robotState.vitesseLineaireConsigne - robotState.vitesseLineaireFromOdometry * 0;
     robotState.CorrectionLineaireKp = robotState.KpLineaire * robotState.vitesseLineaireErreur;
     // robotState.CorrectionLineaireKp = LimitToInterval(robotState.CorrectionLineaireKp,- robotState.KpLineaireMax, robotState.KpLineaireMax);
     robotState.CorrectionLineaireKi =  (robotState.KiLineaire * robotState.vitesseLineaireErreur)/FREQ_ECH_QEI + robotState.CorrectionLineaireKi;
