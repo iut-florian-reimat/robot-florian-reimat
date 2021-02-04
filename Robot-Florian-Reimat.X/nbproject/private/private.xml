@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/PWM.c</file>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/Robot.h</file>
+            <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/Protocol.h</file>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/timer.h</file>
+            <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/msgEncoder.c</file>
+            <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/CB_TX1.c</file>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/Asservissement.c</file>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/main.c</file>
             <file>file:/C:/Github/Robot_Florian_Reimat/robot-florian-reimat/Robot-Florian-Reimat.X/PWM.h</file>

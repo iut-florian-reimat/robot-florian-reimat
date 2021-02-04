@@ -60,13 +60,13 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
     QEIUpdateData();
     PWMSetSpeedConsignePolaire();
-    PWMUpdateSpeed();
+    // PWMUpdateSpeed();
 }
 
 void InitTimer4(void) {
     //Timer1 pour horodater les mesures (1ms)
     T4CONbits.TON = 0; // Disable Timer
-    SetFreqTimer4(50.00f);
+    SetFreqTimer4(25.00f);
     T4CONbits.TCS = 0; //clock source = internal clock
     IFS1bits.T4IF = 0; // Clear Timer Interrupt Flag
     IEC1bits.T4IE = 1; // Enable Timer interrupt
@@ -91,8 +91,9 @@ void SetFreqTimer4(float freq) {
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
-    GeneratePositionMessage();
     // GenerateAsservPolarMessage();
+    GeneratePositionMessage();
+    
     //OperatingSystemLoop();
 }
 

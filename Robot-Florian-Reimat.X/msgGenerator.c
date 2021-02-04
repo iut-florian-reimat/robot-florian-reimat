@@ -32,11 +32,7 @@ void GeneratePositionMessage()
 void GenerateAsservPolarMessage()
 {
     unsigned char asservPayload[104];
-    int i;
-    for(i=0;i<104;i++)
-    {
-        asservPayload[i] = 0x00;
-    }
+
     getBytesFromFloat(asservPayload, 4*00, (float) (robotState.vitesseLineaireFromOdometry));
     getBytesFromFloat(asservPayload, 4*01, (float) (robotState.vitesseAngulaireFromOdometry));
     getBytesFromFloat(asservPayload, 4*02, (float) (robotState.vitesseLineaireCommande));

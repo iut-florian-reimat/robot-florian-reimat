@@ -41,7 +41,7 @@ int main(void) {
     robotState.KiAngulaire = 0;
     robotState.KiAngulaireMax = 100;
      
-    robotState.vitesseLineaireConsigne = 1;
+    robotState.vitesseLineaireConsigne = 0;
     robotState.vitesseAngulaireConsigne = 0;
     
 

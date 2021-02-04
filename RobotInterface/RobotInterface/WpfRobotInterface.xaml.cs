@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WpfAsservissementDisplay;
 using System.Windows.Threading;
 using SciChart.Charting.Visuals;
+using SciChart.Core.Framework;
 using WpfWorldMapDisplay;
 using WorldMap;
 using System.IO;
@@ -70,6 +71,15 @@ namespace RobotInterface
             oscilloAngSpeed.ChangeLineColor(1, Colors.Red);
             oscilloAngSpeed.ChangeLineColor(2, Colors.Blue);
             oscilloAngSpeed.ChangeLineColor(3, Colors.Green);
+
+
+            List<Point> pointList = new List<Point> { new Point(0, 1), new Point(1, 2) };
+            oscilloScheduling.SetTitle("Scheduling");
+            oscilloScheduling.AddOrUpdateLine(1, 10, "Linear");
+            oscilloScheduling.AddOrUpdateLine(2, 10, "Angular");
+            oscilloScheduling.ChangeLineColor(1, Colors.Red);
+            oscilloScheduling.ChangeLineColor(2, Colors.Blue);
+            oscilloScheduling.AddPointListToLine(1, pointList);
             #endregion
             #region Map_Init
             var currentDir = Directory.GetCurrentDirectory();
@@ -80,6 +90,7 @@ namespace RobotInterface
             worldMap.SetFieldImageBackGround(imagePath + "Eurobot_Background.png");
             worldMap.InitPositionText();
             worldMap.InitTeamMate(1, "Eurobot");
+
             #endregion
 
             dialogTime = new DispatcherTimer();
@@ -93,7 +104,9 @@ namespace RobotInterface
             timestamp ++;
             #region Map
             worldMap.UpdateRobotLocation(1, new Location(Position_X, Position_Y, Position_Angular, polarAsserv.Measure_LinearSpeed, 0, polarAsserv.Measure_AngularSpeed));
+            worldMap.AddSplineHistoricPoint(new Point(Position_X, Position_Y));
             worldMap.UpdateWorldMapDisplay();
+            
             #endregion
             #region Oscilloscope
             oscilloLinSpeed.AddPointToLine(1, timestamp, polarAsserv.Measure_LinearSpeed);
@@ -119,11 +132,19 @@ namespace RobotInterface
             asservSpeedDisplay.UpdatePolarSpeedCorrectionLimits(polarAsserv.Kp_Max_Linear, polarAsserv.Kp_Max_Angular,
                 polarAsserv.Ki_Max_Linear, polarAsserv.Ki_Max_Angular, polarAsserv.Kd_Max_Linear, polarAsserv.Kd_Max_Angular);
             #endregion
+
         }
 
         private void OnResetPosClick(object sender, RoutedEventArgs e)
         {
             OnResetPosition(); // Maybe make this event better
+        }
+
+        private void OnMapDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Point point = worldMap.GetRelativeCoords(e.GetPosition(worldMap));
+            //Console.WriteLine("Points: " + point.X + ";" + point.Y);
+            worldMap.UpdateRobotDestination(1, new Location(point.X, point.Y + 0.15, 0, 0, 0, 0));
         }
 
         public static event EventHandler<EventArgs> OnResetPositionEvent;

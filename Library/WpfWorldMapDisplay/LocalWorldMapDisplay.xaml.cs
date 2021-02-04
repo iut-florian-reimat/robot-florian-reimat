@@ -11,7 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Utilities;
 using WorldMap;
+using SciChart.Charting.Visuals;
+using SciChart.Charting.ChartModifiers;
 using SciChart.Charting.Visuals.Annotations;
+using SciChart.Charting.Model.Filters;
+using SciChart.Charting.Visuals.RenderableSeries;
 
 namespace WpfWorldMapDisplay
 {
@@ -37,7 +41,11 @@ namespace WpfWorldMapDisplay
         double WidthGameArea = 0;
         double LengthDisplayArea = 0;
         double WidthDisplayArea = 0;
-        
+
+        // Spline Historical Var
+        PointCollection robot_Historical_Position = new PointCollection();
+        PolygonExtended splineHistoricalPolygon = new PolygonExtended();
+
         //Liste des robots à afficher
         Dictionary<int, RobotDisplay> TeamMatesDisplayDictionary = new Dictionary<int, RobotDisplay>();
         Dictionary<int, RobotDisplay> OpponentDisplayDictionary = new Dictionary<int, RobotDisplay>();
@@ -99,6 +107,26 @@ namespace WpfWorldMapDisplay
 
             this.sciChart.XAxis.VisibleRange.SetMinMax(-LengthDisplayArea / 2, LengthDisplayArea / 2);
             this.sciChart.YAxis.VisibleRange.SetMinMax(-WidthDisplayArea / 2, WidthDisplayArea / 2);
+        }
+
+        public Point GetRelativeCoords(Point mousePoint)
+        {
+            var xCalc = sciChart.XAxis.GetCurrentCoordinateCalculator();
+            var yCalc = sciChart.YAxis.GetCurrentCoordinateCalculator();
+
+            double xDataValue = xCalc.GetDataValue(mousePoint.X);
+            double yDataValue = yCalc.GetDataValue(mousePoint.Y);
+
+            return new Point(xDataValue, yDataValue);
+        }
+
+        public void AddSplineHistoricPoint(Point point)
+        {
+            splineHistoricalPolygon.polygon.Points.Add(point);
+            splineHistoricalPolygon.borderWidth = 1;
+            splineHistoricalPolygon.borderOpacity = 0.7;
+            splineHistoricalPolygon.borderColor = System.Drawing.Color.FromArgb(0xFF, 0x00,0x00, 0xFF);
+            splineHistoricalPolygon.backgroundColor = System.Drawing.Color.FromArgb(0x00, 0x00, 0x00, 0x00);
         }
 
         public void InitTeamMate(int robotId, string competition)
@@ -262,16 +290,16 @@ namespace WpfWorldMapDisplay
             {
                 //Affichage des robots
                 // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Ghost, TeamMatesDisplayDictionary[r.Key].GetRobotGhostPolygon());
-                
-                // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Destination, TeamMatesDisplayDictionary[r.Key].GetRobotDestinationArrow());
-                
+
+
+
                 // PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.WayPoint, TeamMatesDisplayDictionary[r.Key].GetRobotWaypointArrow());
-                
-               
+
+                PolygonSeries.AddOrUpdatePolygonExtended(1555, splineHistoricalPolygon);
                 PolygonSeries.AddOrUpdatePolygonExtended(r.Key, TeamMatesDisplayDictionary[r.Key].GetRobotPolygon());
-
                 PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Speed, TeamMatesDisplayDictionary[r.Key].GetRobotSpeedArrow());
-
+                PolygonSeries.AddOrUpdatePolygonExtended(r.Key + (int)Caracteristique.Destination, TeamMatesDisplayDictionary[r.Key].GetRobotDestinationArrow());
+                
                 //Rendering des points Lidar
                 lidarPts.AcceptsUnsortedData = true;
                 var lidarData = TeamMatesDisplayDictionary[r.Key].GetRobotLidarPoints();
@@ -713,7 +741,6 @@ namespace WpfWorldMapDisplay
             p.borderColor = System.Drawing.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF);
             p.backgroundColor = System.Drawing.Color.FromArgb(0xFF, 0xA0, 0xA0, 0xA0);
             PolygonSeries.AddOrUpdatePolygonExtended((int)Terrain.BaliseGaucheBas, p);
-
         }
 
         void InitCachanField()

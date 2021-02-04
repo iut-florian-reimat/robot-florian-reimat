@@ -26,6 +26,7 @@
         <AsservDisplay:AsservissementXYThetaControl x:Name="asservSpeedDisplay" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="2" Margin="0" Background="#FF1A1A1A" />
         <OscilloscopeDisplay:WpfOscilloscope x:Name="oscilloLinSpeed" Grid.Row="0" Grid.Column="0"/>
         <OscilloscopeDisplay:WpfOscilloscope x:Name="oscilloAngSpeed" Grid.Row="1" Grid.Column="0"/>
-        <WpfWorldMapDisplay:LocalWorldMapDisplay x:Name="worldMap" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <WpfWorldMapDisplay:LocalWorldMapDisplay x:Name="worldMap" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="OnMapDoubleClick"/>
+        <OscilloscopeDisplay:WpfOscilloscope x:Name="oscilloScheduling" Grid.Row="2" Grid.Column="1" />
     </Grid>
 </Window>
