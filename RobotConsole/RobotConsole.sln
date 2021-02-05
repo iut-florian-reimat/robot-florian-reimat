@@ -27,7 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedTimers", "..\Librar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfOscilloscopeControl", "..\Library\WpfOscilloscope\WpfOscilloscopeControl.csproj", "{88BAA407-3FEA-4F4B-BB41-5309CE48884E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventArgsLibrary", "..\Library\EventArgs\EventArgsLibrary.csproj", "{378C05DC-50A6-4116-942B-68AE78C52498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventArgsLibrary", "..\Library\EventArgs\EventArgsLibrary.csproj", "{378C05DC-50A6-4116-942B-68AE78C52498}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrajectoryPlanner", "..\Library\TrajectoryPlanner\TrajectoryPlanner.csproj", "{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,14 @@ Global
 		{378C05DC-50A6-4116-942B-68AE78C52498}.Release|Any CPU.Build.0 = Release|Any CPU
 		{378C05DC-50A6-4116-942B-68AE78C52498}.Release|x64.ActiveCfg = Release|Any CPU
 		{378C05DC-50A6-4116-942B-68AE78C52498}.Release|x64.Build.0 = Release|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Debug|x64.Build.0 = Debug|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Release|x64.ActiveCfg = Release|Any CPU
+		{5AFEED92-2EFB-44DE-90D9-C40FDDB60491}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
